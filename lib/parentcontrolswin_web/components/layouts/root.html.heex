@@ -7,11 +7,25 @@
     <.live_title suffix=" · Phoenix Framework">
       <%= assigns[:page_title] || "Parentcontrolswin" %>
     </.live_title>
-    <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
+    <link phx-track-static rel="stylesheet" href={~p"/assets/skeleton.css"} />
+    <link phx-track-static rel="stylesheet" href={~p"/assets/application.css"} />
+    <link phx-track-static rel="stylesheet" href={~p"/assets/modify.css"} />
+    <link phx-track-static rel="stylesheet" href={~p"/assets/normalize.css"} />
+    <!-- <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
-    </script>
+    </script> -->
   </head>
-  <body class="bg-white antialiased">
-    <%= @inner_content %>
+  <body>
+    <div class="container">
+      <% if Pow.Plug.current_user(@conn) do %>
+        <!-- sign out and settings -->
+      <% else %>
+        <!-- sign in and sign up -->
+      <% end %>
+
+      <hr/>
+      <%= @inner_content %>
+      <hr/>
+    </div>
   </body>
 </html>

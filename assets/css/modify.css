@@ -1,0 +1,21 @@
+
+
+.footer ul {
+    display: flex; /* Use flexbox to evenly space the links */
+    justify-content: space-between; /* Space them evenly */
+    padding: 10px; /* Add some padding for spacing */
+    margin: 0;
+    padding: 0;
+}
+
+.footer li {
+    list-style: none; /* Remove bullet points */
+}
+
+.footer a {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Set link color */
+    font-size: 2rem;
+}
+
+

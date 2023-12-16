@@ -16,3 +16,14 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Docs: https://hexdocs.pm/phoenix
   * Forum: https://elixirforum.com/c/phoenix-forum
   * Source: https://github.com/phoenixframework/phoenix
+
+## Commands
+
+These are all the commands I've run which build things (gen.phx.html, live, etc). Consider `--binary-id` in the future if I retry building it
+
+```
+mix phx.new parentcontrolswin # add no tailwind in future?
+mix pow.install Users.User users content_filters:string
+mix pow.phoenix.gen.templates
+mix phx.gen.html Devices Device devices name:string user_id:integer --binary-id
+```
