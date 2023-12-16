@@ -11,21 +11,37 @@
     <link phx-track-static rel="stylesheet" href={~p"/assets/application.css"} />
     <link phx-track-static rel="stylesheet" href={~p"/assets/modify.css"} />
     <link phx-track-static rel="stylesheet" href={~p"/assets/normalize.css"} />
-    <!-- <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
+    <!-- <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} /> -->
+    <!-- must import phoenix_html here -->
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
-    </script> -->
+    </script>
   </head>
   <body>
     <div class="container">
-      <% if Pow.Plug.current_user(@conn) do %>
-        <!-- sign out and settings -->
-      <% else %>
-        <!-- sign in and sign up -->
-      <% end %>
+      <div class="row" style="margin-top: 3rem;">
+        <%= if Pow.Plug.current_user(@conn) do %>
+          <!-- sign out and settings -->
+          <%= link raw("<div class='button'>Sign out</div>"), to: ~p"/session", method: :delete  %>
+          <%= link raw("<div class='button'>Devices</div>"), to: ~p"/devices" %>
+        <% else %>
+          <%= link raw("<div class='button'>Sign in</div>"), to: ~p"/session/new" %>
+          <%= link raw("<div class='button'>Sign up</div>"), to: ~p"/registration/new" %>
+        <% end %>
+      </div>
 
       <hr/>
       <%= @inner_content %>
       <hr/>
+
+      <div class="row">
+        <div class="twelve columns footer">
+          <ul>
+            <li><%= link "Home", to: ~p"/" %></li>
+            <li><%= link "Contact", to: "#" %></li>
+            <li><%= link "Extra", to: "#" %></li>
+          </ul>
+        </div>
+      </div>
     </div>
   </body>
 </html>
