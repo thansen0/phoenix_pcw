@@ -25,6 +25,7 @@ defmodule ParentcontrolswinWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    get "/contact", PageController, :contact
 
     resources "/devices", DeviceController
   end
