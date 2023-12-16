@@ -1,5 +1,6 @@
 defmodule ParentcontrolswinWeb.Router do
   use ParentcontrolswinWeb, :router
+  use Pow.Phoenix.Router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -14,10 +15,18 @@ defmodule ParentcontrolswinWeb.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/" do
+    pipe_through :browser
+
+    pow_routes()
+  end
+
   scope "/", ParentcontrolswinWeb do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    resources "/devices", DeviceController
   end
 
   # Other scopes may use custom stacks.
