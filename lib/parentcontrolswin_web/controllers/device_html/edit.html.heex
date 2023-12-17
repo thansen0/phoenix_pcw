@@ -1,8 +1,10 @@
-<.header>
-  Edit Device <%= @device.id %>
-  <:subtitle>Use this form to manage device records in your database.</:subtitle>
-</.header>
+<h1>Edit Device: <%= @device.name %> </h1>
 
 <.device_form changeset={@changeset} action={~p"/devices/#{@device}"} />
 
-<.back navigate={~p"/devices"}>Back to devices</.back>
+
+<div class="row">
+  <%= link raw("<div class='button'>View device</div>"), to: ~p"/devices/#{@device}" %>
+  <%= link raw("<div class='button'>Back to devices</div>"), to: ~p"/devices" %>
+  <%= link raw("<div class='button'>Delete Device</div>"), to: ~p"/devices/#{@device}", method: :delete  %>
+</div>

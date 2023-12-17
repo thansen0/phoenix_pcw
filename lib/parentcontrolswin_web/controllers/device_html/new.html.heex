@@ -5,4 +5,6 @@
 
 <.device_form changeset={@changeset} action={~p"/devices"} />
 
-<.back navigate={~p"/devices"}>Back to devices</.back>
+<div>
+  <%= link raw("<div class='button'>Back to Devices</div>"), to: ~p"/devices" %>
+</div>

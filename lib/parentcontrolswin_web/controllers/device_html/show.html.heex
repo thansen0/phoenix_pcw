@@ -1,16 +1,11 @@
-<.header>
-  Device <%= @device.id %>
-  <:subtitle>This is a device record from your database.</:subtitle>
-  <:actions>
-    <.link href={~p"/devices/#{@device}/edit"}>
-      <.button>Edit device</.button>
-    </.link>
-  </:actions>
-</.header>
+<p>Device <%= @device.id %></p>
 
 <.list>
   <:item title="Name"><%= @device.name %></:item>
   <:item title="User"><%= @device.user_id %></:item>
 </.list>
 
-<.back navigate={~p"/devices"}>Back to devices</.back>
+<div>
+  <%= link raw("<div class='button'>Edit Device</div>"), to: ~p"/devices/#{@device}/edit" %> |
+  <%= link raw("<div class='button'>Back to Devices</div>"), to: ~p"/devices" %>
+</div>
