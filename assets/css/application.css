@@ -94,3 +94,19 @@ textarea:focus, input:focus {
 .alert-danger {
     color: #C6878F;
 }
+
+
+/* input form spacing */
+
+.form-input {
+    display: block;
+}
+
+.form-control {
+    margin-bottom: 1.5rem;
+    display: border-box;
+}
+
+input {
+    margin-bottom: 1.5rem;
+}

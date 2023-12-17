@@ -27,3 +27,10 @@ mix pow.install Users.User users content_filters:string
 mix pow.phoenix.gen.templates
 mix phx.gen.html Devices Device devices name:string user_id:integer --binary-id
 ```
+
+And building may use one or all of these commands:
+
+```
+mix phx.digest
+mix compile
+```

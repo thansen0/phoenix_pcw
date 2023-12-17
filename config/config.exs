@@ -62,6 +62,7 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 config :parentcontrolswin, :pow,
+  web_module: ParentcontrolswinWeb,
   user: Parentcontrolswin.Users.User,
   repo: Parentcontrolswin.Repo
 
