@@ -227,17 +227,17 @@ defmodule ParentcontrolswinWeb.CoreComponents do
 
   def button(assigns) do
     ~H"""
-    <div
+    <button
       type={@type}
       class={[
-        "button",
-        "",
+        "button phx-submit-loading:opacity-75 rounded-lg bg-zinc-900 hover:bg-zinc-700 py-2 px-3",
+        "button text-sm font-semibold leading-6 text-white active:text-white/80",
         @class
       ]}
       {@rest}
     >
       <%= render_slot(@inner_block) %>
-    </div>
+    </button>
     """
   end
 

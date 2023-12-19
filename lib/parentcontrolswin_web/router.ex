@@ -13,6 +13,11 @@ defmodule ParentcontrolswinWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug ParentcontrolswinWeb.APIAuthPlug, otp_app: :parentcontrolswin
+  end
+
+  pipeline :api_protected do
+    plug Pow.Plug.RequireAuthenticated, error_handler: ParentcontrolswinWeb.APIAuthErrorHandler
   end
 
   scope "/" do
@@ -28,6 +33,20 @@ defmodule ParentcontrolswinWeb.Router do
     get "/contact", PageController, :contact
 
     resources "/devices", DeviceController
+  end
+
+  scope "/api/v1", ParentcontrolswinWeb.API.V1, as: :api_v1 do
+    pipe_through :api
+
+    resources "/registration", RegistrationController, singleton: true, only: [:create]
+    resources "/session", SessionController, singleton: true, only: [:create, :delete]
+    post "/session/renew", SessionController, :renew
+  end
+
+  scope "/api/v1", ParentcontrolswinWeb.API.V1, as: :api_v1 do
+    pipe_through [:api, :api_protected]
+
+    # Your protected API endpoints here
   end
 
   # Other scopes may use custom stacks.
