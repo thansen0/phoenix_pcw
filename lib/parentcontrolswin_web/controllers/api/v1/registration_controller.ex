@@ -1,11 +1,11 @@
 defmodule ParentcontrolswinWeb.API.V1.RegistrationController do
   use ParentcontrolswinWeb, :controller
 
-  #alias ParentcontrolswinWeb.APIAuthPlug # I think this is needed?
   alias Ecto.Changeset
   alias Plug.Conn
   alias ParentcontrolswinWeb.ErrorHelpers
 
+  # Not accessible through router
   @spec create(Conn.t(), map()) :: Conn.t()
   def create(conn, %{"user" => user_params}) do
     conn
