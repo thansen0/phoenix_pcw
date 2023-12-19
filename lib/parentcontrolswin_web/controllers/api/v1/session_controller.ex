@@ -42,4 +42,14 @@ defmodule ParentcontrolswinWeb.API.V1.SessionController do
     |> Pow.Plug.delete()
     |> json(%{data: %{}})
   end
+
+
+
+  # added after the fact, not great placement
+  @spec getContentFilters(Conn.t(), map()) :: Conn.t()
+  def getContentFilters(conn, _params) do
+    conn
+    |> json(%{data: %{content_filters: "asdf"}})
+  end
+
 end

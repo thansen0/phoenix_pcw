@@ -23,7 +23,7 @@ These are all the commands I've run which build things (gen.phx.html, live, etc)
 
 ```
 mix phx.new parentcontrolswin # add no tailwind in future?
-mix pow.install Users.User users content_filters:string
+mix pow.install Users.User users content_filters:string # note this doesn't actually add the content_filters field
 mix pow.phoenix.gen.templates
 mix phx.gen.html Devices Device devices name:string user_id:integer --binary-id
 ```
