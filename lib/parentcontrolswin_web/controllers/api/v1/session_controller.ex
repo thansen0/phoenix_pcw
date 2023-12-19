@@ -48,8 +48,10 @@ defmodule ParentcontrolswinWeb.API.V1.SessionController do
   # added after the fact, not great placement
   @spec getContentFilters(Conn.t(), map()) :: Conn.t()
   def getContentFilters(conn, _params) do
+    current_user = Pow.Plug.current_user(conn)
+    content_filters = current_user.content_filters
     conn
-    |> json(%{data: %{content_filters: "asdf"}})
+    |> json(%{data: %{content_filters: content_filters}})
   end
 
 end

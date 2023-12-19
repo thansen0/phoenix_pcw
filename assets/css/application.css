@@ -98,8 +98,9 @@ textarea:focus, input:focus {
 
 /* input form spacing */
 
-.form-input {
+.form-input input {
     display: block;
+    color: #114B5F;
 }
 
 .form-control {

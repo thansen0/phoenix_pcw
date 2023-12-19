@@ -4,6 +4,7 @@ defmodule Parentcontrolswin.Users.User do
 
   schema "users" do
     pow_user_fields()
+    field :content_filters, :string
 
     timestamps()
   end

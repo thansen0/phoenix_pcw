@@ -378,8 +378,8 @@ defmodule ParentcontrolswinWeb.CoreComponents do
         class={[
           "form-input",
           "form-input",
-          @errors == [] && "border-zinc-300 focus:border-zinc-400",
-          @errors != [] && "border-rose-400 focus:border-rose-400"
+          @errors == [] && "",
+          @errors != [] && ""
         ]}
         {@rest}
       />
