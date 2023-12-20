@@ -40,8 +40,8 @@ defmodule ParentcontrolswinWeb.Router do
   scope "/", ParentcontrolswinWeb do
     pipe_through [:browser, :require_auth]
 
-    resources "/devices", DeviceController
-    # resources "/devices", DeviceController, except: [:create, :update, :edit]
+    # resources "/devices", DeviceController
+    resources "/devices", DeviceController, except: [:create, :update, :edit]
   end
 
   scope "/api/v1", ParentcontrolswinWeb.API.V1, as: :api_v1 do
