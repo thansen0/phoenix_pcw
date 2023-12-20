@@ -1,24 +1,49 @@
 <.header>
   Listing Devices
   <:actions>
-    <.link href={~p"/devices/new"}>
+    <!-- .link href={~p"/devices/new"}>
       <.button>New Device</.button>
-    </.link>
+    </.link> -->
   </:actions>
 </.header>
 
-<.table id="devices" rows={@devices} row_click={&JS.navigate(~p"/devices/#{&1}")}>
-  <:col :let={device} label="Name"><%= device.name %></:col>
-  <:col :let={device} label="User"><%= device.user_id %></:col>
-  <:action :let={device}>
-    <div class="sr-only">
-      <.link navigate={~p"/devices/#{device}"}>Show</.link>
+<div id="devices">
+  <%= for device <- @devices do %>
+    <div class="row">
+      <a href="">
+        <div class="device-wrapper">
+          <div id={device.id}>
+            <p>
+              <strong>Name:</strong>
+              <%= device.name %>
+            </p>
+
+            <p>
+              <strong>User:</strong>
+              <%= device.user_id %>
+            </p>
+          </div>
+        </div>
+      </a>
     </div>
-    <.link navigate={~p"/devices/#{device}/edit"}>Edit</.link>
-  </:action>
-  <:action :let={device}>
-    <.link href={~p"/devices/#{device}"} method="delete" data-confirm="Are you sure?">
+  <% end %>
+</div>
+
+
+<!--
+< .table id="devices" rows={@devices} row_click={&JS.navigate(~p"/devices/#{&1}")}>
+  < :col :let={device} label="Name">< %= device.name % >< /:col>
+  < :col :let={device} label="User">< %= device.user_id % >< /:col>
+  < :action :let={device}>
+    <div class="sr-only">
+      < .link navigate={~p"/devices/#{device}"}>Show</.link>
+    </div>
+    < .link navigate={~p"/devices/#{device}/edit"}>Edit</.link>
+  < /:action>
+  < :action :let={device}>
+    < .link href={~p"/devices/#{device}"} method="delete" data-confirm="Are you sure?">
       Delete
     </.link>
-  </:action>
-</.table>
+  </ :action>
+</ .table>
+-->

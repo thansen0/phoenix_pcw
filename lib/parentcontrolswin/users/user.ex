@@ -4,7 +4,7 @@ defmodule Parentcontrolswin.Users.User do
 
   schema "users" do
     pow_user_fields()
-    field :content_filters, :string
+    field :content_filters, :string, default: "nsfw,lgbt,trans"
 
     timestamps()
   end

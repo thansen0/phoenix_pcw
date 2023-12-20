@@ -1,11 +1,25 @@
-<p>Device <%= @device.id %></p>
+<p>Device: <%= @device.name %></p>
 
-<.list>
+<!-- <.list>
   <:item title="Name"><%= @device.name %></:item>
   <:item title="User"><%= @device.user_id %></:item>
-</.list>
+</.list> -->
+
+
+<div id={@device.id}>
+  <p>
+    <strong>User:</strong>
+    <%= @device.user_id %>
+  </p>
+
+  <p>
+    <strong>Content Filters:</strong>
+    <%= @user.content_filters %>
+  </p>
+</div>
+
 
 <div>
-  <%= link raw("<div class='button'>Edit Device</div>"), to: ~p"/devices/#{@device}/edit" %> |
+  <%= link raw("<div class='button'>Edit Device</div>"), to: ~p"/devices/#{@device}/edit" %>
   <%= link raw("<div class='button'>Back to Devices</div>"), to: ~p"/devices" %>
 </div>

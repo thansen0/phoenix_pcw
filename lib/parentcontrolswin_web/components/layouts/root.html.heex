@@ -43,6 +43,7 @@
           <!-- sign out and settings -->
           <%= link raw("<div class='button'>Sign out</div>"), to: ~p"/session", method: :delete  %>
           <%= link raw("<div class='button'>Devices</div>"), to: ~p"/devices" %>
+          <%= link raw("<div class='button'>Account</div>"), to: ~p"/registration/edit" %>
         <% else %>
           <%= link raw("<div class='button'>Sign in</div>"), to: ~p"/session/new" %>
           <%= link raw("<div class='button'>Sign up</div>"), to: ~p"/registration/new" %>

@@ -34,8 +34,11 @@ defmodule ParentcontrolswinWeb.DeviceController do
   end
 
   def show(conn, %{"id" => id}) do
+    user = Pow.Plug.current_user(conn)
     device = Devices.get_device!(id)
-    render(conn, :show, device: device)
+    conn
+    |> assign(:user, user)
+    |> render(:show, device: device)
   end
 
   def edit(conn, %{"id" => id}) do

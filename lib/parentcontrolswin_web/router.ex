@@ -11,6 +11,10 @@ defmodule ParentcontrolswinWeb.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :require_auth do
+    plug Pow.Plug.RequireAuthenticated, [error_handler: ParentcontrolswinWeb.PowErrorHandler]
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
     plug ParentcontrolswinWeb.APIAuthPlug, otp_app: :parentcontrolswin
@@ -31,8 +35,13 @@ defmodule ParentcontrolswinWeb.Router do
 
     get "/", PageController, :home
     get "/contact", PageController, :contact
+  end
+
+  scope "/", ParentcontrolswinWeb do
+    pipe_through [:browser, :require_auth]
 
     resources "/devices", DeviceController
+    # resources "/devices", DeviceController, except: [:create, :update, :edit]
   end
 
   scope "/api/v1", ParentcontrolswinWeb.API.V1, as: :api_v1 do
