@@ -2,7 +2,7 @@ defmodule Parentcontrolswin.Users.User do
   use Ecto.Schema
   use Pow.Ecto.Schema
   use Pow.Extension.Ecto.Schema,
-    extensions: [PowPersistentSession]
+    extensions: [PowPersistentSession, PowResetPassword]
 
   schema "users" do
     pow_user_fields()

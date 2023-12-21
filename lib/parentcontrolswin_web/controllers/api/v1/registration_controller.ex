@@ -3,7 +3,6 @@ defmodule ParentcontrolswinWeb.API.V1.RegistrationController do
 
   alias Ecto.Changeset
   alias Plug.Conn
-  alias ParentcontrolswinWeb.ErrorHelpers
 
   # Not accessible through router
   @spec create(Conn.t(), map()) :: Conn.t()
@@ -15,7 +14,7 @@ defmodule ParentcontrolswinWeb.API.V1.RegistrationController do
         json(conn, %{data: %{access_token: conn.private.api_access_token, renewal_token: conn.private.api_renewal_token}})
 
       {:error, changeset, conn} ->
-        errors = Changeset.traverse_errors(changeset, &ErrorHelpers.translate_error/1)
+        errors = Changeset.traverse_errors(changeset, fn {msg, _opts} -> msg end)
 
         conn
         |> put_status(500)

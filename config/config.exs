@@ -62,13 +62,15 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 config :parentcontrolswin, :pow,
+  web_mailer_module: ParentcontrolswinWeb,
   web_module: ParentcontrolswinWeb,
   user: Parentcontrolswin.Users.User,
   repo: Parentcontrolswin.Repo,
-  extensions: [PowPersistentSession],
+  extensions: [PowPersistentSession, PowResetPassword],
   controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks,
   session_ttl: :timer.hours(24) * 365,   # 1 year in hours
-  session_ttl_renewal: :timer.hours(24)  # Renew if used within 24 hours
+  session_ttl_renewal: :timer.hours(24),  # Renew if used within 24 hours
+  mailer_backend: MyAppWeb.Pow.Mailer
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
