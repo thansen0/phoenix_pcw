@@ -3,3 +3,8 @@
 @import "tailwindcss/utilities";
 
 /* This file is for your main application CSS */
+
+@import "./normalize.css";
+@import "./skeleton.css";
+@import "./modify.css";
+@import "./application.css";
