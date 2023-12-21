@@ -65,6 +65,8 @@ config :parentcontrolswin, :pow,
   web_module: ParentcontrolswinWeb,
   user: Parentcontrolswin.Users.User,
   repo: Parentcontrolswin.Repo,
+  extensions: [PowPersistentSession],
+  controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks,
   session_ttl: :timer.hours(24) * 365,   # 1 year in hours
   session_ttl_renewal: :timer.hours(24)  # Renew if used within 24 hours
 

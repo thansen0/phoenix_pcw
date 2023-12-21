@@ -48,5 +48,6 @@ defmodule ParentcontrolswinWeb.Endpoint do
   plug Plug.Head
   plug Plug.Session, @session_options
   plug Pow.Plug.Session, otp_app: :parentcontrolswin
+  plug PowPersistentSession.Plug.Cookie, otp_app: :parentcontrolswin
   plug ParentcontrolswinWeb.Router
 end

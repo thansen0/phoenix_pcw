@@ -28,6 +28,7 @@ defmodule ParentcontrolswinWeb.Router do
     pipe_through :browser
 
     pow_routes()
+    #pow_extension_routes()
   end
 
   scope "/", ParentcontrolswinWeb do
