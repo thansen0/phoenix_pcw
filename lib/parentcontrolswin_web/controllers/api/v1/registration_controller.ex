@@ -1,6 +1,5 @@
 defmodule ParentcontrolswinWeb.API.V1.RegistrationController do
   use ParentcontrolswinWeb, :controller
-
   alias Ecto.Changeset
   alias Plug.Conn
 
@@ -15,7 +14,7 @@ defmodule ParentcontrolswinWeb.API.V1.RegistrationController do
 
       {:error, changeset, conn} ->
         errors = Changeset.traverse_errors(changeset, fn {msg, _opts} -> msg end)
-
+        
         conn
         |> put_status(500)
         |> json(%{error: %{status: 500, message: "Couldn't create user", errors: errors}})

@@ -14,7 +14,8 @@ defmodule ParentcontrolswinWeb.Router do
   end
 
   pipeline :require_auth do
-    plug Pow.Plug.RequireAuthenticated, [error_handler: ParentcontrolswinWeb.PowErrorHandler]
+    #plug Pow.Plug.RequireAuthenticated, [error_handler: ParentcontrolswinWeb.PowErrorHandler]
+    plug Pow.Plug.RequireAuthenticated, [error_handler: ParentcontrolswinWeb.AuthErrorHandler]
   end
 
   pipeline :api do
@@ -43,8 +44,13 @@ defmodule ParentcontrolswinWeb.Router do
   scope "/", ParentcontrolswinWeb do
     pipe_through [:browser, :require_auth]
 
-    # resources "/devices", DeviceController
-    resources "/devices", DeviceController, except: [:create, :update, :edit]
+    resources "/devices", DeviceController
+    #resources "/devices", DeviceController, except: [:create, :update, :edit]
+  end
+
+  scope "/api/v1", ParentcontrolswinWeb do
+    pipe_through [:api, :api_protected]
+    resources "/devices", DeviceController
   end
 
   scope "/api/v1", ParentcontrolswinWeb.API.V1, as: :api_v1 do
@@ -53,6 +59,8 @@ defmodule ParentcontrolswinWeb.Router do
 #    resources "/registration", RegistrationController, singleton: true, only: [:create]
     resources "/session", SessionController, singleton: true, only: [:create, :delete]
     post "/session/renew", SessionController, :renew
+    #get "/devices", DeviceController, :index
+    #resources "/api/v1/devices", DeviceController
   end
 
   scope "/api/v1", ParentcontrolswinWeb.API.V1, as: :api_v1 do

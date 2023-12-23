@@ -18,15 +18,18 @@ defmodule ParentcontrolswinWeb.DeviceController do
     render(conn, :new, changeset: changeset)
   end
 
+  # only works for json right now
   def create(conn, %{"device" => device_params}) do
+    IO.inspect(conn.body_params, label: "Received body params")
     user = Pow.Plug.current_user(conn)
     modified_device_params = Map.put(device_params, "user_id", user.id)
 
     case Devices.create_device(modified_device_params) do
       {:ok, device} ->
         conn
-        |> put_flash(:info, "Device created successfully.")
-        |> redirect(to: ~p"/devices/#{device}")
+#        |> put_flash(:info, "Device created successfully.") # errors on json
+#        |> redirect(to: ~p"/devices/#{device}")
+        |> redirect(to: ~p"/api/v1/devices/#{device}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, :new, changeset: changeset)

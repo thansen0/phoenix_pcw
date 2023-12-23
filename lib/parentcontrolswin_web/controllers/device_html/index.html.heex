@@ -10,7 +10,7 @@
 <div id="devices">
   <%= for device <- @devices do %>
     <div class="row">
-      <a href="">
+      <%= link to: ~p"/devices/#{device.id}" do %>
         <div class="device-wrapper">
           <div id={device.id}>
             <p>
@@ -24,7 +24,7 @@
             </p>
           </div>
         </div>
-      </a>
+      <% end %>
     </div>
   <% end %>
 </div>
