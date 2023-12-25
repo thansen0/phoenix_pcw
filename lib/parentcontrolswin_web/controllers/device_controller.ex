@@ -8,7 +8,7 @@ defmodule ParentcontrolswinWeb.DeviceController do
   def index(conn, _params) do
     user = Pow.Plug.current_user(conn)
     # devices = Devices.list_devices()
-    devices = Parentcontrolswin.Repo.all(from d in Device, where: d.user_id == ^user.id)
+    devices = Parentcontrolswin.Repo.all(from d in Device, where: d.user_id == ^user.id, order_by: [desc: d.inserted_at])
     render(conn, :index, devices: devices)
   end
 
