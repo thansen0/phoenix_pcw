@@ -20,7 +20,7 @@ defmodule ParentcontrolswinWeb.DeviceController do
 
   # only works for json right now
   def create(conn, %{"device" => device_params}) do
-    IO.inspect(conn.body_params, label: "Received body params")
+    # IO.inspect(conn.body_params, label: "Received body params")
     user = Pow.Plug.current_user(conn)
     modified_device_params = Map.put(device_params, "user_id", user.id)
 
@@ -29,7 +29,9 @@ defmodule ParentcontrolswinWeb.DeviceController do
         conn
 #        |> put_flash(:info, "Device created successfully.") # errors on json
 #        |> redirect(to: ~p"/devices/#{device}")
-        |> redirect(to: ~p"/api/v1/devices/#{device}")
+#        |> redirect(to: ~p"/api/v1/devices/#{device}")
+        |> put_status(:created) # Optional: Set the HTTP status to 201 (Created)
+        |> json(%{data: %{id: device.id} })
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, :new, changeset: changeset)
@@ -40,8 +42,8 @@ defmodule ParentcontrolswinWeb.DeviceController do
     user = Pow.Plug.current_user(conn)
     device = Devices.get_device!(id)
     conn
-    |> assign(:user, user)
-    |> render(:show, device: device)
+#    |> assign(:user, user)
+    |> render(:show, device: device, user: user)
   end
 
   def edit(conn, %{"id" => id}) do
