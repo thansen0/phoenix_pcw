@@ -46,6 +46,7 @@ defmodule ParentcontrolswinWeb.Router do
 
     #resources "/devices", DeviceController
     resources "/devices", DeviceController, except: [:create]
+    post "/device_form_action", DeviceController, :checkbox_form_submission
   end
 
   scope "/api/v1", ParentcontrolswinWeb do

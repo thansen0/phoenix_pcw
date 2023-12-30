@@ -7,6 +7,30 @@
   </:actions>
 </.header>
 
+<form action={@checkbox_form_action} method="post">
+  <fieldset>
+    <legend>Select Options</legend>
+
+    <label>
+      <input type="checkbox" name="nsfw" value="nsfw">
+      Porn/Sexual Content
+    </label>
+
+    <label>
+      <input type="checkbox" name="trans" value="trans">
+      Pro-Trans Content
+    </label>
+
+    <label>
+      <input type="checkbox" name="lgbt" value="lgbt">
+      Pro-LGBT Content
+    </label>
+  </fieldset>
+
+  <input type="hidden" name="_csrf_token" value={@csrf_token} />
+  <button type="submit">Submit Options</button>
+</form>
+
 <div id="devices">
   <%= for device <- @devices do %>
     <div class="row">
