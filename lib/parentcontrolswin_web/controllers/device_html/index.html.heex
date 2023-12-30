@@ -10,23 +10,19 @@
 <form action={@checkbox_form_action} method="post">
   <fieldset>
     <legend>Select Options</legend>
-
     <label>
-      <input type="checkbox" name="nsfw" value="nsfw">
+      <input type="checkbox" name="nsfw" value="nsfw" checked={ if "nsfw" in @content_filters, do: "true", else: "false"}>
       Porn/Sexual Content
     </label>
-
     <label>
-      <input type="checkbox" name="trans" value="trans">
+      <input type="checkbox" name="trans" value="trans" checked={ if "trans" in @content_filters, do: "true", else: "false"}>
       Pro-Trans Content
     </label>
-
     <label>
-      <input type="checkbox" name="lgbt" value="lgbt">
+      <input type="checkbox" name="lgbt" value="lgbt" checked={ if "lgbt" in @content_filters, do: "true", else: "false"}>
       Pro-LGBT Content
     </label>
   </fieldset>
-
   <input type="hidden" name="_csrf_token" value={@csrf_token} />
   <button type="submit">Submit Options</button>
 </form>

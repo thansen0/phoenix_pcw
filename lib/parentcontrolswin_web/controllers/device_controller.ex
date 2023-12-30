@@ -11,11 +11,13 @@ defmodule ParentcontrolswinWeb.DeviceController do
     checkbox_form_action = ~p"/device_form_action"
 
     user = Pow.Plug.current_user(conn)
+    content_filters = String.split(user.content_filters, ",")
     devices = Parentcontrolswin.Repo.all(from d in Device, where: d.user_id == ^user.id, order_by: [desc: d.inserted_at])
 
     render(conn, :index, 
         devices: devices, 
         checkbox_form_action: checkbox_form_action,
+        content_filters: content_filters,
         csrf_token: csrf_token)
   end
 
