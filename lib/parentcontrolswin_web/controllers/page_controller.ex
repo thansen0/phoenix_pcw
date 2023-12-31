@@ -10,4 +10,8 @@ defmodule ParentcontrolswinWeb.PageController do
   def contact(conn, _params) do
     render(conn, :contact)
   end
+
+  def content_filter_faq(conn, _params) do
+    render(conn, :content_filter_faq)
+  end
 end

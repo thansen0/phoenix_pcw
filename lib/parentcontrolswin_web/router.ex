@@ -39,6 +39,7 @@ defmodule ParentcontrolswinWeb.Router do
 
     get "/", PageController, :home
     get "/contact", PageController, :contact
+    get "/content_filter_faq", PageController, :content_filter_faq
   end
 
   scope "/", ParentcontrolswinWeb do

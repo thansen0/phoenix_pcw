@@ -9,7 +9,8 @@
 
 <form action={@checkbox_form_action} method="post">
   <fieldset>
-    <legend>Select Options</legend>
+    <legend>Select Content to Block</legend>
+    <legend><a href={~p"/content_filter_faq"}>Click to learn more about our filters</a></legend>
     <label>
       <input type="checkbox" name="nsfw" value="nsfw" checked={ if "nsfw" in @content_filters, do: "true", else: "false"}>
       Porn/Sexual Content

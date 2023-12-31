@@ -109,7 +109,7 @@ defmodule ParentcontrolswinWeb.CoreComponents do
     assigns = assign_new(assigns, :id, fn -> "flash-#{assigns.kind}" end)
 
     ~H"""
-    <div
+    <div class="alert"
       :if={msg = render_slot(@inner_block) || Phoenix.Flash.get(@flash, @kind)}
       id={@id}
       phx-click={JS.push("lv:clear-flash", value: %{key: @kind}) |> hide("##{@id}")}
@@ -146,7 +146,7 @@ defmodule ParentcontrolswinWeb.CoreComponents do
 
   def flash_group(assigns) do
     ~H"""
-    <div id={@id} class="alert">
+    <div id={@id}>
       <.flash kind={:info} title="Success!" flash={@flash} />
       <.flash kind={:error} title="Error!" flash={@flash} />
       <.flash
