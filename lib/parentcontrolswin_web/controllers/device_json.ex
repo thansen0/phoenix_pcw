@@ -1,5 +1,5 @@
 defmodule ParentcontrolswinWeb.DeviceJSON do
-  alias Parentcontrolswin.Devices
+  # alias Parentcontrolswin.Devices
   alias Parentcontrolswin.Devices.Device
 
   @doc """

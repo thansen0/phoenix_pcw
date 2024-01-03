@@ -34,3 +34,12 @@ And building may use one or all of these commands:
 mix phx.digest
 mix compile
 ```
+
+## Database
+
+For production, this uses postgres, and I like interfacing with DBeaver just because it installs with snap.
+
+```
+sudo snap install dbeaver-ce
+dbeaver-ce
+```
