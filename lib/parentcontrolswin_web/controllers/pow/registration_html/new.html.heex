@@ -15,7 +15,7 @@
     <.input field={f[Pow.Ecto.Schema.user_id_field(@changeset)]} type={Pow.Ecto.Schema.user_id_field(@changeset) == :email && "email" || "text"} label={Phoenix.Naming.humanize(Pow.Ecto.Schema.user_id_field(@changeset))} required />
     <.input field={f[:password]} type="password" label="Password" required />
     <.input field={f[:password_confirmation]} type="password" label="Confirm password" required />
-    <.input :if={Pow.Plug.extension_enabled?(@conn, PowPersistentSession)} field={f[:persistent_session]} type="checkbox" label="Keep me logged in" checked="true" />
+    <.input :if={Pow.Plug.extension_enabled?(@conn, PowPersistentSession)} field={f[:persistent_session]} type="checkbox" label="Keep me logged in" checked={true} />
 
     <:actions>
       <.button phx-disable-with="Registering..." class="w-full">
