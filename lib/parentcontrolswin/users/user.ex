@@ -3,7 +3,6 @@ defmodule Parentcontrolswin.Users.User do
   use Pow.Ecto.Schema
   use Pow.Extension.Ecto.Schema,
     extensions: [PowPersistentSession, PowResetPassword]
-  require Logger
 
   schema "users" do
     pow_user_fields()
@@ -15,7 +14,6 @@ defmodule Parentcontrolswin.Users.User do
   end
 
   def changeset(user_or_changeset, attrs) do
-    Logger.info(IO.inspect(attrs))
     user_or_changeset
     |> pow_changeset(attrs)
     |> pow_extension_changeset(attrs)
