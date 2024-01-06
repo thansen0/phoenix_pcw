@@ -7,16 +7,12 @@
     <.live_title suffix=" · Phoenix Framework">
       <%= assigns[:page_title] || "Parentcontrolswin" %>
     </.live_title>
-    <!-- <link phx-track-static rel="stylesheet" href={~p"/assets/skeleton.css"} />
-    <link phx-track-static rel="stylesheet" href={~p"/assets/modify.css"} />
-    <link phx-track-static rel="stylesheet" href={~p"/assets/normalize.css"} />
-    <link phx-track-static rel="stylesheet" href={~p"/assets/application.css"} /> -->
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
     <!-- must import phoenix_html here -->
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
 
-    <!-- if Mix.env() == :prod do >
+    <%= if Mix.env() == :prod do %>
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-9D0WE4JFGQ"></script>
       <script>
           window.dataLayer = window.dataLayer || [];
@@ -25,7 +21,7 @@
 
           gtag('config', 'G-9D0WE4JFGQ');
       </script>
-    < end -->
+    <% end %>
 
     <!-- MailerLite -->
     <script>
@@ -34,7 +30,7 @@
       n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
       (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
       ml('account', '506588');
-  </script>
+    </script>
   </head>
   <body>
     <div class="container">
