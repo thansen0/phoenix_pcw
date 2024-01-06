@@ -14,7 +14,6 @@ defmodule ParentcontrolswinWeb.Router do
   end
 
   pipeline :require_auth do
-    #plug Pow.Plug.RequireAuthenticated, [error_handler: ParentcontrolswinWeb.PowErrorHandler]
     plug Pow.Plug.RequireAuthenticated, [error_handler: ParentcontrolswinWeb.AuthErrorHandler]
   end
 

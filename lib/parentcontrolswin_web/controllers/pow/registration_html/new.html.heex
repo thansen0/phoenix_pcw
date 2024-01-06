@@ -17,6 +17,9 @@
     <.input field={f[:password_confirmation]} type="password" label="Confirm password" required />
     <.input :if={Pow.Plug.extension_enabled?(@conn, PowPersistentSession)} field={f[:persistent_session]} type="checkbox" label="Keep me logged in" checked={true} />
 
+    <.input field={f[:terms_of_service]} type="checkbox" label="I agree to the Terms of Service" checked={false} required />
+    <.input field={f[:privacy_policy]} type="checkbox" label="I agree to the Privacy Policy" checked={false} required />
+    
     <:actions>
       <.button phx-disable-with="Registering..." class="w-full">
         Register <span aria-hidden="true">→</span>
