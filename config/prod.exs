@@ -12,9 +12,7 @@ config :parentcontrolswin, ParentcontrolswinWeb.Endpoint,
       "https://parentcontrols.win",
       "http://www.parentcontrols.win", 
       "https://www.parentcontrols.win",
-      "https://parentcontrolswin.gigalixirapp.com/",
-      "parentcontrols.win.gigalixirdns.com",
-      "www.parentcontrols.win.gigalixirdns.com"
+      "https://parentcontrolswin.gigalixirapp.com/"
   ]
 
 # Configures Swoosh API Client
