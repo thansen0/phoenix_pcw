@@ -6,13 +6,15 @@ import Config
 # which you should run after static files are built and
 # before starting your production server.
 config :parentcontrolswin, ParentcontrolswinWeb.Endpoint,
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  cache_static_manifest: "priv/static/cache_manifest.json",
   check_origin: [
       "http://parentcontrols.win", 
       "https://parentcontrols.win",
       "http://www.parentcontrols.win", 
       "https://www.parentcontrols.win",
-      "https://parentcontrolswin.gigalixirapp.com/"
+      "https://parentcontrolswin.gigalixirapp.com/",
+      "parentcontrols.win.gigalixirdns.com",
+      "www.parentcontrols.win.gigalixirdns.com"
   ]
 
 # Configures Swoosh API Client
