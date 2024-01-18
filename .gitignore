@@ -35,3 +35,5 @@ parentcontrolswin-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# may need virtual environment to install gigalixir
+/venv
