@@ -38,13 +38,15 @@ defmodule ParentcontrolswinWeb.Router do
 
     get "/", PageController, :home
     get "/contact", PageController, :contact
+    get "/install_pcw", PageController, :install_pcw
     get "/content_filter_faq", PageController, :content_filter_faq
   end
 
   scope "/", ParentcontrolswinWeb do
     pipe_through [:browser, :require_auth]
 
-    #resources "/devices", DeviceController
+    get "/downloads", PageController, :downloads
+    get "/downloads/installer_download", PageController, :installer_download
     resources "/devices", DeviceController, except: [:create]
     post "/device_form_action", DeviceController, :checkbox_form_submission
   end
