@@ -51,7 +51,8 @@ defmodule Parentcontrolswin.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:plug_cowboy, "~> 2.5"},
-      {:pow, "~> 1.0.34"}
+      {:pow, "~> 1.0.34"},
+      {:stripity_stripe, "~> 3.1.1"}
     ]
   end
 

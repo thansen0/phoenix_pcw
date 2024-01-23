@@ -39,6 +39,13 @@ defmodule ParentcontrolswinWeb.Endpoint do
   plug Plug.RequestId
   plug Plug.Telemetry, event_prefix: [:phoenix, :endpoint]
 
+  # Since Plug.Parsers removes the raw request_body in body_parsers
+  # we need to parse out the Stripe webhooks before this
+  plug Stripe.WebhookPlug,
+    at: "/webhook/stripe",
+    handler: ParentcontrolswinWeb.StripeHandler,
+    secret: {Application, :get_env, [:stripity_stripe, :signing_secret]}
+
   plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
     pass: ["*/*"],

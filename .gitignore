@@ -37,3 +37,6 @@ npm-debug.log
 
 # may need virtual environment to install gigalixir
 /venv
+
+# save private values in here (specifically for stripe)
+.env

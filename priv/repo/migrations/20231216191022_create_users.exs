@@ -6,6 +6,7 @@ defmodule Parentcontrolswin.Repo.Migrations.CreateUsers do
       add :email, :string, null: false
       add :password_hash, :string
       add :content_filters, :string
+      add :stripe_customer_id, :string
       add :terms_of_service, :boolean
       add :privacy_policy, :boolean
 
