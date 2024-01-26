@@ -49,6 +49,15 @@ defmodule ParentcontrolswinWeb.Router do
     get "/downloads/installer_download", PageController, :installer_download
     resources "/devices", DeviceController, except: [:create]
     post "/device_form_action", DeviceController, :checkbox_form_submission
+
+    get "/subscriptions", SubscriptionController, :index
+    # Where we handle clicks to the button
+    post "/subscriptions/new", SubscriptionController, :new
+    # Where to send our users when they've exited the Stripe session
+    get "/subscriptions/new/success", SubscriptionController, :success
+    get "/subscriptions/new/cancel", SubscriptionController, :cancel
+    # The billing portal
+    post "/subscriptions/manage", SubscriptionController, :edit
   end
 
   scope "/api/v1", ParentcontrolswinWeb do

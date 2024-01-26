@@ -1,5 +1,18 @@
 <div class="mx-auto max-w-sm">
   <.header class="text-center">
+    Subscription Management
+  </.header>
+
+  <!-- probably want to remove subscribe link soon -->
+  <%= form_for @conn, ~p"/subscriptions/new", [method: :post], fn f -> %>
+    <%= submit "Subscribe", class: "button" %>
+  <% end %>
+
+  <%= form_for @conn, ~p"/subscriptions/manage", [method: :post], fn f -> %>
+    <%= submit "Manage Billing", class: "button" %>
+  <% end %>
+
+  <.header class="text-center">
     Edit Account
   </.header>
 
@@ -19,4 +32,5 @@
       </.button>
     </:actions>
   </.simple_form>
+
 </div>

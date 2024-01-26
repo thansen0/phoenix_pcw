@@ -7,6 +7,7 @@ defmodule Parentcontrolswin.Users.User do
   schema "users" do
     pow_user_fields()
     field :content_filters, :string, default: "nsfw,lgbt,trans"
+    field :stripe_customer_id, :string, default: nil
     field :terms_of_service, :boolean
     field :privacy_policy, :boolean
 
@@ -17,9 +18,15 @@ defmodule Parentcontrolswin.Users.User do
     user_or_changeset
     |> pow_changeset(attrs)
     |> pow_extension_changeset(attrs)
-    |> Ecto.Changeset.cast(attrs, [:content_filters, :terms_of_service, :privacy_policy])
+    |> Ecto.Changeset.cast(attrs, [:content_filters, :stripe_customer_id, :terms_of_service, :privacy_policy])
     |> validate_must_be_true(:terms_of_service, "You must agree to the Terms of Service.")
     |> validate_must_be_true(:privacy_policy, "You must agree to the Privacy Policy.")
+  end
+
+  def update_stripe_customer_id_changeset(user, attrs) do
+    user
+    |> Ecto.Changeset.cast(attrs, [:stripe_customer_id])
+    # Add any other validations or constraints specific to stripe_customer_id if necessary
   end
 
   defp validate_must_be_true(changeset, field, error_message) do

@@ -1,0 +1,18 @@
+<.header>
+  Subscription <%= @subscription.id %>
+  <:subtitle>This is a subscription record from your database.</:subtitle>
+  <:actions>
+    <.link href={~p"/subscriptions/#{@subscription}/edit"}>
+      <.button>Edit subscription</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Stripe customer"><%= @subscription.stripe_customer_id %></:item>
+  <:item title="Plan tier"><%= @subscription.plan_tier %></:item>
+  <:item title="Start date"><%= @subscription.start_date %></:item>
+  <:item title="End date"><%= @subscription.end_date %></:item>
+</.list>
+
+<.back navigate={~p"/subscriptions"}>Back to subscriptions</.back>

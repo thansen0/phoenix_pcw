@@ -6,11 +6,18 @@ defmodule ParentcontrolswinWeb.DeviceController do
   alias Parentcontrolswin.Devices.Device
 
   def index(conn, _params) do
+    # make sure user is subscribed, otherwise send them to subscribe
+    user = Pow.Plug.current_user(conn)
+    if !ParentcontrolswinWeb.SubscriptionController.is_subscribed?(user.stripe_customer_id) do
+      conn
+      |>put_flash(:error, "You must subscribe to view your devices. All subscriptions have a 60 day money back guarantee!")
+      |>redirect(to: ~p"/subscriptions")
+    end
+
     # checkbox_form_action = Routes.device_form_action_path(conn, :checkbox_form_submission) # Routes doesn't work
     csrf_token = Plug.CSRFProtection.get_csrf_token()
     checkbox_form_action = ~p"/device_form_action"
 
-    user = Pow.Plug.current_user(conn)
     content_filters = String.split(user.content_filters, ",")
     devices = Parentcontrolswin.Repo.all(from d in Device, where: d.user_id == ^user.id, order_by: [desc: d.inserted_at])
 
@@ -36,9 +43,6 @@ defmodule ParentcontrolswinWeb.DeviceController do
     case Devices.create_device(modified_device_params) do
       {:ok, device} ->
         conn
-#        |> put_flash(:info, "Device created successfully.") # errors on json
-#        |> redirect(to: ~p"/devices/#{device}")
-#        |> redirect(to: ~p"/api/v1/devices/#{device}")
         |> put_status(:created) # Set the HTTP status to 201 (Created)
         |> json(%{data: %{id: device.id} })
 

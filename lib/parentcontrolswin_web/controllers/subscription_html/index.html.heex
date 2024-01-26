@@ -1,0 +1,12 @@
+<h1>Subscription to our service</h1>
+
+<p>To finish subscribing, you must add your payment information through Stripe with the link below, which will automatically subscribe you to our service.</p>
+
+<ul>
+    <li>Cost: <b>$18 a month</b></li>
+    <li>If you cancel within 60 days you get a full refund.</li>
+</ul>
+
+<%= form_for @conn, ~p"/subscriptions/new", [method: :post], fn f -> %>
+    <%= submit "Add Payment and Subscribe", class: "button" %>
+<% end %>

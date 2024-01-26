@@ -77,6 +77,7 @@ defmodule ParentcontrolswinWeb do
   def html do
     quote do
       use Phoenix.Component
+      use Phoenix.HTML
 
       import Phoenix.HTML.Link
       import Phoenix.Controller,

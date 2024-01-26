@@ -1,0 +1,12 @@
+<.simple_form :let={f} for={@changeset} action={@action}>
+  <.error :if={@changeset.action}>
+    Oops, something went wrong! Please check the errors below.
+  </.error>
+  <.input field={f[:stripe_customer_id]} type="text" label="Stripe customer" />
+  <.input field={f[:plan_tier]} type="number" label="Plan tier" />
+  <.input field={f[:start_date]} type="date" label="Start date" />
+  <.input field={f[:end_date]} type="date" label="End date" />
+  <:actions>
+    <.button>Save Subscription</.button>
+  </:actions>
+</.simple_form>
