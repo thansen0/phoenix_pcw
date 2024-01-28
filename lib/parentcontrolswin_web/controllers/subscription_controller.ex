@@ -17,7 +17,7 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
     def cancel(conn, _params) do
         conn
         |> put_flash(:info, "Your attempt to subscribe was canceled; are not subscribed.")
-        |> redirect(to: ~p"/install_pcw")
+        |> redirect(to: ~p"/subscriptions")
     end
 
     def new(conn, %{}) do
@@ -26,7 +26,6 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
         customer_id = stripeCustomerId(conn, user)
         # Get this from the Stripe dashboard for your product
         price_id = "price_1ObHZ6DrVDu5S9fVokHH2Fbt"
-        product_id = "prod_PSEzDvsCNOKrGu" # maybe I should be using this?
         quantity = 1
 
         Logger.info("Customer id: #{customer_id}")
@@ -41,8 +40,8 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
             payment_method_types: ["card"],
             customer: customer_id,
             line_items: [%{
-                price: price_id, # The ID of the Price object for the product
-                quantity: 1
+                price: price_id,
+                quantity: quantity
             }],
             mode: "subscription",
             success_url: "https://www.parentcontrols.win/subscriptions/new/success",

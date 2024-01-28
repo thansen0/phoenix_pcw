@@ -4,6 +4,8 @@ defmodule Parentcontrolswin.Repo.Migrations.CreateSubscriptions do
   def change do
     create table(:subscriptions) do
       add :stripe_customer_id, :string
+      add :price_id, :string
+      add :product_id, string
       add :plan_tier, :integer
       add :start_date, :date
       add :end_date, :date
