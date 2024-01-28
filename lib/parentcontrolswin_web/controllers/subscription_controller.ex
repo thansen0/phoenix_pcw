@@ -11,21 +11,13 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
     def success(conn, _params) do
         conn
         |> put_flash(:info, "Thanks you for subscribing! Don't hesistate to contact us if you have any questions!")
-        |> redirect(to: ~p"/subscriptions/new/success")
+        |> redirect(to: ~p"/install_pcw")
     end
 
     def cancel(conn, _params) do
         conn
         |> put_flash(:info, "Your attempt to subscribe was canceled; are not subscribed.")
-        |> redirect(to: ~p"/subscriptions/new/cancel")
-    end
-
-    defp get_customer_from_email(email) do
-        # TODO: Handle storing and retrieving customer_id
-        # Is on the format
-        # nil
-        Parentcontrolswin.Repo.get_by(Parentcontrolswin.Users.User, email: email).stripe_customer_id
-        # customer_id = "cus_PQMm8X3Ep8EL6G"
+        |> redirect(to: ~p"/install_pcw")
     end
 
     def new(conn, %{}) do
@@ -41,54 +33,32 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
         # should never be empty after stripeCustomerId
         if customer_id in [nil, ""] do
             conn
-            |> put_flash(:error, "You must subscribe first before viewing Stripe Account Management. #{customer_id}")
+            |> put_flash(:error, "Error finding your customer id. Please try again or contact support. #{customer_id}")
             |> redirect(to: ~p"/subscriptions")
         end
 
-        subscription_config = %{
+        checkout_session = %{
+            payment_method_types: ["card"],
             customer: customer_id,
-            # success_url: "https://www.parentcontrols.win/subscriptions/new/success",
-            # cancel_url: "https://www.parentcontrols.win/subscriptions/new/cancel",
-            # mode: "subscription",
-            items: [
-            %{
-                price: price_id,
-                quantity: quantity
+            line_items: [%{
+                price: price_id, # The ID of the Price object for the product
+                quantity: 1
             }],
-            # expand: ["latest_invoice.payment_intent"],
+            mode: "subscription",
+            success_url: "https://www.parentcontrols.win/subscriptions/new/success",
+            cancel_url: "https://www.parentcontrols.win/subscriptions/new/cancel"
         }
-            
-        # }) do
-        case Stripe.Subscription.create(subscription_config) do
-        {:ok, subscription} ->
-            IO.inspect(subscription)
-        {:error, subscription_error} ->
-            IO.inspect(subscription_error)
-        end
+        {:ok, session} = Stripe.Checkout.Session.create(checkout_session)
+        Logger.info(IO.inspect(session))
+        redirect(conn, external: session.url)
 
-        # # Check if further action is needed for payment
-        # payment_intent = subscription.latest_invoice.payment_intent
-        # if payment_intent.status == 'requires_action' do
-        #     # Redirect customer to Stripe's hosted authentication flow...
-        #     IO.inspect(subscription)
-        #     conn
-        #     |> put_flash(:error, "Something went wrong creating your subscription, if this continues to happen please contact support. #{payment_intent.message}")
-        #     |> redirect(to: ~p"/registration/edit")
-        # end
-
-        session_config = %{
-            customer: customer_id,
-            return_url: "https://www.parentcontrols.win/devices",
-        }
-
-        case Stripe.BillingPortal.Session.create(session_config) do
-        {:ok, session} ->
-            redirect(conn, external: session.url)
-
-        {:error, stripe_error} ->
-            conn
-            |> put_flash(:error, "Something went wrong with Billing Portal, #{stripe_error.message}")
-            |> redirect(to: ~p"/")
+        case Stripe.Checkout.Session.create(checkout_session) do
+            {:ok, session} ->
+                redirect(conn, external: session.url)
+            {:error, stripe_error} ->
+                conn
+                |> put_flash(:error, "Something went wrong building your checkout portal, #{stripe_error.message}")
+                |> redirect(to: ~p"/subscriptions")
         end
     end
 
@@ -123,7 +93,7 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
     defp stripeCustomerId(conn, user) do
         stripe_customer_id = user.stripe_customer_id
 
-        stripe_customer_id = if stripe_customer_id in [nil, ""] do
+        if stripe_customer_id in [nil, ""] do
             new_customer = %{
                 email: user.email,
                 description: "Subscription user"
@@ -143,8 +113,9 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
             # create changeset for user
             changeset = Parentcontrolswin.Users.User.update_stripe_customer_id_changeset(user, %{stripe_customer_id: stripe_customer_id})
             case Parentcontrolswin.Repo.update(changeset) do
-                {:ok, user} -> 
-                    IO.inspect(user)
+                {:ok, updated_user} -> 
+                    IO.inspect(updated_user)
+                    # Pow.Plug.update_user(conn, updated_user)
                     # Handle success, maybe return the updated user or a success message
                 {:error, _changeset} -> 
                     conn
@@ -153,29 +124,26 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
             end
 
             stripe_customer_id
+        else
+            user.stripe_customer_id
         end
-
-        stripe_customer_id
     end
 
     # returns true if subscribed
     def is_subscribed?(customer_id) do
         # defined here for scope
         if customer_id in [nil, ""] do
-            # no customer, still not subscribed
+            # no customer, can't be subscribed
             false
         else
-            case Stripe.Subscription.list(customer: customer_id) do
+            case Stripe.Subscription.list(%{customer: customer_id, status: "active"}) do
                 {:ok, subscriptions} ->
-                    IO.inspect(subscriptions)
+                    # IO.inspect(subscriptions)
                     # .data holds all of the subscriptions and metadata
                     # only [] actually matters, but just in case
-                    subscriptions.data not in [nil, "", %{}, []]
+                    subscriptions.data not in [nil, "", []]
                 {:error, _subscriptions} ->
                     false
-                    # conn
-                    # |> put_flash(:error, "Internal server error checking your subscriptions. Please try again or contact support. #{IO.inspect(subscriptions)}")
-                    # |> redirect(to: ~p"/contact")
             end
         end
     end

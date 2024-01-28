@@ -27,7 +27,6 @@ defmodule Parentcontrolswin.StripeHandler do
   def handle_event(%Stripe.Event{type: "checkout.session.completed"} = event) do
     IO.inspect("Checkout Session Completed")
     IO.inspect(event)
-    Logger.info ("inside checkout.session.completed")
     # Payment is successful and the subscription is created.
     # You should provision the subscription and save the customer ID to your database.
     :ok

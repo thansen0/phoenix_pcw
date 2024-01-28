@@ -26,7 +26,6 @@ defmodule Parentcontrolswin.Users.User do
   def update_stripe_customer_id_changeset(user, attrs) do
     user
     |> Ecto.Changeset.cast(attrs, [:stripe_customer_id])
-    # Add any other validations or constraints specific to stripe_customer_id if necessary
   end
 
   defp validate_must_be_true(changeset, field, error_message) do

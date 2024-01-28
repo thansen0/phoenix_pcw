@@ -4,7 +4,8 @@ defmodule ParentcontrolswinWeb.PageController do
   def home(conn, _params) do
     # The home page is often custom made,
     # so skip the default app layout.
-    render(conn, :home) #, layout: false)
+    stripe_customer_id = Pow.Plug.current_user(conn).stripe_customer_id
+    render(conn, :home, stripe_customer_id: stripe_customer_id) #, layout: false)
   end
 
   def contact(conn, _params) do
