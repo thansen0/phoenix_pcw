@@ -2,6 +2,7 @@
 defmodule ParentcontrolswinWeb.SubscriptionController do
     use ParentcontrolswinWeb, :controller
     alias Stripe
+    require Logger
 
     def index(conn, _params) do
         render(conn, :index)
@@ -30,11 +31,19 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
     def new(conn, %{}) do
         # Or if it is a recurring customer, you can provide customer_id
         user = Pow.Plug.current_user(conn)
-        # customer_id = "cus_PQMm8X3Ep8EL6G" # = get_customer_id_from_user(user)
         customer_id = stripeCustomerId(conn, user)
         # Get this from the Stripe dashboard for your product
         price_id = "price_1ObHZ6DrVDu5S9fVokHH2Fbt"
+        product_id = "prod_PSEzDvsCNOKrGu" # maybe I should be using this?
         quantity = 1
+
+        Logger.info("Customer id: #{customer_id}")
+        # should never be empty after stripeCustomerId
+        if customer_id in [nil, ""] do
+            conn
+            |> put_flash(:error, "You must subscribe first before viewing Stripe Account Management. #{customer_id}")
+            |> redirect(to: ~p"/subscriptions")
+        end
 
         subscription_config = %{
             customer: customer_id,
@@ -48,19 +57,6 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
             }],
             # expand: ["latest_invoice.payment_intent"],
         }
-
-        # Previous customer? customer_id else customer_email
-        # The stripe API only allows one of {customer_email, customer}
-        # session_config =
-        # if customer_id,
-        #     do: Map.put(session_config, :customer, customer_id),
-        #     else: Map.put(session_config, :customer_email, user.email)
-
-        # case Stripe.Subscription.create(%{
-        #     customer: customer_id,
-        #     items: [
-        #         %{price: price_id},
-        #     ],
             
         # }) do
         case Stripe.Subscription.create(subscription_config) do
@@ -83,11 +79,6 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
         session_config = %{
             customer: customer_id,
             return_url: "https://www.parentcontrols.win/devices",
-            # success_url: "https://www.parentcontrols.win/subscriptions/new/success",
-            # cancel_url: "https://www.parentcontrols.win/subscriptions/new/cancel",
-            # mode: "subscription",
-            
-            # expand: ["latest_invoice.payment_intent"],
         }
 
         case Stripe.BillingPortal.Session.create(session_config) do
@@ -98,24 +89,22 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
             conn
             |> put_flash(:error, "Something went wrong with Billing Portal, #{stripe_error.message}")
             |> redirect(to: ~p"/")
-        # Handle error (object Stripe.Error)
         end
     end
 
     def edit(conn, %{}) do
         user = Pow.Plug.current_user(conn)
-        customer_id = user.stripe_customer_id
-        # IO.inspect(user)
+        customer_id = stripeCustomerId(conn, user)
         if customer_id in [nil, ""] do
             conn
-            |> put_flash(:error, "You must subscribe first before viewing Stripe Account Management.")
+            |> put_flash(:error, "You must subscribe first before viewing Stripe Account Management. #{customer_id}")
             |> redirect(to: ~p"/subscriptions")
         end
 
         billing_page = Stripe.BillingPortal.Session.create(%{
-                customer: customer_id,
-                return_url: "https://www.parentcontrols.win/devices"
-            })
+            customer: customer_id,
+            return_url: "https://www.parentcontrols.win/devices"
+        })
 
         case billing_page do
             {:ok, session} ->
@@ -124,7 +113,7 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
             {:error, stripe_error} ->
                 IO.inspect(stripe_error)
                 conn
-                |> put_flash(:error, "Something went wrong with edit")
+                |> put_flash(:error, "Something went wrong with edit. #{stripe_error.message}") # stripe_error.user_message
                 |> redirect(to: ~p"/")
                 # TODO: Handle error (object Stripe.Error)
         end
@@ -133,35 +122,37 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
     # check if a customer id exists, and if so return a new one
     defp stripeCustomerId(conn, user) do
         stripe_customer_id = user.stripe_customer_id
-        if stripe_customer_id in [nil, ""] do
+
+        stripe_customer_id = if stripe_customer_id in [nil, ""] do
             new_customer = %{
                 email: user.email,
+                description: "Subscription user"
             }
 
             # {:ok, stripe_customer} = Stripe.Customer.create(new_customer)
-            case Stripe.Customer.create(new_customer) do
+            stripe_customer_id = case Stripe.Customer.create(new_customer) do
                 {:ok, stripe_customer} -> 
-                    stripe_customer_id = stripe_customer.id
-                    IO.inspect(stripe_customer)
-                    # Handle success, maybe return the updated user or a success message
+                    stripe_customer.id
                 {:error, stripe_customer_error} -> 
                     conn
                     |> put_flash(:error, "Error getting stripe_customer_id. Error: #{stripe_customer_error.message}")
                     |> redirect(to: ~p"/registration/edit")
+                    nil
             end
 
             # create changeset for user
             changeset = Parentcontrolswin.Users.User.update_stripe_customer_id_changeset(user, %{stripe_customer_id: stripe_customer_id})
-            IO.inspect(changeset)
             case Parentcontrolswin.Repo.update(changeset) do
                 {:ok, user} -> 
                     IO.inspect(user)
                     # Handle success, maybe return the updated user or a success message
                 {:error, _changeset} -> 
                     conn
-                    |> put_flash(:error, "Error getting stripe_customer_id")
+                    |> put_flash(:error, "Error setting stripe_customer_id in schema.")
                     |> redirect(to: ~p"/registration/edit")
             end
+
+            stripe_customer_id
         end
 
         stripe_customer_id
@@ -169,23 +160,24 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
 
     # returns true if subscribed
     def is_subscribed?(customer_id) do
-        subs = nil
-        if customer_id not in [nil, ""] do
-            {:ok, subscriptions} = Stripe.Subscription.list(customer: customer_id)
-        # case Stripe.Subscription.list(customer: customer_id) do
-        #     {:ok, subscriptions} ->
-        #         IO.inspect(subscriptions)
-        #     {:error, subscriptions} ->
-        #         conn
-        #         |> put_flash(:error, "Internal server error checking your subscriptions. Please try again or contact support. #{IO.inspect(subscriptions)}")
-        #         |> redirect(to: ~p"/contact")
-        # end
-            subs = subscriptions.data
+        # defined here for scope
+        if customer_id in [nil, ""] do
+            # no customer, still not subscribed
+            false
+        else
+            case Stripe.Subscription.list(customer: customer_id) do
+                {:ok, subscriptions} ->
+                    IO.inspect(subscriptions)
+                    # .data holds all of the subscriptions and metadata
+                    # only [] actually matters, but just in case
+                    subscriptions.data not in [nil, "", %{}, []]
+                {:error, _subscriptions} ->
+                    false
+                    # conn
+                    # |> put_flash(:error, "Internal server error checking your subscriptions. Please try again or contact support. #{IO.inspect(subscriptions)}")
+                    # |> redirect(to: ~p"/contact")
+            end
         end
-
-        # .data holds all of the subscriptions and metadata
-        # only [] actually matters, but just in case
-        subs not in [nil, "", %{}, []]
     end
 
 end

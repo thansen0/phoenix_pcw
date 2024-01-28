@@ -40,6 +40,10 @@
           <%= link raw("<div class='button'>Sign out</div>"), to: ~p"/session", method: :delete  %>
           <%= link raw("<div class='button'>Devices</div>"), to: ~p"/devices" %>
           <%= link raw("<div class='button'>Account</div>"), to: ~p"/registration/edit" %>
+
+          <%= if !ParentcontrolswinWeb.SubscriptionController.is_subscribed?(Pow.Plug.current_user(@conn).stripe_customer_id) do %>
+            <%= link raw("<div class='button'>Click to Pay and Finish Subscribing!</div>"), to: ~p"/subscriptions" %>
+          <% end %>
         <% else %>
           <%= link raw("<div class='button'>Sign in</div>"), to: ~p"/session/new" %>
           <%= link raw("<div class='button'>Sign up</div>"), to: ~p"/registration/new" %>
