@@ -23,13 +23,13 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
     def new(conn, %{}) do
         # Or if it is a recurring customer, you can provide customer_id
         user = Pow.Plug.current_user(conn)
-        customer_id = stripeCustomerId(conn, user)
+        customer_id = stripe_customer_id(conn, user)
         # Get this from the Stripe dashboard for your product
         price_id = "price_1ObHZ6DrVDu5S9fVokHH2Fbt"
         quantity = 1
 
         Logger.info("Customer id: #{customer_id}")
-        # should never be empty after stripeCustomerId
+        # should never be empty after stripe_customer_id
         if customer_id in [nil, ""] do
             conn
             |> put_flash(:error, "Error finding your customer id. Please try again or contact support. #{customer_id}")
@@ -44,8 +44,10 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
                 quantity: quantity
             }],
             mode: "subscription",
-            success_url: "https://www.parentcontrols.win/subscriptions/new/success",
-            cancel_url: "https://www.parentcontrols.win/subscriptions/new/cancel"
+            # success_url: "https://www.parentcontrols.win/subscriptions/new/success",
+            # cancel_url: "https://www.parentcontrols.win/subscriptions/new/cancel"
+            success_url: "http://localhost:4000/subscriptions/new/success",
+            cancel_url: "http://localhost:4000/subscriptions/new/cancel"
         }
         {:ok, session} = Stripe.Checkout.Session.create(checkout_session)
         Logger.info(IO.inspect(session))
@@ -63,7 +65,7 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
 
     def edit(conn, %{}) do
         user = Pow.Plug.current_user(conn)
-        customer_id = stripeCustomerId(conn, user)
+        customer_id = get_stripe_customer_id_from_email(user.email)
         if customer_id in [nil, ""] do
             conn
             |> put_flash(:error, "You must subscribe first before viewing Stripe Account Management. #{customer_id}")
@@ -72,7 +74,8 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
 
         billing_page = Stripe.BillingPortal.Session.create(%{
             customer: customer_id,
-            return_url: "https://www.parentcontrols.win/devices"
+            # return_url: "https://www.parentcontrols.win/devices"
+            return_url: "http://localhost:4000/devices"
         })
 
         case billing_page do
@@ -82,14 +85,13 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
             {:error, stripe_error} ->
                 IO.inspect(stripe_error)
                 conn
-                |> put_flash(:error, "Something went wrong with edit. #{stripe_error.message}") # stripe_error.user_message
+                |> put_flash(:error, "Something went wrong with edit. #{stripe_error.message}")
                 |> redirect(to: ~p"/")
-                # TODO: Handle error (object Stripe.Error)
         end
     end
 
     # check if a customer id exists, and if so return a new one
-    defp stripeCustomerId(conn, user) do
+    defp stripe_customer_id(conn, user) do
         stripe_customer_id = user.stripe_customer_id
 
         if stripe_customer_id in [nil, ""] do
@@ -126,6 +128,11 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
         else
             user.stripe_customer_id
         end
+    end
+
+    # returns customer id but won't make a new one
+    defp get_stripe_customer_id_from_email(email) do
+        Parentcontrolswin.Repo.get_by(Parentcontrolswin.Users.User, email: email).stripe_customer_id
     end
 
     # returns true if subscribed

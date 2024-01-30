@@ -1,39 +1,76 @@
-<h1>Setup Guide for the ParentControls.Win Windows App</h1>
+<div class="row content-body">
 
-<p>To download the installer, please <%= link "click here", to: ~p"/downloads"%> to download the Windows App.</p>
+    <h1>Setup Guide for the ParentControls.Win Windows App</h1>
 
-<p>If you haven't already, you will have to <%= link "create an account", to: ~p"/registration/new" %> to download and use our child monitoring service.</p>
+    <p>To download the installer, please <%= link "click here", to: ~p"/downloads"%> to download the Windows App.</p>
 
-<h4>Create Child Account</h4>
+    <p>If you haven't already, you will have to <%= link "create an account", to: ~p"/registration/new" %> to download and use our child monitoring service.</p>
 
-<p>You will first have to create an account for your child if you do not already have one. They should not have administrative privileges, while the account installing the app will.</p>
+    <h4 id="create-child-account" style="margin-top: 5%">Create Child Account</h4>
 
-<h4>Install the app</h4>
+    <p>You will first have to create an account for your child if you do not already have one. They should not have administrative privileges, while the account installing the app will.</p>
 
-<p>To download the installer, please <%= link "click here", to: ~p"/downloads"%>.</p>
+    <h4 id="install-windows-app" style="margin-top: 5%">Install the app</h4>
 
-<p>Next right-click the installer and select "Run as administrator". You can then follow through the install steps until you finish.</p>
+    <p>To download the installer, please <%= link "click here", to: ~p"/downloads"%>.</p>
 
-<p>After restarting your computer, you should be prompted to log in. The ParentControlsWin app should start upon startup, and you will log in and name the device you're logging into. Additionally, select the child user account; this is the account which will be monitored.</p>
+    <p>Next right-click the installer and select "Run as administrator". You can then follow through the install steps until you finish. <b>If prompted, be sure to click setup for all users</b>. If you're not prompted then it will be set up automatically.</p>
 
-<p>That's it! The app should be working. It should start on startup, and by design, the app cannot be closed. You may always <%= link "stop the app", to: "#stop_app" %>, although it will only return upon startup. Further, you may <%= link "uninstall the app", to: "#uninstall" %>.</p>
+    </div>
+    <div class="row full-image-wrapper">
+        <img class="six columns" src="/images/1-launch-page.png" alt="Start of setup wizard"/>
+        <img class="six columns" src="/images/2-install.png" alt="Be sure to install for all users!"/>
+    </div>
+    <div class="row">
+        <div class="two columns">&nbsp;</div>
+        <div class="image-caption eight columns">Be sure to install for all users if presented with the option.</div>
+        <div class="two columns"></div>
+    </div>
 
-<h4 id="uninstall">Uninstall instructions</h4>
+    <div class="row content-body">
 
-<b>You may uninstall our app through the default Windows uninstall process.</b>
+    <p>After restarting your computer, you should be prompted to log in. The ParentControlsWin app should start upon startup, and you will log in and name the device you're logging into. Additionally, select the child user account; this is the account which will be monitored.</p>
 
-<p>Using the search functionality on your Windows Taskbar, search for "uninstall", and open "Add or remove programs". Alternatively, you may open the System Settings and select "Add or remove programs".</p>
+    <p>That's it! The app should be working. It should start on startup, and by design, the app cannot be closed. You may always <%= link "stop the app", to: "#stop_app" %>, although it will only return upon startup. Further, you may <%= link "uninstall the app", to: "#uninstall" %>.</p>
 
-<p>Either scroll through the list or search for "Parent Controls Win". You should see our app.</p>
+    <h4 id="uninstall" style="margin-top: 5%">Uninstall instructions</h4>
 
-<!-- need picture of app here -->
+    <b>You may uninstall our app through the default Windows uninstall process.</b>
 
-<p>Select the app, and click on Uninstall.</p>
+    <p>Using the search functionality on your Windows Taskbar, search for "uninstall", and open "Add or remove programs". Alternatively, you may open the System Settings and select "Add or remove programs".</p>
 
-<!-- show app selected -->
+    </div>
+    <div class="row full-image-wrapper">
+        <div class="one column"></div>
+        <img class="ten columns" src="/images/4-uninstall.png" alt="What the add or remove programs page looks like."/>
+    </div>
+    <div class="row">
+        <div class="two columns">&nbsp;</div>
+        <div class="image-caption eight columns"></div>
+        <div class="two columns"></div>
+    </div>
+    <div class="row content-body">
 
-<p>You should not have to perform any additional tasks to return to normal, as uninstalling will undo all changes.</p>
+    <p>Either scroll through the list or search for "Parent Controls Win".</p>
 
-<h4 id="stop-app">Stop App Instructions</h4>
+    </div>
+    <div class="row full-image-wrapper">
+        <div class="one column"></div>
+        <img class="ten columns" src="/images/5-uninstall-pcw.png" alt="Our app, selected to show the uninstall option."/>
+    </div>
+    <div class="row">
+        <div class="two columns">&nbsp;</div>
+        <div class="image-caption eight columns"></div>
+        <div class="two columns"></div>
+    </div>
+    <div class="row content-body">
 
-<p>Please be aware stopping the app will only temporarily stop it, as it will restart when you next turn off and on your computer. If you wish to uninstall, please follow our <%= link "uninstall instructions", to: "#uninstall" %>.</p>
+    <p>Select the app, and click on Uninstall.</p>
+
+    <p>You should not have to perform any additional tasks to return to normal, as uninstalling will undo all changes.</p>
+
+    <h4 id="stop-app" style="margin-top: 5%">Stop App Instructions</h4>
+
+    <p>Please be aware stopping the app will only temporarily stop it, as it will restart when you next turn off and on your computer. If you wish to uninstall, please follow our <%= link "uninstall instructions", to: "#uninstall" %>.</p>
+
+</div> <!-- end row content-body -->

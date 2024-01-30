@@ -1,8 +1,0 @@
-<.header>
-  Edit Subscription <%= @subscription.id %>
-  <:subtitle>Use this form to manage subscription records in your database.</:subtitle>
-</.header>
-
-<.subscription_form changeset={@changeset} action={~p"/subscriptions/#{@subscription}"} />
-
-<.back navigate={~p"/subscriptions"}>Back to subscriptions</.back>

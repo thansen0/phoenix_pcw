@@ -7,8 +7,8 @@ defmodule ParentcontrolswinWeb.SubscriptionHTML do
   @doc """
   Renders a subscription form.
   """
-  attr :changeset, Ecto.Changeset, required: true
-  attr :action, :string, required: true
+  # attr :changeset, Ecto.Changeset, required: true
+  # attr :action, :string, required: true
 
-  def subscription_form(assigns)
+  # def subscription_form(assigns)
 end
