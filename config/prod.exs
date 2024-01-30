@@ -16,6 +16,8 @@ config :parentcontrolswin, ParentcontrolswinWeb.Endpoint,
       "parentcontrols.win.gigalixirdns.com",
       "www.parentcontrols.win.gigalixirdns.com"
   ]
+  
+config :parentcontrolswin, base_url: "https://www.parentcontrols.win"
 
 # Configures Swoosh API Client
 config :swoosh, api_client: Swoosh.ApiClient.Finch, finch_name: Parentcontrolswin.Finch

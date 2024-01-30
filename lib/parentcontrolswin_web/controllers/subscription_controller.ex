@@ -24,8 +24,9 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
         # Or if it is a recurring customer, you can provide customer_id
         user = Pow.Plug.current_user(conn)
         customer_id = stripe_customer_id(conn, user)
+        
         # Get this from the Stripe dashboard for your product
-        price_id = "price_1ObHZ6DrVDu5S9fVokHH2Fbt"
+        price_id = "price_1ObHZ6DrVDu5S9fVokHH2Fbt" # probably should be in config file
         quantity = 1
 
         Logger.info("Customer id: #{customer_id}")
@@ -44,10 +45,8 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
                 quantity: quantity
             }],
             mode: "subscription",
-            # success_url: "https://www.parentcontrols.win/subscriptions/new/success",
-            # cancel_url: "https://www.parentcontrols.win/subscriptions/new/cancel"
-            success_url: "http://localhost:4000/subscriptions/new/success",
-            cancel_url: "http://localhost:4000/subscriptions/new/cancel"
+            success_url: build_external_url("/subscriptions/new/success"),
+            cancel_url: build_external_url("/subscriptions/new/cancel")
         }
         {:ok, session} = Stripe.Checkout.Session.create(checkout_session)
         Logger.info(IO.inspect(session))
@@ -74,8 +73,7 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
 
         billing_page = Stripe.BillingPortal.Session.create(%{
             customer: customer_id,
-            # return_url: "https://www.parentcontrols.win/devices"
-            return_url: "http://localhost:4000/devices"
+            return_url: build_external_url("/devices")
         })
 
         case billing_page do
@@ -154,4 +152,10 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
         end
     end
 
+    # path MUST have a "/" before it
+    def build_external_url(path) do
+        # third arg is optional, default to production value
+        base_url = Application.get_env(:parentcontrolswin, :base_url, "https://www.parentalcontrols.win")
+        base_url <> path
+    end
 end
