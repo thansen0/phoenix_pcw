@@ -11,20 +11,5 @@
 
   <h3>Sorry but we're only accepting early-access users. Please <%= link "email us", to: ~p"/contact" %> if you'd like to learn more.</h3>
 
-  <.simple_form :let={f} for={@changeset} as={:user} action={@action} phx-update="ignore">
-    <.error :if={@changeset.action}>Oops, something went wrong! Please check the errors below.</.error>
-    <.input field={f[Pow.Ecto.Schema.user_id_field(@changeset)]} type={Pow.Ecto.Schema.user_id_field(@changeset) == :email && "email" || "text"} label={Phoenix.Naming.humanize(Pow.Ecto.Schema.user_id_field(@changeset))} required />
-    <.input field={f[:password]} type="password" label="Password" required />
-    <.input field={f[:password_confirmation]} type="password" label="Confirm password" required />
-    <.input :if={Pow.Plug.extension_enabled?(@conn, PowPersistentSession)} field={f[:persistent_session]} type="checkbox" label="Keep me logged in" checked={true} />
-
-    <.input field={f[:terms_of_service]} type="checkbox" label="I agree to the Terms of Service" checked={false} required />
-    <.input field={f[:privacy_policy]} type="checkbox" label="I agree to the Privacy Policy" checked={false} required />
-    
-    <:actions>
-      <.button phx-disable-with="Registering..." class="w-full">
-        Register <span aria-hidden="true">→</span>
-      </.button>
-    </:actions>
-  </.simple_form>
+  
 </div>

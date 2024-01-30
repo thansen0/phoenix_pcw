@@ -43,3 +43,25 @@ For production, this uses postgres, and I like interfacing with DBeaver just bec
 sudo snap install dbeaver-ce
 dbeaver-ce
 ```
+
+## Environment vairables and Gigalixir
+
+To add an environment variable to gigalixir
+
+```
+gigalixir config:set SECRET_KEY_BASE="your_secret_value" -a parentcontrolswin
+```
+
+To view
+
+```
+gigalixir config:set -a parentcontrolswin
+```
+
+And to push to gigalixir
+
+```
+git push gigalixir master
+```
+
+And their [setup guide can be helpful](https://www.gigalixir.com/docs/getting-started-guide/)
