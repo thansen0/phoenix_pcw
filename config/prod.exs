@@ -14,7 +14,7 @@ config :parentcontrolswin, ParentcontrolswinWeb.Endpoint,
       "https://www.parentcontrols.win",
       "https://parentcontrolswin.gigalixirapp.com/",
       "parentcontrols.win.gigalixirdns.com",
-      "www.parentcontrols.win.gigalixirdns.com"
+      "www.parentcontrols.win.gigalixirdns.com" # all of check_origin may be unnecessary 
   ]
   
 config :parentcontrolswin, base_url: "https://www.parentcontrols.win"
