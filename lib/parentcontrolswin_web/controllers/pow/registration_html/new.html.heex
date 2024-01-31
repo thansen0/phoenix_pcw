@@ -18,8 +18,16 @@
     <.input field={f[:password_confirmation]} type="password" label="Confirm password" required />
     <.input :if={Pow.Plug.extension_enabled?(@conn, PowPersistentSession)} field={f[:persistent_session]} type="checkbox" label="Keep me logged in" checked={true} />
 
-    <.input field={f[:terms_of_service]} type="checkbox" label="I agree to the Terms of Service" checked={false} required />
     <.input field={f[:privacy_policy]} type="checkbox" label="I agree to the Privacy Policy" checked={false} required />
+    <.input field={f[:terms_of_service]} type="checkbox" label="I agree to the Terms of Service" checked={false} required />
+
+    View our <.link navigate={~p"/privacy_policy"} class="row font-semibold text-brand hover:underline">
+      Privacy Policy
+    </.link>
+
+    View our <.link navigate={~p"/terms_of_service"} class="row font-semibold text-brand hover:underline">
+      Terms of Service
+    </.link>
     
     <:actions>
       <.button phx-disable-with="Registering..." class="w-full">

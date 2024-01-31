@@ -4,11 +4,11 @@
   </.header>
 
   <!-- probably want to remove subscribe link soon -->
-  <%= form_for @conn, ~p"/subscriptions/new", [method: :post], fn f -> %>
+  <%= form_for @conn, ~p"/subscriptions/new", [method: :post], fn _f -> %>
     <%= submit "Subscribe", class: "button" %>
   <% end %>
 
-  <%= form_for @conn, ~p"/subscriptions/manage", [method: :post], fn f -> %>
+  <%= form_for @conn, ~p"/subscriptions/manage", [method: :post], fn _f -> %>
     <%= submit "Manage Billing", class: "button" %>
   <% end %>
 

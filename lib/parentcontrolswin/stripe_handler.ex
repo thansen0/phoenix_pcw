@@ -32,15 +32,6 @@ defmodule Parentcontrolswin.StripeHandler do
     :ok
   end
 
-  # created for testing purposes
-#   @impl true
-#   def handle_event(%Stripe.Event{type: "subscription_schedule.canceled"} = event) do
-#     IO.inspect("Checkout Session Completed")
-#     IO.inspect(event)
-#     Logger.info ("inside subscription_schedule.canceled")
-#     :ok
-#   end
-
   # Return HTTP 200 for unhandled events
   @impl true
   def handle_event(_event), do: :ok

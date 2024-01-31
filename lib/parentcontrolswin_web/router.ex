@@ -39,6 +39,8 @@ defmodule ParentcontrolswinWeb.Router do
     get "/", PageController, :home
     get "/contact", PageController, :contact
     get "/install_pcw", PageController, :install_pcw
+    get "/privacy_policy", PageController, :privacy_policy
+    get "/terms_of_service", PageController, :terms_of_service
     get "/content_filter_faq", PageController, :content_filter_faq
   end
 
@@ -51,12 +53,10 @@ defmodule ParentcontrolswinWeb.Router do
     post "/device_form_action", DeviceController, :checkbox_form_submission
 
     get "/subscriptions", SubscriptionController, :index
-    # Where we handle clicks to the button
+
     post "/subscriptions/new", SubscriptionController, :new
-    # Where to send our users when they've exited the Stripe session
     get "/subscriptions/new/success", SubscriptionController, :success
     get "/subscriptions/new/cancel", SubscriptionController, :cancel
-    # The billing portal
     post "/subscriptions/manage", SubscriptionController, :edit
   end
 

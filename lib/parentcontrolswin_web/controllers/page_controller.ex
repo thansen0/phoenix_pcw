@@ -19,6 +19,14 @@ defmodule ParentcontrolswinWeb.PageController do
     render(conn, :install_pcw)
   end
 
+  def privacy_policy(conn, _params) do
+    render(conn, :privacy_policy)
+  end
+
+  def terms_of_service(conn, _params) do
+    render(conn, :terms_of_service)
+  end
+
   def downloads(conn, _params) do
     # make sure user is subscribed, otherwise send them to subscribe
     user = Pow.Plug.current_user(conn)
