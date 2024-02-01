@@ -90,7 +90,8 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
 
     # check if a customer id exists, and if so return a new one
     defp stripe_customer_id(conn, user) do
-        stripe_customer_id = user.stripe_customer_id
+        # trying to solve a caching issue with Pow
+        stripe_customer_id = get_stripe_customer_id_from_email(user.email)
 
         if stripe_customer_id in [nil, ""] do
             new_customer = %{
@@ -124,7 +125,14 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
 
             stripe_customer_id
         else
-            user.stripe_customer_id
+            if is_subscribed?(user) do
+                conn
+                |> put_flash(:info, "Our records show you are currently subscribed! Please contact us if you do not believe this is the case or if you're experiencing issues.")
+                |> redirect(to: ~p"/registration/edit")
+            else
+                # return 
+                stripe_customer_id
+            end
         end
     end
 
@@ -134,7 +142,9 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
     end
 
     # returns true if subscribed
-    def is_subscribed?(customer_id) do
+    def is_subscribed?(user) do
+        customer_id = get_stripe_customer_id_from_email(user.email)
+
         # defined here for scope
         if customer_id in [nil, ""] do
             # no customer, can't be subscribed
@@ -142,11 +152,11 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
         else
             case Stripe.Subscription.list(%{customer: customer_id, status: "active"}) do
                 {:ok, subscriptions} ->
-                    # IO.inspect(subscriptions)
+                    # IO.inspect(subscriptions.data)
                     # .data holds all of the subscriptions and metadata
                     # only [] actually matters, but just in case
                     subscriptions.data not in [nil, "", []]
-                {:error, _subscriptions} ->
+                {:error, subscriptions} ->
                     false
             end
         end
