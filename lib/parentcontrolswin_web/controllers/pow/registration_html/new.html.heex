@@ -9,7 +9,7 @@
     </:subtitle>
   </.header>
 
-  <!-- h3>Sorry but we're only accepting early-access users. Please < link "email us", to: ~p"/contact" > if you'd like to learn more.</h3 -->
+  <!-- h3>Sorry but we're only accepting early-access users. Please <%= link "email us", to: ~p"/contact" %> if you'd like to learn more.</h3 -->
 
   <.simple_form :let={f} for={@changeset} as={:user} action={@action} phx-update="ignore">
     <.error :if={@changeset.action}>Oops, something went wrong! Please check the errors below.</.error>
