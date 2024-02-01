@@ -40,8 +40,8 @@ defmodule ParentcontrolswinWeb.Router do
     get "/contact", PageController, :contact
     get "/install_pcw", PageController, :install_pcw
     get "/privacy_policy", PageController, :privacy_policy
-    get "/terms_of_service", PageController, :terms_of_service
     get "/content_filter_faq", PageController, :content_filter_faq
+    get "/downloads/terms_of_service", PageController, :terms_of_service
   end
 
   scope "/", ParentcontrolswinWeb do

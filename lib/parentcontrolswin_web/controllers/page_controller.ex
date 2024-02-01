@@ -24,7 +24,11 @@ defmodule ParentcontrolswinWeb.PageController do
   end
 
   def terms_of_service(conn, _params) do
-    render(conn, :terms_of_service)
+    file_path = Path.join(:code.priv_dir(:parentcontrolswin), "downloads/terms-of-use.pdf")
+    conn
+    |> put_resp_content_type("application/octet-stream")
+    |> put_resp_header("content-disposition", "attachment; filename=\"terms-of-use.pdf\"")
+    |> send_file(200, file_path)
   end
 
   def downloads(conn, _params) do
