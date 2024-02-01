@@ -41,7 +41,7 @@
           <%= link raw("<div class='button'>Devices</div>"), to: ~p"/devices" %>
           <%= link raw("<div class='button'>Account</div>"), to: ~p"/registration/edit" %>
 
-          <%= if !ParentcontrolswinWeb.SubscriptionController.is_subscribed?(Pow.Plug.current_user(@conn).stripe_customer_id) do %>
+          <%= if !ParentcontrolswinWeb.SubscriptionController.is_subscribed?(Pow.Plug.current_user(@conn)) do %>
             <%= link raw("<div class='button important-button'>Click to Pay and Finish Subscribing!</div>"), to: ~p"/subscriptions" %>
           <% end %>
         <% else %>

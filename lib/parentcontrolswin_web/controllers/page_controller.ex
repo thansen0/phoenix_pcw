@@ -34,7 +34,7 @@ defmodule ParentcontrolswinWeb.PageController do
   def downloads(conn, _params) do
     # make sure user is subscribed, otherwise send them to subscribe
     user = Pow.Plug.current_user(conn)
-    if !ParentcontrolswinWeb.SubscriptionController.is_subscribed?(user.stripe_customer_id) do
+    if !ParentcontrolswinWeb.SubscriptionController.is_subscribed?(user) do
       conn
       |>put_flash(:error, "You must subscribe to download the Windows client. All subscriptions have a 60 day money back guarantee")
       |>redirect(to: ~p"/subscriptions")
