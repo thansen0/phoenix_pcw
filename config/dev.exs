@@ -83,8 +83,7 @@ config :phoenix_live_view, :debug_heex_annotations, true
 # Disable swoosh api client as it is only required for production adapters.
 config :swoosh, :api_client, false
 
-# stripe prod keys for testing, move to runtime and add to env DO NOT PUSH
-# config :stripity_stripe, api_key: System.get_env("STRIPE_SECRET")
+# Stripe API keys 
 stripe_api_key = System.get_env("STRIPE_API_SECRET") ||
     raise """
     environment variable STRIPE_API_KEY is missing.

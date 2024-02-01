@@ -105,7 +105,7 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
                 {:error, stripe_customer_error} -> 
                     conn
                     |> put_flash(:error, "Error getting stripe_customer_id. Error: #{stripe_customer_error.message}")
-                    |> redirect(to: ~p"/registration/edit")
+                    |> redirect(to: ~p"/subscriptions")
                     nil
             end
 
@@ -119,7 +119,7 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
                 {:error, _changeset} -> 
                     conn
                     |> put_flash(:error, "Error setting stripe_customer_id in schema.")
-                    |> redirect(to: ~p"/registration/edit")
+                    |> redirect(to: ~p"/subscriptions")
             end
 
             stripe_customer_id
