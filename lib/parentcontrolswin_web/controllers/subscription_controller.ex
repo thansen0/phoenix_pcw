@@ -26,7 +26,7 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
         customer_id = stripe_customer_id(conn, user)
         
         # Get this from the Stripe dashboard for your product
-        price_id = "price_1ObHZ6DrVDu5S9fVokHH2Fbt" # probably should be in config file
+        price_id = "price_1OdKVXDrVDu5S9fVnSvLuwrR" # probably should be in config file
         quantity = 1
 
         Logger.info("Customer id: #{customer_id}")
