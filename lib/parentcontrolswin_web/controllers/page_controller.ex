@@ -44,10 +44,10 @@ defmodule ParentcontrolswinWeb.PageController do
   end
 
   def installer_download(conn, _params) do
-    file_path = Path.join(:code.priv_dir(:parentcontrolswin), "downloads/fake_installer.exe")
+    file_path = Path.join(:code.priv_dir(:parentcontrolswin), "downloads/ParentControlsWinSetup.exe")
     conn
     |> put_resp_content_type("application/octet-stream")
-    |> put_resp_header("content-disposition", "attachment; filename=\"fake_installer.exe\"")
+    |> put_resp_header("content-disposition", "attachment; filename=\"ParentControlsWinSetup.exe\"")
     |> send_file(200, file_path)
   end
 end
