@@ -30,16 +30,16 @@
 
     <p>To download the installer, please <%= link "click here", to: ~p"/downloads"%>.</p>
 
-    <p>Next right-click the installer and select "Run as administrator". You can then follow through the install steps until you finish. <b>If prompted, be sure to click setup for all users</b>. If you're not prompted then it will be set up automatically.</p>
+    <p>After downloading, please run the installer. You can then follow through the install steps until you finish. If prompted, be sure to click setup for all users, and make sure the app is selected to start on startup. If you're not prompted then it will be set up automatically.</p>
 
     </div>
     <div class="row full-image-wrapper">
-        <img class="six columns" src={~p"/images/1-launch-page.png"} alt="Start of setup wizard"/>
-        <img class="six columns" src={~p"/images/2-install.png"} alt="Be sure to install for all users!"/>
+        <img class="six columns" src={~p"/images/1-install.png"} alt="Start of setup wizard"/>
+        <img class="six columns" src={~p"/images/3-install.png"} alt="Be sure to start PCW on startup!"/>
     </div>
     <div class="row">
         <div class="two columns">&nbsp;</div>
-        <div class="image-caption eight columns">Be sure to install for all users if presented with the option.</div>
+        <div class="image-caption eight columns">Be sure our app starts on machine startup.</div>
         <div class="two columns"></div>
     </div>
     <div class="row content-body">
@@ -47,6 +47,20 @@
     <p>After restarting your computer, you should be prompted to log in. The ParentControlsWin app should start upon startup, and you will log in and name the device you're logging into. Additionally, select the child user account; this is the account which will be monitored.</p>
 
     <p>That's it! The app should be working. It should start on startup, and by design, the app cannot be closed. You may always <%= link "stop the app", to: "#stop_app" %>, although it will only return upon startup. Further, you may <%= link "uninstall the app", to: "#uninstall" %>.</p>
+
+    <p>You can double check to make sure the app starts on startup by visiting the startup menu, pictured below.</p>
+
+    </div>
+    <div class="row full-image-wrapper">
+        <img class="six columns" src={~p"/images/1-startup.png"} alt="Startup Apps Search"/>
+        <img class="six columns" src={~p"/images/2-startup.png"} alt="Startup App List"/>
+    </div>
+    <div class="row">
+        <div class="two columns">&nbsp;</div>
+        <div class="image-caption eight columns">You can check to make sure the device is starting on startup through the settings menu. You can see the ParentControlsWin app at the bottom of the list.</div>
+        <div class="two columns"></div>
+    </div>
+    <div class="row content-body">
 
     <h4 id="uninstall" style="margin-top: 5%">Uninstall instructions</h4>
 
