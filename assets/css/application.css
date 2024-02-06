@@ -111,3 +111,8 @@ textarea:focus, input:focus {
 input {
     margin-bottom: 1.5rem;
 }
+
+/* for how-to link titles */
+.underline {
+    text-decoration: underline;
+}
