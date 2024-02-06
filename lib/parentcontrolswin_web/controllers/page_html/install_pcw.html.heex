@@ -30,6 +30,7 @@
         <div class="image-caption eight columns">Images from a Windows 10 computer, although the process should be similar on Windows 11.</div>
         <div class="two columns"></div>
     </div>
+
 <div class="row">
 
     <p>From here you will have to follow the setup instructions, which will require creating an outlook account for your child.</p>
@@ -38,9 +39,12 @@
 
     <p>To download the installer, please <%= link "click here", to: ~p"/downloads"%>.</p>
 
-    <p>After downloading, please run the installer. You can then follow through the install steps until you finish. If prompted, be sure to click setup for all users, and make sure the app is selected to start on startup. If you're not prompted then it will be set up automatically.</p>
+    <p>You now have two choices for installation; install the app across all Windows Accounts, or just on one. On setup of the app, you will select which user accounts you want to monitor, so generally we recommend installing for all Windows Accounts and then selecting your child's account to monitor. You may, however, log onto the Window's Account for your child and install it on that account only. The only difference is you may see the app pop up on startup for your account if you install across all Windows Accounts.</p>
+
+    <p>After downloading, please run the installer. We recommend installing for all users, and make sure the app is selected to start on startup. If you're not prompted it should be selected automatically.</p>
 
 </div>
+
     <div class="row full-image-wrapper">
         <img class="six columns" src={~p"/images/1-install.png"} alt="Start of setup wizard"/>
         <img class="six columns" src={~p"/images/3-install.png"} alt="Be sure to start PCW on startup!"/>
@@ -52,7 +56,7 @@
     </div>
 <div class="row content-body">
 
-    <p>Now when you open the app (or restart your computer), you should be prompted to log in. The ParentControlsWin app should start upon startup, and your credentials will be saved for future reboots. Upon first login, you will name the device and select which accounts you want monitored. To change this information you must uninstall and reinstall the app.</p>
+    <p>Now when you open the app (or restart your computer), you will be prompted to log in. To close without logging in you must <%= link "stop it with the task manager", to: ~p"/install_pcw#stop-app" %>. The ParentControlsWin app should start upon startup, and your credentials will be saved for future reboots. Upon first login, you will name the device and select which accounts you want monitored. To change this information you must uninstall and reinstall the app.</p>
 
 </div>
     <div class="row full-image-wrapper">
@@ -61,7 +65,7 @@
     </div>
     <div class="row">
         <div class="two columns">&nbsp;</div>
-        <div class="image-caption eight columns">Your child will have the ability to restart the connection if they encounter issues by clicking reconnect.</div>
+        <div class="image-caption eight columns">Your child will have the ability to restart the connection if they encounter network issues by clicking reconnect.</div>
         <div class="two columns"></div>
     </div>
 <div class="row content-body">
