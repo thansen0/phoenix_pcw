@@ -156,7 +156,7 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
                     # .data holds all of the subscriptions and metadata
                     # only [] actually matters, but just in case
                     subscriptions.data not in [nil, "", []]
-                {:error, subscriptions} ->
+                {:error, _subscriptions} ->
                     false
             end
         end
