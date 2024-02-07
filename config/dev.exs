@@ -99,3 +99,12 @@ stripe_webhook_key = System.get_env("STRIPE_WEBHOOK_SIGNING_SECRET") ||
 config :stripity_stripe,
   api_key: stripe_api_key,
   signing_secret: stripe_webhook_key
+
+# recaptcha API key
+recaptcha_key_id = System.get_env("RECAPTCHA_KEY_ID") ||
+    raise """
+    environment variable RECAPTCHA_KEY_ID is missing.
+    """
+
+config :recaptcha,
+  public_key: recaptcha_key_id

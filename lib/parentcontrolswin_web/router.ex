@@ -31,6 +31,8 @@ defmodule ParentcontrolswinWeb.Router do
 
     pow_routes()
     pow_extension_routes()
+    
+    post "/registration", RegistrationController, :create
   end
 
   scope "/", ParentcontrolswinWeb do

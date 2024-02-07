@@ -19,7 +19,7 @@ defmodule Parentcontrolswin.MixProject do
   def application do
     [
       mod: {Parentcontrolswin.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :recaptcha]
     ]
   end
 
@@ -52,7 +52,8 @@ defmodule Parentcontrolswin.MixProject do
       {:dns_cluster, "~> 0.1.1"},
       {:plug_cowboy, "~> 2.5"},
       {:pow, "~> 1.0.34"},
-      {:stripity_stripe, "~> 3.1.1"}
+      {:stripity_stripe, "~> 3.1.1"},
+      {:recaptcha, "~> 3.0"}
     ]
   end
 
