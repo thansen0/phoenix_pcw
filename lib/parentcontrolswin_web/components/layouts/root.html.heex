@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
-    <.live_title suffix="">
+    <.live_title suffix=" - PCW">
       <%= assigns[:page_title] || "ParentControls.Win" %>
     </.live_title>
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
@@ -23,14 +23,6 @@
       </script>
     <% end %>
 
-    <!-- MailerLite -->
-    <script>
-      (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
-      .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
-      n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
-      (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
-      ml('account', '506588');
-    </script>
   </head>
   <body>
     <div class="container">
@@ -42,7 +34,7 @@
           <%= link raw("<div class='button'>Account</div>"), to: ~p"/registration/edit" %>
           <%= link raw("<div class='button'>Setup/Install</div>"), to: ~p"/install_pcw" %>
           <%= if !ParentcontrolswinWeb.SubscriptionController.is_subscribed?(Pow.Plug.current_user(@conn)) do %>
-            <%= link raw("<div class='button important-button'>Click to Pay and Finish Subscribing!</div>"), to: ~p"/subscriptions" %>
+            <%= link raw("<div class='button alert-button'>Click to Pay and Finish Subscribing!</div>"), to: ~p"/subscriptions" %>
           <% end %>
 
         <% else %>

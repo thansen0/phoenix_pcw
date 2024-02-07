@@ -98,4 +98,6 @@ stripe_webhook_key = System.get_env("STRIPE_WEBHOOK_SIGNING_SECRET") ||
 
 config :stripity_stripe,
   api_key: stripe_api_key,
-  signing_secret: stripe_webhook_key
+  signing_secret: stripe_webhook_key,
+  stripe_price_id: "price_1OdKVXDrVDu5S9fVnSvLuwrR",
+  stripe_coupon_id: "FMU13zgJ"

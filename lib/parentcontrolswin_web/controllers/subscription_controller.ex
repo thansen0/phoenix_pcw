@@ -16,7 +16,7 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
 
     def cancel(conn, _params) do
         conn
-        |> put_flash(:info, "Your attempt to subscribe was canceled; are not subscribed.")
+        |> put_flash(:error, "Your attempt to subscribe was canceled; are not subscribed.")
         |> redirect(to: ~p"/subscriptions")
     end
 
@@ -26,10 +26,13 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
         customer_id = stripe_customer_id(conn, user)
         
         # Get this from the Stripe dashboard for your product
-        price_id = "price_1OXDVSDrVDu5S9fV6QUkQxjj" # probably should be in config file
+        #price_id = "price_1OXDVSDrVDu5S9fV6QUkQxjj" # probably should be in config file
+        #price_id = "price_1OdKVXDrVDu5S9fVnSvLuwrR" # testing only!!!
+        price_id = Application.get_env(:stripity_stripe, :stripe_price_id)
+        coupon_id = Application.get_env(:stripity_stripe, :stripe_coupon_id)
         quantity = 1
 
-        Logger.info("Customer id: #{customer_id}")
+        # Logger.info("Customer id: #{customer_id}")
         # should never be empty after stripe_customer_id
         if customer_id in [nil, ""] do
             conn
@@ -40,16 +43,28 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
         checkout_session = %{
             payment_method_types: ["card"],
             customer: customer_id,
+            mode: "subscription",
+            discounts: [%{
+                coupon: coupon_id
+            }],
             line_items: [%{
                 price: price_id,
                 quantity: quantity
             }],
-            mode: "subscription",
             success_url: build_external_url("/subscriptions/new/success"),
             cancel_url: build_external_url("/subscriptions/new/cancel")
         }
-        {:ok, session} = Stripe.Checkout.Session.create(checkout_session)
-        Logger.info(IO.inspect(session))
+        
+        session = case Stripe.Checkout.Session.create(checkout_session) do
+            {:ok, session} ->
+                session
+            {:error, stripe_error} ->
+                conn
+                |> put_flash(:error, "Something went bringing you to checkout; #{stripe_error.message}")
+                |> redirect(to: ~p"/subscriptions")
+        end
+
+        # Logger.info(IO.inspect(session))
         redirect(conn, external: session.url)
 
         case Stripe.Checkout.Session.create(checkout_session) do
@@ -150,12 +165,17 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
             # no customer, can't be subscribed
             false
         else
-            case Stripe.Subscription.list(%{customer: customer_id, status: "active"}) do
+            # case Stripe.Subscription.list(%{customer: customer_id, status: "active"}) do
+            case Stripe.Subscription.list(%{customer: customer_id}) do
                 {:ok, subscriptions} ->
-                    # IO.inspect(subscriptions.data)
+
+                    Enum.any?(subscriptions.data, fn subscription ->
+                        subscription.status == "active" || subscription.status == "trialing"
+                    end)
+
                     # .data holds all of the subscriptions and metadata
                     # only [] actually matters, but just in case
-                    subscriptions.data not in [nil, "", []]
+                    # subscriptions.data not in [nil, "", []]
                 {:error, _subscriptions} ->
                     false
             end

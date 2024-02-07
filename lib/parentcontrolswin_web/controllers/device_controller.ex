@@ -10,11 +10,10 @@ defmodule ParentcontrolswinWeb.DeviceController do
     user = Pow.Plug.current_user(conn)
     if !ParentcontrolswinWeb.SubscriptionController.is_subscribed?(user) do
       conn
-      |>put_flash(:error, "You must subscribe to view your devices. All subscriptions have a 60 day money back guarantee!")
+      |>put_flash(:error, "You must subscribe to view your devices. All subscriptions have a 30 day money back guarantee!")
       |>redirect(to: ~p"/subscriptions")
     end
 
-    # checkbox_form_action = Routes.device_form_action_path(conn, :checkbox_form_submission) # Routes doesn't work
     csrf_token = Plug.CSRFProtection.get_csrf_token()
     checkbox_form_action = ~p"/device_form_action"
 
@@ -55,6 +54,7 @@ defmodule ParentcontrolswinWeb.DeviceController do
     user = Pow.Plug.current_user(conn)
     device = Devices.get_device!(id)
     conn
+    |> assign(:page_title, "Viewing Device")
     |> render(:show, device: device, user: user)
   end
 

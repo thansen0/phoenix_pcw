@@ -8,19 +8,19 @@ defmodule ParentcontrolswinWeb.PageController do
   end
 
   def contact(conn, _params) do
-    render(conn, :contact)
+    render(conn, :contact, page_title: "Contact")
   end
 
   def content_filter_faq(conn, _params) do
-    render(conn, :content_filter_faq)
+    render(conn, :content_filter_faq, page_title: "Content Filter FAQ's")
   end
 
   def install_pcw(conn, _params) do
-    render(conn, :install_pcw)
+    render(conn, :install_pcw, page_title: "Install")
   end
 
   def privacy_policy(conn, _params) do
-    render(conn, :privacy_policy)
+    render(conn, :privacy_policy, page_title: "Privacy Policy")
   end
 
   def terms_of_service(conn, _params) do
@@ -36,7 +36,8 @@ defmodule ParentcontrolswinWeb.PageController do
     user = Pow.Plug.current_user(conn)
     if !ParentcontrolswinWeb.SubscriptionController.is_subscribed?(user) do
       conn
-      |>put_flash(:error, "You must subscribe to download the Windows client. All subscriptions have a 60 day money back guarantee")
+      |>put_flash(:error, "You must subscribe to download the Windows client. All subscriptions have a 30 day money back guarantee")
+      |> assign(:page_title, "Downloads")
       |>redirect(to: ~p"/subscriptions")
     else
       render(conn, :downloads)

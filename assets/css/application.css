@@ -87,6 +87,16 @@ textarea:focus, input:focus {
     padding: 2rem;
 }
 
+.alert-button {
+    background-color: #C6878F;
+    color: #FFF;
+}
+.alert-button:hover {
+    background-color: #b4747d;
+    color: #FFF;
+    border-color: #fff;
+}
+
 /* .alert-success {
     color: #F2EFEA;
 }
@@ -116,3 +126,24 @@ input {
 .underline {
     text-decoration: underline;
 }
+
+/* Footer classes */
+
+.footer ul {
+    display: flex; /* Use flexbox to evenly space the links */
+    justify-content: space-between; /* Space them evenly */
+    padding: 10px; /* Add some padding for spacing */
+    margin: 0;
+    padding: 0;
+}
+
+.footer li {
+    list-style: none; /* Remove bullet points */
+}
+
+.footer a {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Set link color */
+    font-size: 2rem;
+}
+
