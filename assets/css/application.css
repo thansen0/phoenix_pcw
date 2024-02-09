@@ -127,6 +127,17 @@ input {
     text-decoration: underline;
 }
 
+.columns-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+  
+.center-align {
+    text-align: center; /* Horizontally center the content */
+}
+
 /* Footer classes */
 
 .footer ul {
