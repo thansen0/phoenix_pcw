@@ -13,11 +13,11 @@
   <div class="twelve columns columns-container">
     <%= if Pow.Plug.current_user(@conn) do %>
       <%= if !ParentcontrolswinWeb.SubscriptionController.is_subscribed?(Pow.Plug.current_user(@conn)) do %>
-        <%= link raw("<div class='button alert-button'>Click to Pay and Finish Subscribing!</div>"), to: ~p"/subscriptions" %>
+        <%= link raw("<div class='button button-primary'>Click to Pay and Finish Subscribing!</div>"), to: ~p"/subscriptions" %>
       <% end %>
 
     <% else %>
-      <%= link raw("<div class='button center-align'>Sign Up Now!</div>"), to: ~p"/registration/new" %>
+      <%= link raw("<div class='button center-align button-primary'>Sign Up Now!</div>"), to: ~p"/registration/new" %>
     <% end %>
   </div>
 </div>

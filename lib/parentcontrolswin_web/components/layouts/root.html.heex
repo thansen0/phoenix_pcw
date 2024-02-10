@@ -12,6 +12,8 @@
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
 
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
     <%= if Mix.env() == :prod do %>
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-9D0WE4JFGQ"></script>
       <script>
@@ -34,12 +36,12 @@
           <%= link raw("<div class='button'>Account</div>"), to: ~p"/registration/edit" %>
           <%= link raw("<div class='button'>Setup/Install</div>"), to: ~p"/install_pcw" %>
           <%= if !ParentcontrolswinWeb.SubscriptionController.is_subscribed?(Pow.Plug.current_user(@conn)) do %>
-            <%= link raw("<div class='button alert-button'>Click to Pay and Finish Subscribing!</div>"), to: ~p"/subscriptions" %>
+            <%= link raw("<div class='button button-primary'>Click to Pay and Finish Subscribing!</div>"), to: ~p"/subscriptions" %>
           <% end %>
 
         <% else %>
-          <%= link raw("<div class='button'>Sign in</div>"), to: ~p"/session/new" %>
-          <%= link raw("<div class='button'>Sign up</div>"), to: ~p"/registration/new" %>
+          <%= link raw("<div class='button button-primary'>Sign in</div>"), to: ~p"/session/new" %>
+          <%= link raw("<div class='button button-primary'>Sign up</div>"), to: ~p"/registration/new" %>
         <% end %>
       </div>
 
