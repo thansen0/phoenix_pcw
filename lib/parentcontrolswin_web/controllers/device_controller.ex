@@ -1,6 +1,7 @@
 defmodule ParentcontrolswinWeb.DeviceController do
   use ParentcontrolswinWeb, :controller
   import Ecto.Query, only: [from: 2]
+  require Logger
 
   alias Parentcontrolswin.Devices
   alias Parentcontrolswin.Devices.Device
@@ -17,8 +18,11 @@ defmodule ParentcontrolswinWeb.DeviceController do
     csrf_token = Plug.CSRFProtection.get_csrf_token()
     checkbox_form_action = ~p"/device_form_action"
 
-    content_filters = String.split(user.content_filters, ",")
+    updated_cache_content_filters = Parentcontrolswin.Repo.get_by(Parentcontrolswin.Users.User, email: user.email).content_filters
+    content_filters = String.split(updated_cache_content_filters, ",")
     devices = Parentcontrolswin.Repo.all(from d in Device, where: d.user_id == ^user.id, order_by: [desc: d.inserted_at])
+
+    Logger.info("filters #{content_filters}")
 
     render(conn, :index, 
         devices: devices, 
@@ -90,7 +94,7 @@ defmodule ParentcontrolswinWeb.DeviceController do
   # custom controller methods
   def checkbox_form_submission(conn, params) do
     user = Pow.Plug.current_user(conn)
-    checkbox_fields = [:nsfw, :trans, :lgbt]
+    checkbox_fields = [:nsfw, :trans, :lgbt, :genai]
 
     # Filtering and joining checked options
     checked_options = 
