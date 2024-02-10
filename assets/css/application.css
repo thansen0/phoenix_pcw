@@ -81,13 +81,25 @@ textarea:focus, input:focus {
 
 
 /* Alerts */
-/*
 .alert {
     text-align: center;
-    font-size: 2rem;
-    padding: 2rem;
+    border: 4px;
+    border-style: solid;
+    border-color: #33C3F0;
+    font-weight: bold;
+    border-radius: 10px;
+    padding-top: 1.5rem;
+    padding-bottom: 0.5rem;
+    padding-right: 2.5rem;
+    padding-left: 2.5rem;
+    margin-bottom: 1.5rem;
+    text-decoration: none;
 }
 
+.alert:hover {
+    border-color: #1EAEDB;
+}
+/*
 .alert-button {
     background-color: #C6878F;
     color: #FFF;

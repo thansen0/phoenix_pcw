@@ -70,25 +70,42 @@
     </div>
 <div class="row content-body">
 
-    <p>That's it! The app should be working. It should start on startup, and by design, the app cannot be closed. You may always <%= link "stop the app", to: "#stop_app" %>, although it will only return upon startup. Further, you may <%= link "uninstall the app", to: "#uninstall" %>.</p>
+    <p>That's it! The app should be working. It should start on startup, and by design, the app cannot easily be closed. You may always <%= link "stop the app", to: "#stop_app" %>, and it will return upon startup. Further, you may <%= link "uninstall the app", to: "#uninstall" %>.</p>
 
-    <p>You can double check to make sure the app starts on startup by visiting the startup menu, pictured below.</p>
+    <p>You should double check to make sure the app starts on startup by visiting the "task scheduler" in the menu and viewing the task, as shown below. We have seen some instances of Windows 11 blocking the task creation.</p>
 
 </div>
     <div class="row full-image-wrapper">
-        <img class="six columns" src={~p"/images/1-startup.png"} alt="Startup Apps Search"/>
-        <img class="six columns" src={~p"/images/2-startup.png"} alt="Startup App List"/>
+        <img class="twelve columns" src={~p"/images/1-task.png"} alt="Startup Task"/>
     </div>
     <div class="row">
         <div class="two columns">&nbsp;</div>
-        <div class="image-caption eight columns">You can check to make sure the device is starting on startup through the settings menu. You can see the ParentControlsWin app at the bottom of the list.</div>
+        <div class="image-caption eight columns">You can check to make sure the device is starting on startup through the settings menu in the Task Scheduler, or by restarting your computer and having your child log into their account.</div>
         <div class="two columns"></div>
     </div>
 <div class="row content-body">
 
+    <p>If you don't see the task, you will need to make it yourself. Click "create task", and then fill out the options as you see in the photos below. Don't worry, so long as it's named ParentControlsWin, this task will be deleted upon uninstall.</p>
+
+</div>
+    <div class="row full-image-wrapper">
+        <img class="six columns" src={~p"/images/2-task.png"} alt="Startup Task"/>
+        <img class="six columns" src={~p"/images/3-task.png"} alt="Startup Task"/>
+    </div>
+    <div class="row full-image-wrapper">
+        <img class="six columns" src={~p"/images/4-task.png"} alt="Startup Task"/>
+        <img class="six columns" src={~p"/images/5-task.png"} alt="Startup Task"/>
+    </div>
+    <div class="row">
+        <div class="two columns">&nbsp;</div>
+        <div class="image-caption eight columns">If you don't see the task scheduler, you will need to create one named "ParentControlsWin", as shown in the images. Don't be afraid to reach out if you're having issues, as this isn't a normal part of the install experience.</div>
+        <div class="two columns"></div>
+    </div>
+<div class="row content-body">
+    
     <h4 id="uninstall" class="underline" style="margin-top: 5%">Uninstall instructions</h4>
 
-    <b>You may uninstall our app through the default Windows uninstall process.</b>
+    <p><b>You may uninstall our app through the default Windows uninstall process.</b> This will also uninstall any Tasks created or modified using the ParentControlsWin name, and any custom configuration files.</p>
 
     <p>Using the search functionality on your Windows Taskbar, search for "uninstall", and open "Add or remove programs". Alternatively, you may open the System Settings and select "Add or remove programs".</p>
 
