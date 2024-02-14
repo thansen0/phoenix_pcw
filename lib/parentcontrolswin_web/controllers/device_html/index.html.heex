@@ -27,6 +27,10 @@
       <input type="checkbox" name="genai" value="genai" checked={ if "genai" in @content_filters, do: true, else: false}>
       Generative AI (such as replica.ai or chatGPT)
     </label>
+    <label>
+      <input type="checkbox" name="atheism" value="atheism" checked={ if "atheism" in @content_filters, do: true, else: false}>
+      Pro-atheist groups (such as r/atheism, a top reddit sub with 2.8 million subscribers)
+    </label>
   </fieldset>
   <input type="hidden" name="_csrf_token" value={@csrf_token} />
   <button type="submit">Submit Options</button>

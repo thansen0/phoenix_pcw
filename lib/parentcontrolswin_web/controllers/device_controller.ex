@@ -22,7 +22,7 @@ defmodule ParentcontrolswinWeb.DeviceController do
     content_filters = String.split(updated_cache_content_filters, ",")
     devices = Parentcontrolswin.Repo.all(from d in Device, where: d.user_id == ^user.id, order_by: [desc: d.inserted_at])
 
-    Logger.info("filters #{content_filters}")
+    #Logger.info("filters #{content_filters}")
 
     render(conn, :index, 
         devices: devices, 
@@ -94,7 +94,7 @@ defmodule ParentcontrolswinWeb.DeviceController do
   # custom controller methods
   def checkbox_form_submission(conn, params) do
     user = Pow.Plug.current_user(conn)
-    checkbox_fields = [:nsfw, :trans, :lgbt, :genai]
+    checkbox_fields = [:nsfw, :trans, :lgbt, :genai, :atheism]
 
     # Filtering and joining checked options
     checked_options = 

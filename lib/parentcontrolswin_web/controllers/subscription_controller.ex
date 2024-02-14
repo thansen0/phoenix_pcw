@@ -26,8 +26,6 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
         customer_id = stripe_customer_id(conn, user)
         
         # Get this from the Stripe dashboard for your product
-        #price_id = "price_1OXDVSDrVDu5S9fV6QUkQxjj" # probably should be in config file
-        #price_id = "price_1OdKVXDrVDu5S9fVnSvLuwrR" # testing only!!!
         price_id = Application.get_env(:stripity_stripe, :stripe_price_id)
         coupon_id = Application.get_env(:stripity_stripe, :stripe_coupon_id)
         quantity = 1
