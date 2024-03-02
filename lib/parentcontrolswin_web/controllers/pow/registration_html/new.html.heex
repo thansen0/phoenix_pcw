@@ -8,8 +8,10 @@
       </.link> now.
     </:subtitle>
   </.header>
+
+  <h4>We're pausing new signups for now while we improve our servers and add features, but if you're interested in signin up don't be afraid to <.link navigate={~p"/contact"} class="row font-semibold text-brand hover:underline" target="_blank">email us!</.link></h4>
   
-  <.simple_form :let={f} for={@changeset} as={:user} action={@action} phx-update="ignore">
+<!--  <.simple_form :let={f} for={@changeset} as={:user} action={@action} phx-update="ignore">
     <.error :if={@changeset.action}>Oops, something went wrong! Please check the errors below.</.error>
     <.input field={f[Pow.Ecto.Schema.user_id_field(@changeset)]} type={Pow.Ecto.Schema.user_id_field(@changeset) == :email && "email" || "text"} label={Phoenix.Naming.humanize(Pow.Ecto.Schema.user_id_field(@changeset))} required />
     <.input field={f[:password]} type="password" label="Password" required />
@@ -32,7 +34,7 @@
         Register <span aria-hidden="true">→</span>
       </.button>
     </:actions>
-  </.simple_form>
+  </.simple_form> -->
 
   <p>ParentControls.Win is currently only available for US customers.</p>
 </div>
