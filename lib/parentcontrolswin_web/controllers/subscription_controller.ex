@@ -126,10 +126,9 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
             # create changeset for user
             changeset = Parentcontrolswin.Users.User.update_stripe_customer_id_changeset(user, %{stripe_customer_id: stripe_customer_id})
             case Parentcontrolswin.Repo.update(changeset) do
-                {:ok, updated_user} -> 
-                    IO.inspect(updated_user)
-                    # Pow.Plug.update_user(conn, updated_user)
-                    # Handle success, maybe return the updated user or a success message
+                {:ok, _updated_user} ->
+                    conn
+                    # IO.inspect(updated_user)
                 {:error, _changeset} -> 
                     conn
                     |> put_flash(:error, "Error setting stripe_customer_id in schema.")
