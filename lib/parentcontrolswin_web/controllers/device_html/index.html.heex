@@ -16,6 +16,22 @@
       Porn/Sexual Content
     </label>
     <label>
+      <input type="checkbox" name="drug" value="drug" checked={ if "drug" in @content_filters, do: true, else: false}>
+      Drug Related Content
+    </label>
+    <label>
+      <input type="checkbox" name="tobacco" value="tobacco" checked={ if "tobacco" in @content_filters, do: true, else: false}>
+      Tobacco Related Content
+    </label>
+    <label>
+      <input type="checkbox" name="weed" value="weed" checked={ if "weed" in @content_filters, do: true, else: false}>
+      Weed Related Content
+    </label>
+    <label>
+      <input type="checkbox" name="alcohol" value="alcohol" checked={ if "alcohol" in @content_filters, do: true, else: false}>
+      Alcohol Related Content
+    </label>
+    <label>
       <input type="checkbox" name="trans" value="trans" checked={ if "trans" in @content_filters, do: true, else: false}>
       Pro-Trans Content
     </label>
