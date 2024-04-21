@@ -47,6 +47,14 @@
       <input type="checkbox" name="atheism" value="atheism" checked={ if "atheism" in @content_filters, do: true, else: false}>
       Pro-atheist groups
     </label>
+    <label>
+      <input type="checkbox" name="antiwork" value="antiwork" checked={ if "antiwork" in @content_filters, do: true, else: false}>
+      Antiwork groups
+    </label>
+    <label>
+      <input type="checkbox" name="antiparent" value="antiparent" checked={ if "antiparent" in @content_filters, do: true, else: false}>
+      Antiparent groups
+    </label>
   </fieldset>
   <input type="hidden" name="_csrf_token" value={@csrf_token} />
   <button type="submit" class="button-primary">Submit Options</button>

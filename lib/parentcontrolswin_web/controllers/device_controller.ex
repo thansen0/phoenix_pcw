@@ -94,7 +94,7 @@ defmodule ParentcontrolswinWeb.DeviceController do
   # custom controller methods
   def checkbox_form_submission(conn, params) do
     user = Pow.Plug.current_user(conn)
-    checkbox_fields = [:nsfw, :trans, :lgbt, :genai, :atheism, :drug, :weed, :alcohol, :tobacco]
+    checkbox_fields = [:nsfw, :trans, :lgbt, :genai, :atheism, :drug, :weed, :alcohol, :tobacco, :antiwork, :antiparent]
 
     # Filtering and joining checked options
     checked_options = 
@@ -107,7 +107,7 @@ defmodule ParentcontrolswinWeb.DeviceController do
     case Parentcontrolswin.Repo.update(changeset) do
       {:ok, _user} ->
         conn
-        |> put_flash(:info, "Filter successfully updated to #{checked_options}.")
+        |> put_flash(:info, "Filter successfully updated.") #  to #{checked_options}
         |> redirect(to: ~p"/devices")
       {:error, nil} ->
         conn
