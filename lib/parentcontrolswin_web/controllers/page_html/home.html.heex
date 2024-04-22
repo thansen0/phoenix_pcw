@@ -1,16 +1,14 @@
-<div class="row">
-  <div class="twelve columns" style="margin-top: 5%">
+<div role="document" id="content">
+  <section class="twelve columns">
       <h1>What we're building</h1>
 
       <p>A new kind of Parental Control App, aimed at not only regulating adult material, but your child's internet experience through generative AI.</p>
 
       <p>We've launched into early access! Get 80% off for the first two months! Coupon automatically applied upon checkout; this will only be available while we're in Beta/early access.</p>
+      div
+  </section>
 
-  </div>
-</div>
-
-<div class="row">
-  <div class="twelve columns columns-container">
+  <section class="twelve columns columns-container">
     <%= if Pow.Plug.current_user(@conn) do %>
       <%= if !ParentcontrolswinWeb.SubscriptionController.is_subscribed?(Pow.Plug.current_user(@conn)) do %>
         <%= link raw("<div class='button button-primary'>Click to Pay and Finish Subscribing!</div>"), to: ~p"/subscriptions" %>
@@ -19,19 +17,15 @@
     <% else %>
       <%= link raw("<div class='button center-align button-primary'>Sign Up Now!</div>"), to: ~p"/registration/new" %>
     <% end %>
-  </div>
-</div>
+  </section>
 
-<div class="row">
-  <div class="twelve columns" style="margin-top: 5%">
+  <section class="twelve columns">
     <h1 id="pricing">Pricing</h1>
 
     <p>The service is <b>$20</b> a month, with the first 30 days being fully refundable.</p>
-  </div>
-</div>
+  </section>
 
-<div class="row">
-  <div class="twelve columns" style="margin-top: 5%">
+  <section class="twelve columns">
       <h1>Why We Need Better Parental Control Apps</h1>
 
       <p>The internet has changed, and current child monitoring apps haven't 
@@ -41,11 +35,9 @@
 
       <p>Our product focuses on protecting your children from influencers, forms, and communities you deem harmful. Our <%= link "custom filter options", to: ~p"/content_filter_faq" %> are limited but growing while we're in early access. We are a small team and appreciate feature requests! Don't be afraid to <%= link "email us", to: ~p"/contact" %>!</p>
 
-  </div>
-</div>
+  </section>
 
-<div class="row">
-  <div class="twelve columns" style="margin-top: 5%">
+  <section class="twelve columns">
       <h1>Why We Need Better Parental Control Apps: Old vs New</h1>
 
       <div class="image-container">
@@ -57,5 +49,5 @@
           <li>Better battery life for your child</li>
           <li>Better anonymity through an integrated Wireguard VPN</li>
       </ul>
-  </div>
+  </section>
 </div>

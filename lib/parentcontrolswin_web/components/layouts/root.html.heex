@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="[scrollbar-gutter:stable]">
+<html lang="en" class="[scrollbar-gutter:stable]" data-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -27,37 +27,49 @@
 
   </head>
   <body>
-    <div class="container">
-      <div class="row" style="margin-top: 3rem;">
-        <%= if Pow.Plug.current_user(@conn) do %>
-          <!-- sign out and settings -->
-          <%= link raw("<div class='button'>Sign out</div>"), to: ~p"/session", method: :delete  %>
-          <%= link raw("<div class='button'>Devices</div>"), to: ~p"/devices" %>
-          <%= link raw("<div class='button'>Account</div>"), to: ~p"/registration/edit" %>
-          <%= link raw("<div class='button button-primary'>Setup/Install</div>"), to: ~p"/install_pcw" %>
-          <%= if !ParentcontrolswinWeb.SubscriptionController.is_subscribed?(Pow.Plug.current_user(@conn)) do %>
-            <%= link raw("<div class='button button-primary'>Click to Pay and Finish Subscribing!</div>"), to: ~p"/subscriptions" %>
-          <% end %>
+    <header class="container">
+      <nav class="row">
+        <ul>
+          <li><strong>ParentControls.Win</strong></li>
+        </ul>
+        <ul>
+          <%= if Pow.Plug.current_user(@conn) do %>
+            <!-- sign out and settings -->
+            <%= link raw("<li class='button'>Sign out</li>"), to: ~p"/session", class: "contrast", method: :delete  %>
+            <%= link raw("<li class='button'>Devices</li>"), to: ~p"/devices", class: "contrast" %>
+            <%= link raw("<li class='button'>Account</li>"), to: ~p"/registration/edit", class: "contrast" %>
+            <%= link raw("<li class='button button-primary'>Setup/Install</li>"), to: ~p"/install_pcw", class: "contrast" %>
+            <%= if !ParentcontrolswinWeb.SubscriptionController.is_subscribed?(Pow.Plug.current_user(@conn)) do %>
+              <%= link raw("<li class='button button-primary'>Click to Pay and Finish Subscribing!</li>"), to: ~p"/subscriptions", class: "contrast" %>
+            <% end %>
 
-        <% else %>
-          <%= link raw("<div class='button button-primary'>Sign in</div>"), to: ~p"/session/new" %>
-          <%= link raw("<div class='button button-primary'>Sign up</div>"), to: ~p"/registration/new" %>
+          <% else %>
+            <%= link raw("<li class='button button-primary'>Sign in</li>"), class: "contrast", to: ~p"/session/new" %>
+            <%= link raw("<li class='button button-primary'>Sign up</li>"), class: "contrast", to: ~p"/registration/new" %>
+          <% end %>
+        </ul>
+      </nav>
+      <hr/>
+    </header>
+
+    
+    <main class="container">
+      <%= @inner_content %>
+    </main>
+
+    <footer class="container">
+      <div class="grid">
+        <%= link to: ~p"/", class: "contrast" do %>
+          <div role="button" type="button" class="outline contrast">Home</div>
+        <% end %>
+        <%= link to: ~p"/install_pcw", class: "contrast" do %>
+          <div role="button" type="button" class="outline contrast">Setup</div>
+        <% end %>
+        <%= link to: ~p"/contact", class: "contrast" do %>
+          <div role="button" type="button" class="outline contrast">Contact</div>
         <% end %>
       </div>
-
-      <hr/>
-      <%= @inner_content %>
-      <hr/>
-
-      <div class="row">
-        <div class="twelve columns footer">
-          <ul>
-            <li><%= link "Home", to: ~p"/" %></li>
-            <li><%= link "Setup", to: ~p"/install_pcw" %></li>
-            <li><%= link "Contact", to: ~p"/contact" %></li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    </footer>
+    
   </body>
 </html>
