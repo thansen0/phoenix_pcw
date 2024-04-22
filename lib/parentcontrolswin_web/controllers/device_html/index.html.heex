@@ -53,7 +53,11 @@
     </label>
     <label>
       <input type="checkbox" name="antiparent" value="antiparent" checked={ if "antiparent" in @content_filters, do: true, else: false}>
-      Antiparent groups
+      Anti-parent groups
+    </label>
+    <label>
+      <input type="checkbox" name="shortvideo" value="shortvideo" checked={ if "shortvideo" in @content_filters, do: true, else: false}>
+      Short-form video (i.e. TikTok)
     </label>
   </fieldset>
   <input type="hidden" name="_csrf_token" value={@csrf_token} />
