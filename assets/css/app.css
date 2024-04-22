@@ -4,6 +4,12 @@
 
 /* This file is for your main application CSS */
 
-@import "./normalize.css";
-@import "./skeleton.css";
-@import "./application.css";
+@import "./pico.min.css";
+
+.center {
+    text-align: center;
+}
+
+section + section {
+    margin-top: 3rem;
+}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="[scrollbar-gutter:stable]" data-theme="light">
+<html lang="en" class="[scrollbar-gutter:stable]">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -47,6 +47,16 @@
             <%= link raw("<li class='button button-primary'>Sign in</li>"), class: "contrast", to: ~p"/session/new" %>
             <%= link raw("<li class='button button-primary'>Sign up</li>"), class: "contrast", to: ~p"/registration/new" %>
           <% end %>
+          <li>
+            <details class="dropdown">
+              <summary role="button" class="secondary">Theme</summary>
+              <ul>
+                <li><a href="#" data-theme-switcher="auto">Auto</a></li>
+                <li><a href="#" data-theme-switcher="light">Light</a></li>
+                <li><a href="#" data-theme-switcher="dark">Dark</a></li>
+              </ul>
+            </details>
+          </li>
         </ul>
       </nav>
       <hr/>
@@ -58,6 +68,7 @@
     </main>
 
     <footer class="container">
+      <hr/>
       <div class="grid">
         <%= link to: ~p"/", class: "contrast" do %>
           <div role="button" type="button" class="outline contrast">Home</div>
@@ -70,6 +81,6 @@
         <% end %>
       </div>
     </footer>
-    
+
   </body>
 </html>

@@ -1,53 +1,50 @@
-<div role="document" id="content">
-  <section class="twelve columns">
-      <h1>What we're building</h1>
+<section class="twelve columns">
+    <h1>What we're building</h1>
 
-      <p>A new kind of Parental Control App, aimed at not only regulating adult material, but your child's internet experience through generative AI.</p>
+    <p>A new kind of Parental Control App, aimed at not only regulating adult material, but your child's internet experience through generative AI.</p>
 
-      <p>We've launched into early access! Get 80% off for the first two months! Coupon automatically applied upon checkout; this will only be available while we're in Beta/early access.</p>
-      div
-  </section>
+    <p>We've launched into early access! Get 80% off for the first two months! Coupon automatically applied upon checkout; this will only be available while we're in Beta/early access.</p>
+</section>
 
-  <section class="twelve columns columns-container">
-    <%= if Pow.Plug.current_user(@conn) do %>
-      <%= if !ParentcontrolswinWeb.SubscriptionController.is_subscribed?(Pow.Plug.current_user(@conn)) do %>
-        <%= link raw("<div class='button button-primary'>Click to Pay and Finish Subscribing!</div>"), to: ~p"/subscriptions" %>
-      <% end %>
-
-    <% else %>
-      <%= link raw("<div class='button center-align button-primary'>Sign Up Now!</div>"), to: ~p"/registration/new" %>
+<section class="twelve columns columns-container center">
+  <%= if Pow.Plug.current_user(@conn) do %>
+    <%= if !ParentcontrolswinWeb.SubscriptionController.is_subscribed?(Pow.Plug.current_user(@conn)) do %>
+      <%= link raw("<button class='center button button-primary'>Click to Pay and Finish Subscribing!</button>"), to: ~p"/subscriptions" %>
     <% end %>
-  </section>
 
-  <section class="twelve columns">
-    <h1 id="pricing">Pricing</h1>
+  <% else %>
+    <%= link raw("<button class='button center-align button-primary'>Sign Up Now!</button>"), to: ~p"/registration/new" %>
+  <% end %>
+</section>
 
-    <p>The service is <b>$20</b> a month, with the first 30 days being fully refundable.</p>
-  </section>
+<section class="twelve columns">
+  <h2 id="pricing">Pricing</h2>
 
-  <section class="twelve columns">
-      <h1>Why We Need Better Parental Control Apps</h1>
+  <p>The service is <b>$20</b> a month, with the first 30 days being fully refundable.</p>
+</section>
 
-      <p>The internet has changed, and current child monitoring apps haven't 
-      kept up. We're not just fighting against porn, but we have to compete
-      with hundred billion dollar tech companies trying to replace family
-      values with more profitable ones.</p>
+<section class="twelve columns">
+    <h2>Why We Need Better Parental Control Apps</h2>
 
-      <p>Our product focuses on protecting your children from influencers, forms, and communities you deem harmful. Our <%= link "custom filter options", to: ~p"/content_filter_faq" %> are limited but growing while we're in early access. We are a small team and appreciate feature requests! Don't be afraid to <%= link "email us", to: ~p"/contact" %>!</p>
+    <p>The internet has changed, and current child monitoring apps haven't 
+    kept up. We're not just fighting against porn, but we have to compete
+    with hundred billion dollar tech companies trying to replace family
+    values with more profitable ones.</p>
 
-  </section>
+    <p>Our product focuses on protecting your children from influencers, forms, and communities you deem harmful. Our <%= link "custom filter options", to: ~p"/content_filter_faq" %> are limited but growing while we're in early access. We are a small team and appreciate feature requests! Don't be afraid to <%= link "email us", to: ~p"/contact" %>!</p>
 
-  <section class="twelve columns">
-      <h1>Why We Need Better Parental Control Apps: Old vs New</h1>
+</section>
 
-      <div class="image-container">
-        <img src={~p"/images/control_diagram.png"} alt="Control Diagram of Child Monitoring Software"/>
-      </div>
-  
-      <ul>
-          <li>Content is filtered out on remote server, allowing for the use of more powerful AI filtering</li>
-          <li>Better battery life for your child</li>
-          <li>Better anonymity through an integrated Wireguard VPN</li>
-      </ul>
-  </section>
-</div>
+<section class="twelve columns">
+    <h2>Why We Need Better Parental Control Apps: Old vs New</h2>
+
+    <figure class="image-container center">
+      <img src={~p"/images/control_diagram.png"} alt="Control Diagram of Child Monitoring Software"/>
+    </figure>
+
+    <ul>
+        <li>Content is filtered out on remote server, allowing for the use of more powerful AI filtering</li>
+        <li>Better battery life for your child</li>
+        <li>Better anonymity through an integrated Wireguard VPN</li>
+    </ul>
+</section>

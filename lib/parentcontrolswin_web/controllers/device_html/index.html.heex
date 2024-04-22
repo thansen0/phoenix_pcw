@@ -64,11 +64,12 @@
   <button type="submit" class="button-primary">Submit Options</button>
 </form>
 
+<!-- TODO consider rewriting into a heex component, maybe use liveview -->
 <div id="devices">
   <%= for device <- @devices do %>
     <div class="row">
       <%= link to: ~p"/devices/#{device.id}" do %>
-        <div class="device-wrapper">
+        <article class="device-wrapper">
           <div id={device.id}>
             <p>
               <strong>Name:</strong>
@@ -76,11 +77,11 @@
             </p>
 
             <p>
-              <strong>User:</strong>
-              <%= device.user_id %>
+              <strong>Created On:</strong>
+              <%= Timex.format!(device.inserted_at, "{0M}-{0D}-{YYYY}") %>
             </p>
           </div>
-        </div>
+        </article>
       <% end %>
     </div>
   <% end %>

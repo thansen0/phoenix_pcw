@@ -1,25 +1,30 @@
-<p>Device: <%= @device.name %></p>
-
 <!-- <.list>
   <:item title="Name"><%= @device.name %></:item>
   <:item title="User"><%= @device.user_id %></:item>
 </.list> -->
 
 
-<div id={@device.id}>
+<section id={@device.id}>
+  <h1><%= @device.name %></h1>
+
   <p>
-    <strong>User:</strong>
-    <%= @device.user_id %>
+    <strong>Created On:</strong>
+    <%= Timex.format!(@device.inserted_at, "{0M}-{0D}-{YYYY}") %>
+  </p>
+
+  <p>
+    <strong>Updated On:</strong>
+    <%= Timex.format!(@device.updated_at, "{0M}-{0D}-{YYYY}") %>
   </p>
 
   <p>
     <strong>Content Filters:</strong>
     <%= @user.content_filters %>
   </p>
-</div>
+</section>
 
 
 <div>
-  <%= link raw("<div class='button button-primary'>Edit Device</div>"), to: ~p"/devices/#{@device}/edit" %>
-  <%= link raw("<div class='button'>Back to Devices</div>"), to: ~p"/devices" %>
+  <%= link raw("<button class='button button-primary'>Edit Device</button>"), to: ~p"/devices/#{@device}/edit" %>
+  <%= link raw("<button class='button'>Back to Devices</button>"), to: ~p"/devices" %>
 </div>
