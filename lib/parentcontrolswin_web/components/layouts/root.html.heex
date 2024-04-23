@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
+    <link rel="icon" type="image/x-icon" href={~p"/images/favicon.ico"}>
     <.live_title suffix=" - PCW">
       <%= assigns[:page_title] || "ParentControls.Win" %>
     </.live_title>
@@ -30,22 +31,22 @@
     <header class="container">
       <nav class="row">
         <ul>
-          <li><strong>ParentControls.Win</strong></li>
+          <li><strong><a href={~p"/"} class="secondary">PCW</a></strong></li>
         </ul>
         <ul>
           <%= if Pow.Plug.current_user(@conn) do %>
             <!-- sign out and settings -->
-            <%= link raw("<li class='button'>Sign out</li>"), to: ~p"/session", class: "contrast", method: :delete  %>
-            <%= link raw("<li class='button'>Devices</li>"), to: ~p"/devices", class: "contrast" %>
-            <%= link raw("<li class='button'>Account</li>"), to: ~p"/registration/edit", class: "contrast" %>
-            <%= link raw("<li class='button button-primary'>Setup/Install</li>"), to: ~p"/install_pcw", class: "contrast" %>
+            <li><%= link "Sign out", to: ~p"/session", class: "contrast", method: :delete  %></li>
+            <li><%= link "Devices", to: ~p"/devices", class: "contrast" %></li>
+            <li><%= link "Account", to: ~p"/registration/edit", class: "contrast" %></li>
+            <li><%= link "Setup", to: ~p"/install_pcw", class: "contrast" %></li>
             <%= if !ParentcontrolswinWeb.SubscriptionController.is_subscribed?(Pow.Plug.current_user(@conn)) do %>
-              <%= link raw("<li class='button button-primary'>Click to Pay and Finish Subscribing!</li>"), to: ~p"/subscriptions", class: "contrast" %>
+              <li><%= link "Click to Pay and Finish Subscribing!", to: ~p"/subscriptions", class: "secondary" %></li>
             <% end %>
 
           <% else %>
-            <%= link raw("<li class='button button-primary'>Sign in</li>"), class: "contrast", to: ~p"/session/new" %>
-            <%= link raw("<li class='button button-primary'>Sign up</li>"), class: "contrast", to: ~p"/registration/new" %>
+            <li><%= link "Sign in", to: ~p"/session/new" %></li>
+            <li><%= link "Sign up", to: ~p"/registration/new" %></li>
           <% end %>
           <li>
             <details class="dropdown">
