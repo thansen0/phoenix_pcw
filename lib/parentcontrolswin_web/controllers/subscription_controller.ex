@@ -65,14 +65,14 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
         # Logger.info(IO.inspect(session))
         redirect(conn, external: session.url)
 
-        case Stripe.Checkout.Session.create(checkout_session) do
-            {:ok, session} ->
-                redirect(conn, external: session.url)
-            {:error, stripe_error} ->
-                conn
-                |> put_flash(:error, "Something went wrong building your checkout portal, #{stripe_error.message}")
-                |> redirect(to: ~p"/subscriptions")
-        end
+        #case Stripe.Checkout.Session.create(checkout_session) do
+        #    {:ok, session} ->
+        #        redirect(conn, external: session.url)
+        #    {:error, stripe_error} ->
+        #        conn
+        #        |> put_flash(:error, "Something went wrong building your checkout portal, #{stripe_error.message}")
+        #        |> redirect(to: ~p"/subscriptions")
+        #end
     end
 
     def edit(conn, %{}) do
@@ -123,16 +123,18 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
                     nil
             end
 
-            # create changeset for user
-            changeset = Parentcontrolswin.Users.User.update_stripe_customer_id_changeset(user, %{stripe_customer_id: stripe_customer_id})
-            case Parentcontrolswin.Repo.update(changeset) do
-                {:ok, _updated_user} ->
-                    conn
-                    # IO.inspect(updated_user)
-                {:error, _changeset} -> 
-                    conn
-                    |> put_flash(:error, "Error setting stripe_customer_id in schema.")
-                    |> redirect(to: ~p"/subscriptions")
+            if stripe_customer_id do
+                # create changeset for user
+                changeset = Parentcontrolswin.Users.User.update_stripe_customer_id_changeset(user, %{stripe_customer_id: stripe_customer_id})
+                case Parentcontrolswin.Repo.update(changeset) do
+                    {:ok, _updated_user} ->
+                        conn
+                        # IO.inspect(updated_user)
+                    {:error, _changeset} -> 
+                        conn
+                        |> put_flash(:error, "Error setting stripe_customer_id in schema.")
+                        |> redirect(to: ~p"/subscriptions")
+                end
             end
 
             stripe_customer_id
