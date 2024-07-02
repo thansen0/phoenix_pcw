@@ -10,6 +10,7 @@ defmodule Parentcontrolswin.Users.User do
     field :stripe_customer_id, :string, default: nil
     field :terms_of_service, :boolean
     field :privacy_policy, :boolean
+    has_many :devices, Parentcontrolswin.Devices.Device, on_delete: :delete_all
 
     timestamps()
   end

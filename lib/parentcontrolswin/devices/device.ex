@@ -6,7 +6,7 @@ defmodule Parentcontrolswin.Devices.Device do
   @foreign_key_type :binary_id
   schema "devices" do
     field :name, :string
-    field :user_id, :integer
+    belongs_to :user, Parentcontrolswin.Users.User, type: :integer
 
     timestamps(type: :utc_datetime)
   end
