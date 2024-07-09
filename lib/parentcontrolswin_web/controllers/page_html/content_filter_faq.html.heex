@@ -1,34 +1,11 @@
 <section class="row">
+
     <div class="twelve columns">
-        <h1 id="how-it-works">How our service works</h1>
-
-        <p>Our software works differently from most monitoring software. Our monitoring system lies in 
-            between the child and the web service they're interacting with, and intercepts the content. 
-            It then removes content (such as websites, social media users/accounts, or specific posts), 
-            encrypts the page, and then sends it off to be viewed through a VPN. All images go through 
-            a separate image classifier as well, to determine if they're pornographic in nature. Your child does not need 
-            a special browser or plugin to use the tool, the parent only needs to install our Window app 
-            onto their computer and select which accounts to monitor.</p>
-
-        <figure class="image-container center">
-            <img src={~p"/images/control_diagram.png"} alt="Control Diagram of Child Monitoring Software"/>
-            <figcaption>&#160</figcaption>
-        </figure>
-
-        <p>This system allows us to apply much more advanced machine learning techniques on the content 
-            your kids view, which means you have greater control over the content they see.</p>
-
-        <p>I've grown up in the age of social media, and like many of you I've seen what it can do to people when they start reading or listening to it at a young age. Kids are introduced to subreddits like r/childfree or r/egg_irl at a young age and indoctrinated. These communities convince children they need permanent surgical solutions to their perceived problems, and teach them how to have these surgeries as soon as they're 18, if not sooner.</p>
-
-        <p>The mission of ParentControls.Win is to reach these kids before they're exposed to harmful communities, and remove these communities from social media feeds.</p>
-
         <h1 id="filters-in-use">Filters currently in use</h1>
 
         <p>Since this is an early access product, our filter list is small but growing. Please email us if there are online communities you're concerned about but are not yet covered under our filters.</p>
-
     </div>
-</section>
-<section class="row">
+
     <div class="one columns"></div>
     <div class="ten columns">
         <ul >
@@ -58,7 +35,7 @@
 
         <h1 id="future-product-dev">Future product development</h1>
 
-        <p>As of Jan. 2024, our immediate future will revolve around increasing the number of filters 
+        <p>As of 2024, our immediate future will revolve around increasing the number of filters 
             we offer and increase the amount of custom code dedicated to managing social media. At 
             the moment we mostly focus on filtering domains, sites built with users as subdomains (such 
             as tumblr), and reddit feeds. In the coming weeks we intend to improve our filtering of Twitter/X, 
@@ -66,7 +43,7 @@
 
         <p>We're also currently working on processing each post through an uncensored chat-based large language model. This will enable parents to filter exactly what they're concerned about (no matter how esoteric) and process each post individually.</p>
 
-        <p>More compatible devices are coming as well. Unfortunately mobile devices might take longer to support since they have more restrictions on adding certificates (which are required to safely encrypt data). Hopefully we'll have a Linux and Mac client soon.</p>
+        <p>More compatible devices are coming as well, we currently only support Windows. Unfortunately mobile devices might take longer to support since they have more restrictions on adding certificates (which are required to safely encrypt data). Hopefully we'll have a Linux and Mac client soon.</p>
     </div>
 
     <div class="twelve columns">
@@ -83,5 +60,31 @@
                 Terms of Service
             </.link>
         </p>
+    </div>
+</section>
+<section class="row">
+    <div class="twelve columns">
+        <h1 id="how-it-works">How our service works</h1>
+
+        <p>Our software works differently from most monitoring software. Our monitoring system lies in 
+            between the child and the web service they're interacting with, and intercepts the content. 
+            It then removes content (such as websites, social media users/accounts, or specific posts), 
+            encrypts the page, and then sends it off to be viewed through a VPN. All images go through 
+            a separate image classifier as well, to determine if they're pornographic in nature. Your child does not need 
+            a special browser or plugin to use the tool, the parent only needs to install our Window app 
+            onto their computer and select which accounts to monitor.</p>
+
+        <figure class="image-container center">
+            <img src={~p"/images/control_diagram.png"} alt="Control Diagram of Child Monitoring Software"/>
+            <figcaption>&#160</figcaption>
+        </figure>
+
+        <p>This system allows us to apply much more advanced machine learning techniques on the content 
+            your kids view, which means you have greater control over the content they see.</p>
+
+        <p>I've grown up in the age of social media, and like many of you I've seen what it can do to people when they start reading or listening to it at a young age. Kids are introduced to subreddits like r/childfree or r/egg_irl at a young age and indoctrinated. These communities convince children they need permanent surgical solutions to their perceived problems, and teach them how to have these surgeries as soon as they're 18, if not sooner.</p>
+
+        <p>The mission of ParentControls.Win is to reach these kids before they're exposed to harmful communities, and remove these communities from social media feeds.</p>
+
     </div>
 </section>
