@@ -15,6 +15,10 @@ defmodule ParentcontrolswinWeb.PageController do
     render(conn, :content_filter_faq, page_title: "Content Filter FAQ's")
   end
 
+  def nsfw_ad_intake(conn, _params) do
+    render(conn, :nsfw_ad_intake, page_title: "Sign up for ParentControlsWin")
+  end
+
   def install_pcw(conn, _params) do
     render(conn, :install_pcw, page_title: "Install")
   end
