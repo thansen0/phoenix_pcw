@@ -64,15 +64,6 @@ defmodule ParentcontrolswinWeb.SubscriptionController do
 
         # Logger.info(IO.inspect(session))
         redirect(conn, external: session.url)
-
-        #case Stripe.Checkout.Session.create(checkout_session) do
-        #    {:ok, session} ->
-        #        redirect(conn, external: session.url)
-        #    {:error, stripe_error} ->
-        #        conn
-        #        |> put_flash(:error, "Something went wrong building your checkout portal, #{stripe_error.message}")
-        #        |> redirect(to: ~p"/subscriptions")
-        #end
     end
 
     def edit(conn, %{}) do

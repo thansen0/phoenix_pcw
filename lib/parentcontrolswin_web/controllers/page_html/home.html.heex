@@ -1,18 +1,24 @@
 <section class="twelve columns">
-    <h1>What we're building</h1>
+  <%= if Pow.Plug.current_user(@conn) do %>
+    <%= if !ParentcontrolswinWeb.SubscriptionController.is_subscribed?(Pow.Plug.current_user(@conn)) do %>
+      <h1>Click to Subscribe</h1>
+      <!-- Link externally to stripe -->
+      <%= form_for @conn, ~p"/subscriptions/new", [method: :post], fn f -> %>
+        <%= submit "Add Payment to Subscripe", class: "button button-primary" %>
+      <% end %>
+      <p>All payments are handled through Stripe, we don't store or manage credit card details.</p>
+    <% end %>
+  <% end %>
 
-    <p>A new kind of Parental Control App, with a focus on filtering social media feeds through AI.</p>
+  <h1>What we're building</h1>
 
-    <p>We've launched into early access on Windows! Get 50% off for the first two months. Coupon automatically applied during checkout.</p>
+  <p>A new kind of Parental Control App for Windows, with a focus on filtering social media feeds through AI.</p>
+
+  <p>We've launched into early access, get <b>50% off</b> for the first two months! Coupon automatically applied during checkout.</p>
 </section>
 
 <section class="twelve columns columns-container center">
-  <%= if Pow.Plug.current_user(@conn) do %>
-    <%= if !ParentcontrolswinWeb.SubscriptionController.is_subscribed?(Pow.Plug.current_user(@conn)) do %>
-      <%= link raw("<button class='center button button-primary'>Click to Pay and Finish Subscribing!</button>"), to: ~p"/subscriptions" %>
-    <% end %>
-
-  <% else %>
+  <%= unless Pow.Plug.current_user(@conn) do %>
     <%= link raw("<button class='button center-align button-primary'>Sign Up Now!</button>"), to: ~p"/registration/new" %>
   <% end %>
 </section>
