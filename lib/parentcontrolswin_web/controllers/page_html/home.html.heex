@@ -3,7 +3,7 @@
     <%= if !ParentcontrolswinWeb.SubscriptionController.is_subscribed?(Pow.Plug.current_user(@conn)) do %>
       <h1>Click to Subscribe</h1>
       <!-- Link externally to stripe -->
-      <%= form_for @conn, ~p"/subscriptions/new", [method: :post], fn f -> %>
+      <%= form_for @conn, ~p"/subscriptions/new", [method: :post], fn _f -> %>
         <%= submit "Add Payment to Subscripe", class: "button button-primary" %>
       <% end %>
       <p>All payments are handled through Stripe, we don't store or manage credit card details.</p>

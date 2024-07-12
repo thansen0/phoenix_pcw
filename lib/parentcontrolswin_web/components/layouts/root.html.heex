@@ -42,7 +42,7 @@
             <li><%= link "Account", to: ~p"/registration/edit", class: "contrast" %></li>
             <li><%= link "Setup", to: ~p"/install_pcw", class: "contrast" %></li>
             <%= if !ParentcontrolswinWeb.SubscriptionController.is_subscribed?(Pow.Plug.current_user(@conn)) do %>
-              <%= form_for @conn, ~p"/subscriptions/new", [method: :post], fn f -> %>
+              <%= form_for @conn, ~p"/subscriptions/new", [method: :post], fn _f -> %>
                 <li class="contrast">
                   <%= submit "Click to Subscribe", class: "your-button-class", style: "display:none;" %>
                   <a href="#" onclick="event.preventDefault(); this.closest('form').submit();">Click to Subscribe</a>

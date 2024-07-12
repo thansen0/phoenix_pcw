@@ -11,7 +11,7 @@ defmodule ParentcontrolswinWeb.DeviceController do
     user = Pow.Plug.current_user(conn)
     if !ParentcontrolswinWeb.SubscriptionController.is_subscribed?(user) do
       conn
-      |>put_flash(:error, "You must subscribe to view your devices. All subscriptions have a 30 day money back guarantee!")
+      |>put_flash(:error, "You must subscribe to view your devices. All subscriptions have a 30 day money back guarantee.")
       |>redirect(to: ~p"/subscriptions")
     end
 
@@ -94,7 +94,7 @@ defmodule ParentcontrolswinWeb.DeviceController do
   # custom controller methods
   def checkbox_form_submission(conn, params) do
     user = Pow.Plug.current_user(conn)
-    checkbox_fields = [:nsfw, :trans, :lgbt, :genai, :atheism, :drug, :weed, :alcohol, :tobacco, :antiwork, :antiparent, :shortvideo]
+    checkbox_fields = [:nsfw, :trans, :lgbt, :genai, :atheism, :drug, :weed, :alcohol, :tobacco, :antiwork, :antiparent, :shortvideo, :safesearch]
 
     # Filtering and joining checked options
     checked_options = 

@@ -16,6 +16,10 @@
       Porn/Sexual Content
     </label>
     <label>
+      <input type="checkbox" name="safesearch" value="safesearch" checked={ if "safesearch" in @content_filters, do: true, else: false}>
+      Enable SafeSearch
+    </label>
+    <label>
       <input type="checkbox" name="drug" value="drug" checked={ if "drug" in @content_filters, do: true, else: false}>
       Drug Related Content
     </label>

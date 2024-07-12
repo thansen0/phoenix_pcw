@@ -8,6 +8,6 @@
     <li>If you cancel within <b>30 days</b> you get a full refund.</li>
 </ul>
 
-<%= form_for @conn, ~p"/subscriptions/new", [method: :post], fn f -> %>
+<%= form_for @conn, ~p"/subscriptions/new", [method: :post], fn _f -> %>
     <%= submit "Add Payment and Subscribe", class: "button button-primary" %>
 <% end %>
