@@ -63,6 +63,18 @@
       <input type="checkbox" name="shortvideo" value="shortvideo" checked={ if "shortvideo" in @content_filters, do: true, else: false}>
       Short-form video (i.e. TikTok)
     </label>
+    <label>
+      <input type="checkbox" name="sucidie" value="sucidie" checked={ if "sucidie" in @content_filters, do: true, else: false}>
+      Content that may endorse suicide
+    </label>
+    <label>
+      <input type="checkbox" name="gambling" value="gambling" checked={ if "gambling" in @content_filters, do: true, else: false}>
+      Pro-gambling content (such as sportsbetting)
+    </label>
+    <label>
+      <input type="checkbox" name="nonmonogamy" value="nonmonogamy" checked={ if "nonmonogamy" in @content_filters, do: true, else: false}>
+      Multi-partner content (i.e. r/polyamory)
+    </label>
   </fieldset>
   <input type="hidden" name="_csrf_token" value={@csrf_token} />
   <button type="submit" class="button-primary">Submit Options</button>
