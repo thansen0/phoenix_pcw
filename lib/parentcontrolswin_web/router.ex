@@ -30,7 +30,6 @@ defmodule ParentcontrolswinWeb.Router do
     pipe_through :browser
 
     post "/registration", ParentcontrolswinWeb.RegistrationController, :create
-#    get "/registration/new", ParentcontrolswinWeb.RegistrationController, :new
 
     pow_routes()
     pow_extension_routes()
