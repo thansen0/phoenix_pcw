@@ -98,13 +98,21 @@ stripe_webhook_key = System.get_env("STRIPE_WEBHOOK_SIGNING_SECRET") ||
 
 config :stripity_stripe,
   api_key: stripe_api_key,
-  signing_secret: stripe_webhook_key
+  signing_secret: stripe_webhook_key,
+  stripe_price_id: "price_1PV5i5DrVDu5S9fVbkx8aMgi",
+  stripe_coupon_id: "VMkip7Cd"
 
-# recaptcha API key
-recaptcha_key_id = System.get_env("RECAPTCHA_KEY_ID") ||
+# Google Recaptcha API keys, indentical for dev and prod
+recaptcha_public_key = System.get_env("RECAPTCHA_PUBLIC_KEY") ||
     raise """
-    environment variable RECAPTCHA_KEY_ID is missing.
+    environment variable RECAPTCHA_PUBLIC_KEY is missing.
+    """
+
+recaptcha_private_key = System.get_env("RECAPTCHA_PRIVATE_KEY") ||
+    raise """
+    environment variable RECAPTCHA_PRIVATE_KEY is missing.
     """
 
 config :recaptcha,
-  public_key: recaptcha_key_id
+  public_key: recaptcha_public_key,
+  secret: recaptcha_private_key

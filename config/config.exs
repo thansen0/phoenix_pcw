@@ -60,6 +60,7 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+config :recaptcha, :json_library, Jason
 
 config :parentcontrolswin, :pow,
   mailer_backend: ParentcontrolswinWeb.Pow.Mailer,

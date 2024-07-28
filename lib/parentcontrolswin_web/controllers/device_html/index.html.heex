@@ -12,27 +12,80 @@
     <legend>Select Content to Block</legend>
     <legend><a href={~p"/content_filter_faq#filters-in-use"}>Click to learn more about our filters</a></legend>
     <label>
-      <input type="checkbox" name="nsfw" value="nsfw" checked={ if "nsfw" in @content_filters, do: "true", else: "false"}>
+      <input type="checkbox" name="nsfw" value="nsfw" checked={ if "nsfw" in @content_filters, do: true, else: false}>
       Porn/Sexual Content
     </label>
     <label>
-      <input type="checkbox" name="trans" value="trans" checked={ if "trans" in @content_filters, do: "true", else: "false"}>
+      <input type="checkbox" name="safesearch" value="safesearch" checked={ if "safesearch" in @content_filters, do: true, else: false}>
+      Enable SafeSearch
+    </label>
+    <label>
+      <input type="checkbox" name="drug" value="drug" checked={ if "drug" in @content_filters, do: true, else: false}>
+      Drug Related Content
+    </label>
+    <label>
+      <input type="checkbox" name="tobacco" value="tobacco" checked={ if "tobacco" in @content_filters, do: true, else: false}>
+      Tobacco Related Content
+    </label>
+    <label>
+      <input type="checkbox" name="weed" value="weed" checked={ if "weed" in @content_filters, do: true, else: false}>
+      Weed Related Content
+    </label>
+    <label>
+      <input type="checkbox" name="alcohol" value="alcohol" checked={ if "alcohol" in @content_filters, do: true, else: false}>
+      Alcohol Related Content
+    </label>
+    <label>
+      <input type="checkbox" name="trans" value="trans" checked={ if "trans" in @content_filters, do: true, else: false}>
       Pro-Trans Content
     </label>
     <label>
-      <input type="checkbox" name="lgbt" value="lgbt" checked={ if "lgbt" in @content_filters, do: "true", else: "false"}>
+      <input type="checkbox" name="lgbt" value="lgbt" checked={ if "lgbt" in @content_filters, do: true, else: false}>
       Pro-LGBT Content
+    </label>
+    <label>
+      <input type="checkbox" name="genai" value="genai" checked={ if "genai" in @content_filters, do: true, else: false}>
+      Generative AI (such as replica.ai or chatGPT)
+    </label>
+    <label>
+      <input type="checkbox" name="atheism" value="atheism" checked={ if "atheism" in @content_filters, do: true, else: false}>
+      Pro-atheist groups
+    </label>
+    <label>
+      <input type="checkbox" name="antiwork" value="antiwork" checked={ if "antiwork" in @content_filters, do: true, else: false}>
+      Antiwork groups
+    </label>
+    <label>
+      <input type="checkbox" name="antiparent" value="antiparent" checked={ if "antiparent" in @content_filters, do: true, else: false}>
+      Anti-parent groups
+    </label>
+    <label>
+      <input type="checkbox" name="shortvideo" value="shortvideo" checked={ if "shortvideo" in @content_filters, do: true, else: false}>
+      Short-form video (i.e. TikTok)
+    </label>
+    <label>
+      <input type="checkbox" name="sucidie" value="sucidie" checked={ if "sucidie" in @content_filters, do: true, else: false}>
+      Content that may endorse suicide
+    </label>
+    <label>
+      <input type="checkbox" name="gambling" value="gambling" checked={ if "gambling" in @content_filters, do: true, else: false}>
+      Pro-gambling content (such as sportsbetting)
+    </label>
+    <label>
+      <input type="checkbox" name="nonmonogamy" value="nonmonogamy" checked={ if "nonmonogamy" in @content_filters, do: true, else: false}>
+      Multi-partner content (i.e. r/polyamory)
     </label>
   </fieldset>
   <input type="hidden" name="_csrf_token" value={@csrf_token} />
-  <button type="submit">Submit Options</button>
+  <button type="submit" class="button-primary">Submit Options</button>
 </form>
 
+<!-- TODO consider rewriting into a heex component, maybe use liveview -->
 <div id="devices">
   <%= for device <- @devices do %>
     <div class="row">
       <%= link to: ~p"/devices/#{device.id}" do %>
-        <div class="device-wrapper">
+        <article class="device-wrapper">
           <div id={device.id}>
             <p>
               <strong>Name:</strong>
@@ -40,11 +93,11 @@
             </p>
 
             <p>
-              <strong>User:</strong>
-              <%= device.user_id %>
+              <strong>Created On:</strong>
+              <%= Timex.format!(device.inserted_at, "{0M}-{0D}-{YYYY}") %>
             </p>
           </div>
-        </div>
+        </article>
       <% end %>
     </div>
   <% end %>

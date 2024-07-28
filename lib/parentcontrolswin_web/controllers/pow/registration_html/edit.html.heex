@@ -9,7 +9,7 @@
   <% end %>
 
   <%= form_for @conn, ~p"/subscriptions/manage", [method: :post], fn _f -> %>
-    <%= submit "Manage Billing", class: "button" %>
+    <%= submit "Manage Billing", class: "button button-primary" %>
   <% end %>
 
   <.header class="text-center">

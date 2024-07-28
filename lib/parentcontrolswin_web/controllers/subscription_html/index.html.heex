@@ -3,10 +3,11 @@
 <p>To finish subscribing, you must pay through Stripe with the link below.</p>
 
 <ul>
-    <li>Cost: <b>$18 a month</b></li>
-    <li>If you cancel within 30 days you get a full refund.</li>
+    <li>Cost: <b>$15 a month</b></li>
+    <li>While in early access, you get <b>50% off</b> for the first two months.</li>
+    <li>If you cancel within <b>30 days</b> you get a full refund.</li>
 </ul>
 
-<%= form_for @conn, ~p"/subscriptions/new", [method: :post], fn f -> %>
-    <%= submit "Add Payment and Subscribe", class: "button" %>
+<%= form_for @conn, ~p"/subscriptions/new", [method: :post], fn _f -> %>
+    <%= submit "Add Payment and Subscribe", class: "button button-primary" %>
 <% end %>

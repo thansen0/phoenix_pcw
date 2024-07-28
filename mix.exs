@@ -53,6 +53,7 @@ defmodule Parentcontrolswin.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:pow, "~> 1.0.34"},
       {:stripity_stripe, "~> 3.1.1"},
+      {:timex, "~> 3.7"},
       {:recaptcha, "~> 3.0"}
     ]
   end

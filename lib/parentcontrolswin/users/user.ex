@@ -6,10 +6,11 @@ defmodule Parentcontrolswin.Users.User do
 
   schema "users" do
     pow_user_fields()
-    field :content_filters, :string, default: "nsfw,lgbt,trans"
+    field :content_filters, :string, default: "nsfw,lgbt,trans,atheism,drug,weed,alcohol,tobacco,antiwork,antiparent,shortvideo,safesearch,nonmonogamy,suicide"
     field :stripe_customer_id, :string, default: nil
     field :terms_of_service, :boolean
     field :privacy_policy, :boolean
+    has_many :devices, Parentcontrolswin.Devices.Device, on_delete: :delete_all
 
     timestamps()
   end

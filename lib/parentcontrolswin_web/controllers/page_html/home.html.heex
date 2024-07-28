@@ -1,64 +1,60 @@
-<div class="row">
-  <div class="twelve columns" style="margin-top: 5%">
-      <h1>What we're building</h1>
-
-      <p>A new kind of Parental Control App, aimed at not only regulating adult material, but your child's social media feed.</p>
-
-      <p>Stay tuned for our February 2024 launch; subscribe for email updates or <%= link "email me", to: ~p"/contact" %> to get early access!</p>
-  </div>
-</div>
-
-<!--    email signup here    -->
-<div class="content-wrapper">
-  <div class="row content-center-button">
-      <h2 style="text-align: center; margin-top:5%;">Sign up for Product Updates</h2>
-      <%= if Mix.env() == :prod do %>
-          <div class="ml-embedded" data-form="XfLgfJ"></div> <!-- Productions -->
-      <% else %>
-          <p>Development form</p>
-          <div class="ml-embedded" data-form="2nwNuI"></div> <!-- Testing -->
+<section class="twelve columns">
+  <%= if Pow.Plug.current_user(@conn) do %>
+    <%= if !ParentcontrolswinWeb.SubscriptionController.is_subscribed?(Pow.Plug.current_user(@conn)) do %>
+      <h1>Click to Subscribe</h1>
+      <!-- Link externally to stripe -->
+      <%= form_for @conn, ~p"/subscriptions/new", [method: :post], fn _f -> %>
+        <%= submit "Add Payment to Subscripe", class: "button button-primary" %>
       <% end %>
-  </div>
-</div>
+      <p>All payments are handled through Stripe, we don't store or manage credit card details.</p>
+    <% end %>
+  <% end %>
 
-<div class="row">
-  <div class="twelve columns" style="margin-top: 5%">
-      <h1>Why We Need Better Parental Control Apps</h1>
+  <h1>A new kind of Internet Filter</h1>
 
-      <p>The internet has changed, and current child monitoring apps haven't 
-      kept up. We're not just fighting against porn, but we have to compete
-      with hundred billion dollar tech companies trying to replace family
-      values with more profitable, hedonistic ones.</p>
+  <p>Take control of your child's internet. Our focus is on filtering social media, and we use AI paired with customer filters to determine which posts to remove, directly from social media feeds without impacting the overall browsing experience.</p>
 
-      <p>I believe it's important we protect the next generation of kids
-      from the dangers of social media, and we cannot leave it up to the 
-      same companies who run our children's social media feed. Through AI we can not only do a better job, but we can make changes to their feed in real time.</p>
+  <p>We've launched into early access, get <b>50% off</b> for the first two months! Coupon automatically applied during checkout.</p>
+</section>
 
-  </div>
-</div>
+<section class="twelve columns columns-container center">
+  <%= unless Pow.Plug.current_user(@conn) do %>
+    <%= link raw("<button class='button center-align button-primary'>Sign Up Now!</button>"), to: ~p"/registration/new" %>
+  <% end %>
+</section>
 
-<div class="row">
-  <div class="twelve columns" style="margin-top: 5%">
-      <h1>Why We Need Better Parental Control Apps: Old vs New</h1>
+<section class="twelve columns">
+  <h2 id="pricing">Pricing</h2>
 
-      <div class="image-container">
-        <img src={~p"/images/control_diagram.png"} alt="Control Diagram of Child Monitoring Software"/>
-      </div>
-  
-      <ul>
-          <li>Content is filtered out on remote server, allowing for the use of more powerful AI filtering</li>
-          <li>Better battery life for your child</li>
-          <li>Better anonymity through an integrated Wireguard VPN</li>
-      </ul>
-  </div>
-</div>
+  <p>The service is <b>$15</b> a month, with the first 30 days being fully refundable.</p>
+</section>
 
-<div class="row">
-  <div class="twelve columns" style="margin-top: 5%">
-      <h1>Pricing</h1>
+<section class="twelve columns">
+    <h2>Why We Need Better Parental Control Apps</h2>
 
-      <p>The service will launch at $18 a month, with the first 30 days being fully refundable.</p>
-      
-      <p>I expect to launch in January 2024.</p>
-  </div>
-</div>
+    <p>The internet has changed, and current child monitoring apps haven't 
+    kept up. We're not only fighting against adult content, but we have to compete
+    with hundred billion dollar tech companies trying to replace family
+    values and push far-left politics.</p>
+
+    <p>Our product focuses on protecting your children from influencers, forms, 
+      and communities you deem harmful. Our list of 
+      <%= link "custom filter options", to: ~p"/content_filter_faq" %> is 
+      limited but growing while we're in early access. We are a small team and appreciate feature requests! Don't be afraid to <%= link "email us", to: ~p"/contact" %>!</p>
+
+</section>
+
+<section class="twelve columns">
+    <h2>Why We Need Better Parental Control Apps: Old vs New</h2>
+
+    <figure class="image-container center">
+      <img src={~p"/images/control_diagram.png"} alt="Control Diagram of Child Monitoring Software"/>
+      <figcaption>&#160</figcaption>
+    </figure>
+
+    <ul>
+        <li>Content is filtered through a remote server, allowing for powerful AI filtering</li>
+        <li>Better battery life for your child than local filtering</li>
+        <li>Better anonymity through an integrated Wireguard VPN</li>
+    </ul>
+</section>

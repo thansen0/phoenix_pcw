@@ -1,64 +1,53 @@
-<div class="row">
-    <div class="twelve columns" style="margin-top: 5%">
-        <h1 id="how-it-works">How our service works</h1>
+<section class="row">
 
-        <p>Our software works differently from most monitoring software. Our monitoring system lies in 
-            between the child and the web service they're interacting with, and intercepts the content. 
-            It then removes content (such as websites, social media users/accounts, or specific posts), 
-            encrypts the page, and then sends it off to be viewed through a VPN. All images go through 
-            a separate image classifier as well, to determine if they're pornographic in nature. Your child does not need 
-            a special browser or plugin to use the tool, the parent only needs to install our Window app 
-            onto their computer and select which accounts to monitor.</p>
-
-        <div class="image-container">
-            <img src="/images/control_diagram.png" alt="Control Diagram of Child Monitoring Software"/>
-        </div>
-
-        <p>This system allows us to apply much more advanced machine learning techniques on the content 
-            your kids view, which means you have greater control over the content they see.</p>
-
-        <p>I've grown up in the age of social media, and like many of you I've seen what it can do to people when they start reading or listening to it at a young age. Kids are introduced to subreddits like r/childfree or r/egg_irl at a young age and indoctrinated. These communities convince children they need permanent surgical solutions to their perceived problems, and teach them how to have these surgeries as soon as they're 18, if not sooner.</p>
-
-        <p>The mission of ParentControls.Win is to reach these kids before they're exposed to harmful communities, and remove these communities from social media feeds.</p>
-
+    <div class="twelve columns">
         <h1 id="filters-in-use">Filters currently in use</h1>
 
         <p>Since this is an early access product, our filter list is small but growing. Please email us if there are online communities you're concerned about but are not yet covered under our filters.</p>
-
     </div>
-</div>
-<div class="row">
+
     <div class="one columns"></div>
     <div class="ten columns">
         <ul >
-            <li><b>Image Classifier</b>: All pornographic/nsfw images are blocked, including drawn images, using our image classifier.</li>
-            <li><b>Pornographic Content</b>: All pornographic/nsfw urls are blocked.</li>
+            <li><b>Image Classifier</b>: Pornographic/nsfw images are blocked, including drawn images, using our image classifier.</li>
+            <li><b>Pornographic Content</b>: Pornographic/nsfw urls are blocked.</li>
+            <li><b>Enable SafeSearch</b>: Many sites, from Google to Yandex to Twitter, offer settings to exclude adult content; this flag turns those settings on. We strongly recommend using this flag.</li>
+            <li><b>Alcoholic Content</b>: Alcohol related content (like <.link navigate={"https://www.reddit.com/r/mixology"} class="font-semibold text-brand hover:underline">r/mixology</.link>) is blocked.</li>
+            <li><b>Weed Content</b>: Weed related content (like <.link navigate={"https://www.reddit.com/r/trees"} class="font-semibold text-brand hover:underline">r/trees</.link>) is blocked.</li>
+            <li><b>Tobacco Content</b>: Tobacco related content (such as content about a vape pen) is blocked.</li>
+            <li><b>Drug Content</b>: All other drug related content is blocked.</li>
             <li><b>Trans Content</b>: Pro-trans and non-binary groups, especially focused on blocking those which target kids and encourage seeking treatment without parental consent.</li>
             <li><b>LGBT Content</b>: Pro-lgbt groups, especially those which encourage sexuality of children.</li>
+            <li><b>Atheism</b>: Pro-atheist content, such as <.link navigate={"https://www.reddit.com/r/atheism"} class="font-semibold text-brand hover:underline">r/atheism</.link>.</li>
+            <li><b>Generative AI Content (i.e. ChatGPT)</b>: Generative AI, especially chat. Generative AI can be used to cheat on homework or talk to AI girlfriends, which frequently include inappropriate pics. This list is incomplete as the space is rapidly expanding, and some AI chatbot, like bing copilot, cannot yet be blocked due to their tight site integration.</li>
+            <li><b>Antiwork</b>: Blocks communities like r/antiwork, which can radicalize children. You can listen to the mod of the largest community talk about <%= link "the movement here", to: "https://www.youtube.com/watch?v=NCo-OgSC7Ps" %>.</li>
+            <li><b>Anti-parent</b>: Blocks communities like <.link navigate={"https://www.reddit.com/r/raisedbynarcissists"} class="font-semibold text-brand hover:underline">r/raisedbynarcissists</.link> which encourages kids to hate their parents and not talk to them after leaving home.</li>
+            <li><b>Short-form Video</b>: Blocks short-form video sharing communities and sites (such as tiktok.com or YouTube Shorts).</li>
+            <li><b>Gambling</b>: Blocks betting communities and pro-gambling content (ranging from betting on esports to political bets).</li>
+            <li><b>Nonmonogamy</b>: Blocks communities that support non-monogamous relationships (either from cheating or as part of an open relationship).</li>
+            <li><b>Suicide</b>: Blocks communities known to joke about suicide or those where kids can go to discuss/threaten suicide.</li>
         </ul>
     </div>
-</div>
-<div class="row">
+</section>
+<section class="row">
     <div class="twelve columns">
         <h1 id="updating-filters">Updating Filters</h1>
 
-        <p>Filters can be updated from the device's page. It may take up to 60 seconds for the device to reflect new filter changes, and your child's session will not start using new filter settings until they have restarted their session.</p>
+        <p>Filters can be updated from the device's page. It may take up to 60 seconds for the device to reflect new filter changes, and your child's session will not start using new filter settings until they have restarted their current session (i.e. restarted their computer).</p>
         
         <p>If you change the filter settings and want to make sure your new filter settings are in use, you may want to restart their device.</p>
 
         <h1 id="future-product-dev">Future product development</h1>
 
-        <p>As of Jan. 2024, our immediate future will revolve around increasing the number of filters 
+        <p>As of 2024, our immediate future will revolve around increasing the number of filters 
             we offer and increase the amount of custom code dedicated to managing social media. At 
             the moment we mostly focus on filtering domains, sites built with users as subdomains (such 
-            as tumblr), and reddit. In the coming days/weeks we intend to improve our filtering of Twitter/X, 
+            as tumblr), and reddit feeds. In the coming weeks we intend to improve our filtering of Twitter/X, 
             and in the coming weeks we hope to improve our latency regarding video games.</p>
 
-        <p>Ultimately, we would like to process each post and run it through an uncensored chat-based large language model. This will enable parents to explain exactly what they're concerned about (no matter how esoteric) and process each post individually.</p>
+        <p>We're also currently working on processing each post through an uncensored chat-based large language model. This will enable parents to filter exactly what they're concerned about (no matter how esoteric) and process each post individually.</p>
 
-        <p>Although some fast models exist (such as groq), we have had the most success with more traditional models such as BERT, which can only classify what we specifically train them to classify. Hopefully, however, fully customizable content filtering is coming soon.</p>
-
-        <p>More compatible devices are coming as well. Unfortunately mobile devices might take longer to support since they have more restrictions on adding certificates (which are required to safely encrypt data). Hopefully we'll have a Mac and Linux client soon.</p>
+        <p>More compatible devices are coming as well, we currently only support Windows. Unfortunately mobile devices might take longer to support since they have more restrictions on adding certificates (which are required to safely encrypt data). Hopefully we'll have a Linux and Mac client soon.</p>
     </div>
 
     <div class="twelve columns">
@@ -76,4 +65,30 @@
             </.link>
         </p>
     </div>
-</div>
+</section>
+<section class="row">
+    <div class="twelve columns">
+        <h1 id="how-it-works">How our service works</h1>
+
+        <p>Our software works differently from most monitoring software. Our monitoring system lies in 
+            between the child and the web service they're interacting with, and intercepts the content. 
+            It then removes content (such as websites, social media users/accounts, or specific posts), 
+            encrypts the page, and then sends it off to be viewed through a VPN. All images go through 
+            a separate image classifier as well, to determine if they're pornographic in nature. Your child does not need 
+            a special browser or plugin to use the tool, the parent only needs to install our Window app 
+            onto their computer and select which accounts to monitor.</p>
+
+        <figure class="image-container center">
+            <img src={~p"/images/control_diagram.png"} alt="Control Diagram of Child Monitoring Software"/>
+            <figcaption>&#160</figcaption>
+        </figure>
+
+        <p>This system allows us to apply much more advanced machine learning techniques on the content 
+            your kids view, which means you have greater control over the content they see.</p>
+
+        <p>I've grown up in the age of social media, and like many of you I've seen what it can do to people when they start reading or listening to it at a young age. Kids are introduced to subreddits like r/childfree or r/egg_irl at a young age and indoctrinated. These communities convince children they need permanent surgical solutions to their perceived problems, and teach them how to have these surgeries as soon as they're 18, if not sooner.</p>
+
+        <p>The mission of ParentControls.Win is to reach these kids before they're exposed to harmful communities, and remove these communities from social media feeds.</p>
+
+    </div>
+</section>

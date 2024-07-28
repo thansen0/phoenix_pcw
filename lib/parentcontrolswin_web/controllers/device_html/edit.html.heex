@@ -6,5 +6,5 @@
 <div class="row">
   <%= link raw("<div class='button'>View device</div>"), to: ~p"/devices/#{@device}" %>
   <%= link raw("<div class='button'>Back to devices</div>"), to: ~p"/devices" %>
-  <%= link raw("<div class='button'>Delete Device</div>"), to: ~p"/devices/#{@device}", method: :delete  %>
+  <%= link raw("<div class='button button-primary'>Delete Device</div>"), to: ~p"/devices/#{@device}", method: :delete  %>
 </div>

@@ -4,13 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
-    <.live_title suffix=" · Phoenix Framework">
-      <%= assigns[:page_title] || "Parentcontrolswin" %>
+    <link rel="icon" type="image/x-icon" href={~p"/images/favicon.ico"}>
+    <.live_title suffix=" - PCW">
+      <%= assigns[:page_title] || "ParentControls.Win" %>
     </.live_title>
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
     <!-- must import phoenix_html here -->
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}></script>
     <script src="https://www.google.com/recaptcha/enterprise.js?render=6Le2vGcpAAAAAALmfeQ6f-ChLlQPPIl1b08qYNuU"></script>
+
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
 
     <%= if Mix.env() == :prod do %>
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-9D0WE4JFGQ"></script>
@@ -21,49 +24,73 @@
 
           gtag('config', 'G-9D0WE4JFGQ');
       </script>
+      <script defer src="https://cloud.umami.is/script.js" data-website-id="a8c38bc3-0c62-43e3-8721-221cfd2032d8"></script>
     <% end %>
 
-    <!-- MailerLite -->
-    <script>
-      (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
-      .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
-      n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
-      (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
-      ml('account', '506588');
-    </script>
   </head>
   <body>
-    <div class="container">
-      <div class="row" style="margin-top: 3rem;">
-        <%= if Pow.Plug.current_user(@conn) do %>
-          <!-- sign out and settings -->
-          <%= link raw("<div class='button'>Sign out</div>"), to: ~p"/session", method: :delete  %>
-          <%= link raw("<div class='button'>Devices</div>"), to: ~p"/devices" %>
-          <%= link raw("<div class='button'>Account</div>"), to: ~p"/registration/edit" %>
-          <%= link raw("<div class='button'>Setup/Install</div>"), to: ~p"/install_pcw" %>
-          <%= if !ParentcontrolswinWeb.SubscriptionController.is_subscribed?(Pow.Plug.current_user(@conn)) do %>
-            <%= link raw("<div class='button important-button'>Click to Pay and Finish Subscribing!</div>"), to: ~p"/subscriptions" %>
-          <% end %>
+    <header class="container">
+      <nav class="row">
+        <ul>
+          <li><strong><a href={~p"/"} class="secondary">PCW</a></strong></li>
+        </ul>
+        <ul>
+          <%= if Pow.Plug.current_user(@conn) do %>
+            <!-- sign out and settings -->
+            <li><%= link "Sign out", to: ~p"/session", class: "contrast", method: :delete  %></li>
+            <li><%= link "Devices", to: ~p"/devices", class: "contrast" %></li>
+            <li><%= link "Account", to: ~p"/registration/edit", class: "contrast" %></li>
+            <li><%= link "Setup", to: ~p"/install_pcw", class: "contrast" %></li>
+            <%= if !ParentcontrolswinWeb.SubscriptionController.is_subscribed?(Pow.Plug.current_user(@conn)) do %>
+              <%= form_for @conn, ~p"/subscriptions/new", [method: :post], fn _f -> %>
+                <li class="contrast">
+                  <%= submit "Click to Subscribe", class: "your-button-class", style: "display:none;" %>
+                  <a href="#" onclick="event.preventDefault(); this.closest('form').submit();">Click to Subscribe</a>
+                </li>
+              <% end %>
+            <% end %>
 
-        <% else %>
-          <%= link raw("<div class='button'>Sign in</div>"), to: ~p"/session/new" %>
-          <%= link raw("<div class='button'>Sign up</div>"), to: ~p"/registration/new" %>
+          <% else %>
+            <li><%= link "Sign in", to: ~p"/session/new" %></li>
+            <li><%= link "Sign up", to: ~p"/registration/new" %></li>
+          <% end %>
+          <li>
+            <details class="dropdown">
+              <summary role="button" class="secondary">Theme</summary>
+              <ul>
+                <li><a href="#" data-theme-switcher="auto">Auto</a></li>
+                <li><a href="#" data-theme-switcher="light">Light</a></li>
+                <li><a href="#" data-theme-switcher="dark">Dark</a></li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </nav>
+      <hr/>
+    </header>
+
+    
+    <main class="container">
+      <%= @inner_content %>
+    </main>
+
+    <footer class="container">
+      <hr/>
+      <div class="grid">
+        <%= link to: ~p"/", class: "contrast" do %>
+          <div role="button" type="button" class="outline contrast">Home</div>
+        <% end %>
+        <%= link to: ~p"/content_filter_faq", class: "contrast" do %>
+          <div role="button" type="button" class="outline contrast">Filtering</div>
+        <% end %>
+        <%= link to: ~p"/install_pcw", class: "contrast" do %>
+          <div role="button" type="button" class="outline contrast">Setup</div>
+        <% end %>
+        <%= link to: ~p"/contact", class: "contrast" do %>
+          <div role="button" type="button" class="outline contrast">Contact</div>
         <% end %>
       </div>
+    </footer>
 
-      <hr/>
-      <%= @inner_content %>
-      <hr/>
-
-      <div class="row">
-        <div class="twelve columns footer">
-          <ul>
-            <li><%= link "Home", to: ~p"/" %></li>
-            <li><%= link "Setup", to: ~p"/install_pcw" %></li>
-            <li><%= link "Contact", to: ~p"/contact" %></li>
-          </ul>
-        </div>
-      </div>
-    </div>
   </body>
 </html>

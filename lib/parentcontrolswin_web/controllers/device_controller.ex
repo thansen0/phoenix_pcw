@@ -1,6 +1,7 @@
 defmodule ParentcontrolswinWeb.DeviceController do
   use ParentcontrolswinWeb, :controller
   import Ecto.Query, only: [from: 2]
+  require Logger
 
   alias Parentcontrolswin.Devices
   alias Parentcontrolswin.Devices.Device
@@ -10,16 +11,18 @@ defmodule ParentcontrolswinWeb.DeviceController do
     user = Pow.Plug.current_user(conn)
     if !ParentcontrolswinWeb.SubscriptionController.is_subscribed?(user) do
       conn
-      |>put_flash(:error, "You must subscribe to view your devices. All subscriptions have a 60 day money back guarantee!")
+      |>put_flash(:error, "You must subscribe to view your devices. All subscriptions have a 30 day money back guarantee.")
       |>redirect(to: ~p"/subscriptions")
     end
 
-    # checkbox_form_action = Routes.device_form_action_path(conn, :checkbox_form_submission) # Routes doesn't work
     csrf_token = Plug.CSRFProtection.get_csrf_token()
     checkbox_form_action = ~p"/device_form_action"
 
-    content_filters = String.split(user.content_filters, ",")
+    updated_cache_content_filters = Parentcontrolswin.Repo.get_by(Parentcontrolswin.Users.User, email: user.email).content_filters
+    content_filters = String.split(updated_cache_content_filters, ",")
     devices = Parentcontrolswin.Repo.all(from d in Device, where: d.user_id == ^user.id, order_by: [desc: d.inserted_at])
+
+    #Logger.info("filters #{content_filters}")
 
     render(conn, :index, 
         devices: devices, 
@@ -55,6 +58,7 @@ defmodule ParentcontrolswinWeb.DeviceController do
     user = Pow.Plug.current_user(conn)
     device = Devices.get_device!(id)
     conn
+    |> assign(:page_title, "Viewing Device")
     |> render(:show, device: device, user: user)
   end
 
@@ -90,7 +94,7 @@ defmodule ParentcontrolswinWeb.DeviceController do
   # custom controller methods
   def checkbox_form_submission(conn, params) do
     user = Pow.Plug.current_user(conn)
-    checkbox_fields = [:nsfw, :trans, :lgbt]
+    checkbox_fields = [:nsfw, :trans, :lgbt, :genai, :atheism, :drug, :weed, :alcohol, :tobacco, :antiwork, :antiparent, :shortvideo, :safesearch, :gambling, :nonmonogamy, :suicide]
 
     # Filtering and joining checked options
     checked_options = 
@@ -103,7 +107,7 @@ defmodule ParentcontrolswinWeb.DeviceController do
     case Parentcontrolswin.Repo.update(changeset) do
       {:ok, _user} ->
         conn
-        |> put_flash(:info, "Filter successfully updated to #{checked_options}.")
+        |> put_flash(:info, "Filter successfully updated.") # to #{checked_options}
         |> redirect(to: ~p"/devices")
       {:error, nil} ->
         conn
