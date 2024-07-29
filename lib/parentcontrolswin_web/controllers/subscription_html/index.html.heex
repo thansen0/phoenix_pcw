@@ -1,13 +1,17 @@
 <div class="">
-    <h1>Subscribe to our service</h1>
+    <figure class="image-container center" style="display:flexbox;">
+        <img src={~p"/images/banner-family.png"} alt="Welcome to the Parent Controls Win family!" style="width: 75%;"/>
+    </figure>
 
-    <p>To finish subscribing, you must pay through Stripe with the link below.</p>
+    <br />
+    
+    <div class="grid" style="text-align: center;">
+        <div><b>$15 a month</b></div>
+        <div style="border-left: 20px; border-right: 2px;">While in early access, get <b>50% off</b> for the first two months.</div>
+        <div>Cancel within <b>30 days</b> to get a full refund.</div>
+    </div>
 
-    <ul>
-        <li><b>$15 a month</b></li>
-        <li>While in early access, get <b>50% off</b> for the first two months.</li>
-        <li>Cancel within <b>30 days</b> to get a full refund.</li>
-    </ul>
+    <br/>
 
     <%= form_for @conn, ~p"/subscriptions/new", [method: :post], fn _f -> %>
         <%= submit "Add Payment and Subscribe", class: "button button-primary" %>
