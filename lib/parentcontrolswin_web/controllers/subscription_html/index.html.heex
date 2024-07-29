@@ -1,13 +1,15 @@
-<h1>Subscription to our service</h1>
+<div class="">
+    <h1>Subscribe to our service</h1>
 
-<p>To finish subscribing, you must pay through Stripe with the link below.</p>
+    <p>To finish subscribing, you must pay through Stripe with the link below.</p>
 
-<ul>
-    <li>Cost: <b>$15 a month</b></li>
-    <li>While in early access, you get <b>50% off</b> for the first two months.</li>
-    <li>If you cancel within <b>30 days</b> you get a full refund.</li>
-</ul>
+    <ul>
+        <li><b>$15 a month</b></li>
+        <li>While in early access, get <b>50% off</b> for the first two months.</li>
+        <li>Cancel within <b>30 days</b> to get a full refund.</li>
+    </ul>
 
-<%= form_for @conn, ~p"/subscriptions/new", [method: :post], fn _f -> %>
-    <%= submit "Add Payment and Subscribe", class: "button button-primary" %>
-<% end %>
+    <%= form_for @conn, ~p"/subscriptions/new", [method: :post], fn _f -> %>
+        <%= submit "Add Payment and Subscribe", class: "button button-primary" %>
+    <% end %>
+</div>
