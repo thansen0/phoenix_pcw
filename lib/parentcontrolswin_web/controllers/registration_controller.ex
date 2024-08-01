@@ -2,6 +2,8 @@ defmodule ParentcontrolswinWeb.RegistrationController do
   use ParentcontrolswinWeb, :controller
   alias Recaptcha
 
+  # TODO I don't think I'm verifying captcha's correctly
+  # https://developers.google.com/recaptcha/docs/verify#api-request
   def create(conn, %{"user" => user_params}) do
     # IO.inspect(conn.params["g-recaptcha-response"], label: "reCAPTCHA Response")
 

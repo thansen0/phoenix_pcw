@@ -23,6 +23,10 @@ defmodule ParentcontrolswinWeb.PageController do
     render(conn, :trans_ad_intake, page_title: "Sign up for ParentControlsWin")
   end
 
+  def ad_intake(conn, _params) do
+    render(conn, :ad_intake, page_title: "Sign up for ParentControlsWin")
+  end
+
   def install_pcw(conn, _params) do
     render(conn, :install_pcw, page_title: "Install")
   end
