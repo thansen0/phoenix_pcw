@@ -20,11 +20,6 @@
     </div>
 </section>
 
-<!--<section>
-    <p>Currently only available for Windows. We're in early access, so get <b>50% off</b> for the first two months!</p>
-
-</section>-->
-
 <section class="twelve columns columns-container center">
     <%= unless Pow.Plug.current_user(@conn) do %>
         <%= link raw("<button class='button center-align button-primary'>Sign Up</button>"), to: ~p"/registration/new" %>
