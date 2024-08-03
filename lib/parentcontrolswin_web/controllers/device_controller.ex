@@ -94,7 +94,7 @@ defmodule ParentcontrolswinWeb.DeviceController do
   # custom controller methods
   def checkbox_form_submission(conn, params) do
     user = Pow.Plug.current_user(conn)
-    checkbox_fields = [:nsfw, :trans, :lgbt, :genai, :atheism, :drug, :weed, :alcohol, :tobacco, :antiwork, :antiparent, :shortvideo, :safesearch, :gambling, :nonmonogamy, :suicide]
+    checkbox_fields = [:nsfw, :trans, :lgbt, :genai, :atheism, :drug, :weed, :alcohol, :tobacco, :antiwork, :antiparent, :shortvideo, :safesearch, :gambling, :nonmonogamy, :suicide, :socialism, :communism]
 
     # Filtering and joining checked options
     checked_options = 
