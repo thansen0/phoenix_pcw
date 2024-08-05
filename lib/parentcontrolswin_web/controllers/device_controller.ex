@@ -55,19 +55,47 @@ defmodule ParentcontrolswinWeb.DeviceController do
   end
 
   def show(conn, %{"id" => id}) do
+    csrf_token = Plug.CSRFProtection.get_csrf_token()
     user = Pow.Plug.current_user(conn)
     device = Devices.get_device!(id)
-    # is_internet_allowed = for _ <- 0..6, do: for _ <- 0..23, do: true
-    is_internet_allowed = for day <- 0..6, hour <- 0..23, into: %{} do
-      { {day, hour}, true }
-    end
-    # debug
-    #is_internet_allowed = Map.put(is_internet_allowed, {3, 3}, false)
-    #Logger.info("is_internet_allowed #{inspect(is_internet_allowed)}")
+
+    # Try this from database
+    # is_internet_allowed = Jason.decode!(device.is_internet_allowed)
+    is_internet_allowed = for _day <- 0..6, do: for _hour <- 0..23, do: true
+
+    Logger.info("is_internet_allowed #{inspect(is_internet_allowed)}")
     
     conn
     |> assign(:page_title, "Viewing Device")
-    |> render(:show, device: device, user: user, is_internet_allowed: is_internet_allowed)
+    |> render(:show, device: device, user: user, is_internet_allowed: is_internet_allowed, csrf_token: csrf_token)
+  end
+
+  def updateallowedhours(conn, %{"id" => id, "is_internet_allowed" => internetallowed_params}) do
+    csrf_token = Plug.CSRFProtection.get_csrf_token()
+    user = Pow.Plug.current_user(conn)
+    device = Devices.get_device!(id)
+
+    is_internet_allowed = for _day <- 0..6, do: for _hour <- 0..23, do: false
+
+    # Iterate through the params and update the double list
+    is_internet_allowed = Enum.reduce(internetallowed_params, is_internet_allowed, fn {day_str, hours}, acc ->
+      day = String.to_integer(day_str)
+
+      updated_day_list = Enum.reduce(hours, Enum.at(acc, day), fn {hour_str, value}, day_acc ->
+        hour = String.to_integer(hour_str)
+        List.replace_at(day_acc, hour, value == "on")
+      end)
+
+      List.replace_at(acc, day, updated_day_list)
+    end)
+    is_internet_allowed_json = Jason.encode!(is_internet_allowed)
+
+    #Logger.info("filters #{inspect(is_internet_allowed)}")
+    #Logger.info("filters #{inspect(is_internet_allowed_json)}")
+
+    conn
+    |> assign(:page_title, "Updated Hours for Device")
+    |> render(:show, device: device, user: user, is_internet_allowed: is_internet_allowed, csrf_token: csrf_token)
   end
 
   def edit(conn, %{"id" => id}) do

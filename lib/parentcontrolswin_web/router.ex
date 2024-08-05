@@ -56,6 +56,7 @@ defmodule ParentcontrolswinWeb.Router do
     get "/downloads/installer_download", PageController, :installer_download
     resources "/devices", DeviceController, except: [:create]
     post "/device_form_action", DeviceController, :checkbox_form_submission
+    post "/update_allowed_hours", DeviceController, :updateallowedhours
 
     get "/subscriptions", SubscriptionController, :index
 

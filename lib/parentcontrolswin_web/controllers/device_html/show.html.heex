@@ -59,39 +59,43 @@ input:checked ~ .checkmark {
   <h1><%= @device.name %></h1>
 
   <div class="overflow-auto">
-    <table class="schedule-table">
-      <thead>
-        <tr>
-          <th>Time</th>
-          <th>Monday</th>
-          <th>Tuesday</th>
-          <th>Wednesday</th>
-          <th>Thursday</th>
-          <th>Friday</th>
-          <th>Saturday</th>
-          <th>Sunday</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Loop through 24 hours -->
-        <%= for hour <- 0..23 do %>
-        <tr>
-          <th class="verticle-table-header"><%= hour %>:00</th>
-          <!-- Loop through 7 days -->
-          <%= for day <- 0..6 do %>
-          <td class="checkbox-td">
-            <label class="checkbox-container">
-            </label>
-            <input type="checkbox" name={"is_internet_allowed[#{day}][#{hour}]"} checked={ if Map.get(@is_internet_allowed, {day, hour}), do: true, else: false} />
-            <span class="checkmark"></span>
+    <form action="/update_allowed_hours" method="post">
+      <table class="schedule-table">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+            <th>Saturday</th>
+            <th>Sunday</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Loop through 24 hours -->
+          <%= for hour <- 0..23 do %>
+          <tr>
+            <th class="verticle-table-header"><%= hour %>:00</th>
+            <!-- Loop through 7 days -->
+            <%= for day <- 0..6 do %>
+            <td class="checkbox-td">
+              <label class="checkbox-container">
+              </label>
+              <input type="checkbox" name={"is_internet_allowed[#{day}][#{hour}]"} checked={ if Enum.at(Enum.at(@is_internet_allowed, day), hour), do: true, else: false} />
+              <span class="checkmark"></span>
 
-          </td>
+            </td>
+            <% end %>
+          </tr>
           <% end %>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <button type="submit">Save</button>
+        </tbody>
+      </table>
+      <input type="hidden" name="id" value={@device.id}>
+      <input type="hidden" name="_csrf_token" value={@csrf_token} />
+      <button type="submit">Save</button>
+    </form>
   </div>
 
   <script>
