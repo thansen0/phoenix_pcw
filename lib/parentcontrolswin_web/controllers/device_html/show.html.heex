@@ -4,55 +4,6 @@
 </.list> -->
 
 <style>
-  /*
-  body {
-    font-family: Arial, sans-serif;
-  }
-
-  .schedule-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  .schedule-table th, .schedule-table td {
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: center;
-  }
-
-  .checkbox-container {
-    display: block;
-    position: relative;
-    cursor: pointer;
-    width: 100%;
-    height: 100%;
-  }
-
-  .checkbox-container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-  }
-
-  .checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-color: blue;
-  }
-
-  .checkbox-container input:checked + .checkmark {
-    background-color: green;
-  }
-
-  .checkbox-container input:not(:checked) + .checkmark {
-    background-color: red;
-  } */
-
 input[type="checkbox"] {
   visibility: hidden;
   display: none;
@@ -131,7 +82,7 @@ input:checked ~ .checkmark {
           <td class="checkbox-td">
             <label class="checkbox-container">
             </label>
-            <input type="checkbox" name={"availability[#{day}][#{hour}]"} checked />
+            <input type="checkbox" name={"is_internet_allowed[#{day}][#{hour}]"} checked={ if Map.get(@is_internet_allowed, {day, hour}), do: true, else: false} />
             <span class="checkmark"></span>
 
           </td>
@@ -140,6 +91,7 @@ input:checked ~ .checkmark {
         <% end %>
       </tbody>
     </table>
+    <button type="submit">Save</button>
   </div>
 
   <script>
@@ -163,20 +115,11 @@ input:checked ~ .checkmark {
     });
   </script>
 
-  <p>
-    <strong>Created On:</strong>
-    <%= Timex.format!(@device.inserted_at, "{0M}-{0D}-{YYYY}") %>
-  </p>
-
-  <p>
-    <strong>Updated On:</strong>
-    <%= Timex.format!(@device.updated_at, "{0M}-{0D}-{YYYY}") %>
-  </p>
-
-  <p>
-    <strong>Content Filters:</strong>
-    <%= @user.content_filters %>
-  </p>
+  <.list>
+    <:item title="Created On:"><%= Timex.format!(@device.inserted_at, "{0M}-{0D}-{YYYY}") %></:item>
+    <:item title="Updated On:"><%= Timex.format!(@device.updated_at, "{0M}-{0D}-{YYYY}") %></:item>
+    <:item title="Content Filters:"><%= @user.content_filters %></:item>
+  </.list>
 </section>
 
 

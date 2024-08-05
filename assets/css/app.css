@@ -13,3 +13,20 @@
 section + section {
     margin-top: 3rem;
 }
+
+/*****************/
+/* from tailwind */
+.font-bold {
+    font-weight: bold;
+}
+
+.py-4 {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+/* not correct but whatever*/
+.gap-4 {
+    margin-top: 1rem; /* 16px */
+    margin-bottom: 1rem;
+}

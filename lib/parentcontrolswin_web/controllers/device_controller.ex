@@ -57,9 +57,17 @@ defmodule ParentcontrolswinWeb.DeviceController do
   def show(conn, %{"id" => id}) do
     user = Pow.Plug.current_user(conn)
     device = Devices.get_device!(id)
+    # is_internet_allowed = for _ <- 0..6, do: for _ <- 0..23, do: true
+    is_internet_allowed = for day <- 0..6, hour <- 0..23, into: %{} do
+      { {day, hour}, true }
+    end
+    # debug
+    #is_internet_allowed = Map.put(is_internet_allowed, {3, 3}, false)
+    #Logger.info("is_internet_allowed #{inspect(is_internet_allowed)}")
+    
     conn
     |> assign(:page_title, "Viewing Device")
-    |> render(:show, device: device, user: user)
+    |> render(:show, device: device, user: user, is_internet_allowed: is_internet_allowed)
   end
 
   def edit(conn, %{"id" => id}) do
