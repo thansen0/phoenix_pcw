@@ -59,9 +59,7 @@ defmodule ParentcontrolswinWeb.DeviceController do
     user = Pow.Plug.current_user(conn)
     device = Devices.get_device!(id)
 
-    # Try this from database
-    # is_internet_allowed = Jason.decode!(device.is_internet_allowed)
-    is_internet_allowed = for _day <- 0..6, do: for _hour <- 0..23, do: true
+    is_internet_allowed = get_device_schedule(device)
 
     Logger.info("is_internet_allowed #{inspect(is_internet_allowed)}")
     
@@ -70,32 +68,74 @@ defmodule ParentcontrolswinWeb.DeviceController do
     |> render(:show, device: device, user: user, is_internet_allowed: is_internet_allowed, csrf_token: csrf_token)
   end
 
+  def checkbox_checked?(is_internet_allowed, day, hour) do
+    day_key = Integer.to_string(day)
+    hour_key = Integer.to_string(hour)
+    
+    case Map.get(is_internet_allowed, day_key) do
+      nil -> false
+      day_map -> Map.get(day_map, hour_key, false)
+    end
+  end
+
   def updateallowedhours(conn, %{"id" => id, "is_internet_allowed" => internetallowed_params}) do
-    csrf_token = Plug.CSRFProtection.get_csrf_token()
-    user = Pow.Plug.current_user(conn)
     device = Devices.get_device!(id)
 
-    is_internet_allowed = for _day <- 0..6, do: for _hour <- 0..23, do: false
+    #Logger.info("Change log: #{inspect(internetallowed_params)}")
 
-    # Iterate through the params and update the double list
-    is_internet_allowed = Enum.reduce(internetallowed_params, is_internet_allowed, fn {day_str, hours}, acc ->
-      day = String.to_integer(day_str)
+    is_internet_allowed = for day <- 0..6, into: %{} do
+      { day, for hour <- 0..23, into: %{} do
+      { hour , false }
+      end}
+    end
 
-      updated_day_list = Enum.reduce(hours, Enum.at(acc, day), fn {hour_str, value}, day_acc ->
-        hour = String.to_integer(hour_str)
-        List.replace_at(day_acc, hour, value == "on")
-      end)
+    # Logger.info("PRE is_internet_allowed: #{inspect(is_internet_allowed)}")
 
-      List.replace_at(acc, day, updated_day_list)
+    is_internet_allowed = Enum.reduce(internetallowed_params, is_internet_allowed, fn {key, value}, acc ->
+      updated_value = Map.merge(Map.get(acc, key, %{}), value)
+      Map.put(acc, key, updated_value)
     end)
-    is_internet_allowed_json = Jason.encode!(is_internet_allowed)
 
-    #Logger.info("filters #{inspect(is_internet_allowed)}")
+
+
+    # is_internet_allowed = Enum.reduce(internetallowed_params, is_internet_allowed, fn {day_key, hours_map}, acc ->
+    #   updated_day_map = Map.merge(Map.get(acc, day_key, %{}), hours_map, fn _k, _v1, v2 -> v2 end)
+    #   Logger.info(updated_day_map)
+    #   Map.put(acc, day_key, updated_day_map)
+    # end)
+
+
+
+
+    # is_internet_allowed = Enum.reduce(internetallowed_params, is_internet_allowed, fn {day_str, hours}, acc ->
+    #   day = String.to_integer(day_str)
+    #   updated_day_map = Enum.reduce(hours, acc[day], fn {hour_str, value}, day_acc ->
+    #     hour = String.to_integer(hour_str)
+    #     Map.put(day_acc, hour, value == "on")
+    #   end)
+    #   Map.put(hour, day, updated_day_map)
+    # end)
+
+    Logger.info("FINAL is_internet_allowed: #{inspect(is_internet_allowed)}")
     #Logger.info("filters #{inspect(is_internet_allowed_json)}")
 
-    conn
-    |> assign(:page_title, "Updated Hours for Device")
-    |> render(:show, device: device, user: user, is_internet_allowed: is_internet_allowed, csrf_token: csrf_token)
+    changeset = Ecto.Changeset.change(device, is_allowed_schedule: is_internet_allowed)
+    case Parentcontrolswin.Repo.update(changeset) do
+      {:ok, _device} ->
+        conn
+        |> put_flash(:info, "Device Schedule Updated Successfully.")
+        |> assign(:page_title, "Updated Hours for Device")
+        |> redirect(to: ~p"/devices/#{device}")
+      {:error, nil} ->
+        conn
+        |> put_flash(:error, "Device Schedule Failed to Update.")
+        |> redirect(to: ~p"/devices/#{device}")
+    end
+
+    # conn
+    # |> assign(:page_title, "Updated Hours for Device")
+    # |> put_flash(:info, "Device updated successfully.")
+    # |> render(:show, device: device, user: user, is_internet_allowed: is_internet_allowed, csrf_token: csrf_token)
   end
 
   def edit(conn, %{"id" => id}) do
@@ -149,6 +189,34 @@ defmodule ParentcontrolswinWeb.DeviceController do
         conn
         |> put_flash(:error, "Filter failed to update.")
         |> redirect(to: ~p"/devices")
+    end
+  end
+
+  defp get_device_schedule(device) do
+    case device.is_allowed_schedule do
+      nil ->
+        Logger.info("is_allowed_schedule is nil")
+        # for day <- 0..6, hour <- 0..23, into: %{} do
+        #   { {day, hour}, true }
+        # end
+        for day <- 0..6, into: %{} do
+          { day, for hour <- 0..23, into: %{} do
+          { hour , false }
+          end}
+        end
+      %{} when map_size(device.is_allowed_schedule) == 0 ->
+        Logger.info("is_allowed_schedule is an empty map")
+        # for day <- 0..6, hour <- 0..23, into: %{} do
+        #   { {day, hour}, true }
+        # end
+        for day <- 0..6, into: %{} do
+          { day, for hour <- 0..23, into: %{} do
+          { hour , false }
+          end}
+        end
+      _ ->
+        Logger.info("is_allowed_schedule has data")
+        device.is_allowed_schedule
     end
   end
 end

@@ -1,0 +1,110 @@
+<style>
+    input[type="checkbox"] {
+      visibility: hidden;
+      display: none;
+    }
+    
+    .schedule-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .schedule-table th, .schedule-table td {
+      border: 2px solid #ddd;
+      /* padding: 8px; */
+      text-align: center;
+    }
+    
+    .schedule-table .verticle-table-header {
+      font-size: .8rem;
+    }
+    
+    .checkbox-container {
+      display: none;
+      cursor: pointer;
+      user-select: none;
+    }
+    
+    .checkbox-container input {
+      position: relative;
+      opacity: 0;
+      cursor: pointer;
+    }
+    
+    .checkbox-td {
+      padding: 0px;
+    }
+    
+    .checkmark {
+      margin: 0px;
+      position: relative;
+      width: 100%;
+      height: 2.2rem; /* font size plus padding */
+      background-color: #b47171;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    
+    input:checked ~ .checkmark {
+      background-color: #97bddb;
+    }
+</style>
+
+<form action="/update_allowed_hours" method="post">
+    <table class="schedule-table">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Monday</th>
+          <th>Tuesday</th>
+          <th>Wednesday</th>
+          <th>Thursday</th>
+          <th>Friday</th>
+          <th>Saturday</th>
+          <th>Sunday</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Loop through 24 hours -->
+        <%= for hour <- 0..23 do %>
+        <tr>
+          <th class="verticle-table-header"><%= hour %>:00</th>
+          <!-- Loop through 7 days -->
+          <%= for day <- 0..6 do %>
+          <td class="checkbox-td">
+            <label class="checkbox-container">
+            </label>
+            <input type="checkbox" name={"is_internet_allowed[#{day}][#{hour}]"} checked={ if Enum.at(Enum.at(@is_internet_allowed, day), hour), do: true, else: false} />
+            <span class="checkmark"></span>
+
+          </td>
+          <% end %>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <input type="hidden" name="id" value={@device.id}>
+    <input type="hidden" name="_csrf_token" value={@csrf_token} />
+    <button type="submit">Save</button>
+</form>
+
+<script>
+    function toggleCheckbox(event) {
+      const checkbox = event.target.querySelector('input[type="checkbox"]');
+      if (checkbox) {
+        checkbox.checked = !checkbox.checked;
+      }
+    }
+    
+    // Attach the event listener to the document to handle dynamically generated elements
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelector('.schedule-table').addEventListener('click', function(event) {
+        if (event.target.tagName === 'TD' || event.target.tagName === 'SPAN') {
+          const checkbox = event.target.closest('td').querySelector('input[type="checkbox"]');
+          if (checkbox) {
+            checkbox.checked = !checkbox.checked;
+          }
+        }
+      });
+    });
+  </script>

@@ -8,7 +8,7 @@ defmodule ParentcontrolswinWeb.RegistrationController do
     # IO.inspect(conn.params["g-recaptcha-response"], label: "reCAPTCHA Response")
 
     case Recaptcha.verify(conn.params["g-recaptcha-response"]) do
-      {:ok, response} ->
+      {:ok, _response} ->
         conn
         |> Pow.Plug.create_user(user_params)
         |> case do
@@ -22,7 +22,7 @@ defmodule ParentcontrolswinWeb.RegistrationController do
             |> put_flash(:error, "CAPTCHA verification failed.")
             |> redirect(to: ~p"/registration/new", changeset: changeset)
         end
-      {:error, message} ->
+      {:error, _message} ->
         conn
         |> put_flash(:error, "CAPTCHA verification failed.")
         |> redirect(to: ~p"/registration/new")

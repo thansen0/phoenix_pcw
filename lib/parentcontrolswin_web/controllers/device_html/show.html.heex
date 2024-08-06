@@ -1,8 +1,3 @@
-<!-- <.list>
-  <:item title="Name"><%= @device.name %></:item>
-  <:item title="User"><%= @device.user_id %></:item>
-</.list> -->
-
 <style>
 input[type="checkbox"] {
   visibility: hidden;
@@ -81,11 +76,13 @@ input:checked ~ .checkmark {
             <!-- Loop through 7 days -->
             <%= for day <- 0..6 do %>
             <td class="checkbox-td">
-              <label class="checkbox-container">
+              <label for={"is_internet_allowed_#{day}_#{hour}"} class="checkbox-container">
               </label>
-              <input type="checkbox" name={"is_internet_allowed[#{day}][#{hour}]"} checked={ if Enum.at(Enum.at(@is_internet_allowed, day), hour), do: true, else: false} />
+              <input id={"is_internet_allowed_#{day}_#{hour}"} type="checkbox" name={"is_internet_allowed[#{day}][#{hour}]"} checked={ParentcontrolswinWeb.DeviceController.checkbox_checked?(@is_internet_allowed, day, hour)} />
               <span class="checkmark"></span>
-
+              <!-- For double List: checked={ if Enum.at(Enum.at(@is_internet_allowed, day), hour), do: true, else: false }
+                    checked=<Map.get(@is_internet_allowed, {day, hour})>
+              -->
             </td>
             <% end %>
           </tr>
