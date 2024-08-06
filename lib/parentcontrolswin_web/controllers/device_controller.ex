@@ -68,56 +68,18 @@ defmodule ParentcontrolswinWeb.DeviceController do
     |> render(:show, device: device, user: user, is_internet_allowed: is_internet_allowed, csrf_token: csrf_token)
   end
 
-  def checkbox_checked?(is_internet_allowed, day, hour) do
-    day_key = Integer.to_string(day)
-    hour_key = Integer.to_string(hour)
-    
-    case Map.get(is_internet_allowed, day_key) do
-      nil -> false
-      day_map -> Map.get(day_map, hour_key, false)
-    end
-  end
-
   def updateallowedhours(conn, %{"id" => id, "is_internet_allowed" => internetallowed_params}) do
     device = Devices.get_device!(id)
 
     #Logger.info("Change log: #{inspect(internetallowed_params)}")
-
-    is_internet_allowed = for day <- 0..6, into: %{} do
-      { day, for hour <- 0..23, into: %{} do
-      { hour , false }
-      end}
-    end
-
-    # Logger.info("PRE is_internet_allowed: #{inspect(is_internet_allowed)}")
+    is_internet_allowed = get_empty_day_hour_map(false)
 
     is_internet_allowed = Enum.reduce(internetallowed_params, is_internet_allowed, fn {key, value}, acc ->
-      updated_value = Map.merge(Map.get(acc, key, %{}), value)
+      updated_value = Map.merge(Map.get(acc, key, %{}), conv_on_to_true(value))
       Map.put(acc, key, updated_value)
     end)
 
-
-
-    # is_internet_allowed = Enum.reduce(internetallowed_params, is_internet_allowed, fn {day_key, hours_map}, acc ->
-    #   updated_day_map = Map.merge(Map.get(acc, day_key, %{}), hours_map, fn _k, _v1, v2 -> v2 end)
-    #   Logger.info(updated_day_map)
-    #   Map.put(acc, day_key, updated_day_map)
-    # end)
-
-
-
-
-    # is_internet_allowed = Enum.reduce(internetallowed_params, is_internet_allowed, fn {day_str, hours}, acc ->
-    #   day = String.to_integer(day_str)
-    #   updated_day_map = Enum.reduce(hours, acc[day], fn {hour_str, value}, day_acc ->
-    #     hour = String.to_integer(hour_str)
-    #     Map.put(day_acc, hour, value == "on")
-    #   end)
-    #   Map.put(hour, day, updated_day_map)
-    # end)
-
-    Logger.info("FINAL is_internet_allowed: #{inspect(is_internet_allowed)}")
-    #Logger.info("filters #{inspect(is_internet_allowed_json)}")
+    Logger.debug("is_internet_allowed: #{inspect(is_internet_allowed)}")
 
     changeset = Ecto.Changeset.change(device, is_allowed_schedule: is_internet_allowed)
     case Parentcontrolswin.Repo.update(changeset) do
@@ -131,11 +93,6 @@ defmodule ParentcontrolswinWeb.DeviceController do
         |> put_flash(:error, "Device Schedule Failed to Update.")
         |> redirect(to: ~p"/devices/#{device}")
     end
-
-    # conn
-    # |> assign(:page_title, "Updated Hours for Device")
-    # |> put_flash(:info, "Device updated successfully.")
-    # |> render(:show, device: device, user: user, is_internet_allowed: is_internet_allowed, csrf_token: csrf_token)
   end
 
   def edit(conn, %{"id" => id}) do
@@ -192,31 +149,45 @@ defmodule ParentcontrolswinWeb.DeviceController do
     end
   end
 
+  def checkbox_checked?(is_internet_allowed, day, hour) do
+    hour = Integer.to_string(hour)
+    day = Integer.to_string(day)
+
+    case Map.get(is_internet_allowed, day) do
+      nil -> false
+      day_map -> Map.get(day_map, hour, false)
+    end
+  end
+
+  defp conv_on_to_true(mm) do
+    mm
+    |> Enum.map(fn
+      {key, "on"} -> {key, true}
+      {key, true} -> {key, true}
+      {key, _} -> {key, false}
+    end)
+    |> Enum.into(%{})
+  end
+
   defp get_device_schedule(device) do
     case device.is_allowed_schedule do
       nil ->
         Logger.info("is_allowed_schedule is nil")
-        # for day <- 0..6, hour <- 0..23, into: %{} do
-        #   { {day, hour}, true }
-        # end
-        for day <- 0..6, into: %{} do
-          { day, for hour <- 0..23, into: %{} do
-          { hour , false }
-          end}
-        end
+        get_empty_day_hour_map(true)
       %{} when map_size(device.is_allowed_schedule) == 0 ->
         Logger.info("is_allowed_schedule is an empty map")
-        # for day <- 0..6, hour <- 0..23, into: %{} do
-        #   { {day, hour}, true }
-        # end
-        for day <- 0..6, into: %{} do
-          { day, for hour <- 0..23, into: %{} do
-          { hour , false }
-          end}
-        end
+        get_empty_day_hour_map(true)
       _ ->
         Logger.info("is_allowed_schedule has data")
         device.is_allowed_schedule
+    end
+  end
+
+  defp get_empty_day_hour_map(set_value) do
+    for day <- 0..6, into: %{} do
+      { Integer.to_string(day), for hour <- 0..23, into: %{} do
+      { Integer.to_string(hour) , set_value }
+      end}
     end
   end
 end

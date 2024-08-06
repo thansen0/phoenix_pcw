@@ -80,9 +80,6 @@ input:checked ~ .checkmark {
               </label>
               <input id={"is_internet_allowed_#{day}_#{hour}"} type="checkbox" name={"is_internet_allowed[#{day}][#{hour}]"} checked={ParentcontrolswinWeb.DeviceController.checkbox_checked?(@is_internet_allowed, day, hour)} />
               <span class="checkmark"></span>
-              <!-- For double List: checked={ if Enum.at(Enum.at(@is_internet_allowed, day), hour), do: true, else: false }
-                    checked=<Map.get(@is_internet_allowed, {day, hour})>
-              -->
             </td>
             <% end %>
           </tr>
