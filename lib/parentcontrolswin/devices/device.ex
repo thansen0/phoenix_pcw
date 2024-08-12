@@ -21,14 +21,13 @@ defmodule Parentcontrolswin.Devices.Device do
     |> validate_timezone()
   end
 
-  # TODO add check to make sure timezone is valid
   @doc false
   defp validate_timezone(changeset) do
     validate_change(changeset, :timezone, fn :timezone, value ->
-      if String.trim(value) == "" do
-        [timezone: "cannot be empty"]
-      else
-        []
+      cond do
+        String.trim(value) == "" -> [timezone: "cannot be empty"]
+        not Timex.Timezone.exists?(value) -> [timezone: "zone doesn't exist"]
+        true -> []
       end
     end)
   end
