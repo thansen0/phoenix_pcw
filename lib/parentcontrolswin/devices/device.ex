@@ -18,5 +18,18 @@ defmodule Parentcontrolswin.Devices.Device do
     device
     |> cast(attrs, [:name, :user_id, :is_allowed_schedule, :timezone])
     |> validate_required([:name, :user_id, :is_allowed_schedule, :timezone])
+    |> validate_timezone()
+  end
+
+  # TODO add check to make sure timezone is valid
+  @doc false
+  defp validate_timezone(changeset) do
+    validate_change(changeset, :timezone, fn :timezone, value ->
+      if String.trim(value) == "" do
+        [timezone: "cannot be empty"]
+      else
+        []
+      end
+    end)
   end
 end

@@ -55,7 +55,6 @@ defmodule ParentcontrolswinWeb.DeviceController do
   end
 
   def show(conn, %{"id" => id}) do
-    csrf_token = Plug.CSRFProtection.get_csrf_token()
     user = Pow.Plug.current_user(conn)
     device = Devices.get_device!(id)
     timezone = device.timezone
@@ -67,11 +66,13 @@ defmodule ParentcontrolswinWeb.DeviceController do
       "timezone" => timezone,
       "is_internet_allowed" => is_internet_allowed
     })
+    # Logger.info(inspect(device))
+    # Logger.info("show timezone #{inspect(timezone)}")
+    # Logger.info("show changeset #{inspect(changeset)}")
 
     conn
     |> assign(:page_title, "Viewing Device")
-    |> render(:show, device: device, user: user, timezone: timezone, is_internet_allowed: is_internet_allowed, csrf_token: csrf_token, changeset: changeset)
-    # is_internet_allowed: is_internet_allowed, 
+    |> render(:show, device: device, user: user, timezone: timezone, is_internet_allowed: is_internet_allowed, changeset: changeset)
   end
 
   # "is_internet_allowed" => internetallowed_params, "timezone" => timezone, 
@@ -87,17 +88,21 @@ defmodule ParentcontrolswinWeb.DeviceController do
     end)
 
     # Logger.debug("is_internet_allowed: #{inspect(is_internet_allowed)}")
-    Logger.debug("updateallowedhours device_params: #{inspect(device_params)}")
-    IO.inspect(device_params["timezone"])
+    # Logger.debug("updateallowedhours device_params: #{inspect(device_params)}")
 
-    # changeset = Devices.change_device(device, device_params)
-    changeset = Ecto.Changeset.change(device, is_allowed_schedule: is_internet_allowed, timezone: device_params["timezone"])
+    # changeset = Ecto.Changeset.change(device, is_allowed_schedule: is_internet_allowed, timezone: device_params["timezone"])
+    changeset = Parentcontrolswin.Devices.Device.changeset(device, Map.put(device_params, "is_allowed_schedule", is_internet_allowed))
+
     case Parentcontrolswin.Repo.update(changeset) do
       {:ok, _device} ->
         conn
         |> put_flash(:info, "Device Schedule Updated Successfully.")
         |> assign(:page_title, "Updated Hours for Device")
         |> redirect(to: ~p"/devices/#{device}")
+      {:error, changeset} ->
+        conn
+        |> put_flash(:error, "Device Schedule Failed to Update; make sure you've selected a time zone.")
+        |> redirect(to: ~p"/devices/#{device}") # consider passing in is_internet_allowed variable
       {:error, nil} ->
         conn
         |> put_flash(:error, "Device Schedule Failed to Update.")
