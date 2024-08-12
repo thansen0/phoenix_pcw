@@ -58,30 +58,40 @@ defmodule ParentcontrolswinWeb.DeviceController do
     csrf_token = Plug.CSRFProtection.get_csrf_token()
     user = Pow.Plug.current_user(conn)
     device = Devices.get_device!(id)
-
-    is_internet_allowed = get_device_schedule(device)
-
-    Logger.info("is_internet_allowed #{inspect(is_internet_allowed)}")
+    timezone = device.timezone
     
+    is_internet_allowed = get_device_schedule(device)
+    # Logger.info("is_internet_allowed #{inspect(is_internet_allowed)}")
+
+    changeset = Devices.change_device(device, %{
+      "timezone" => timezone,
+      "is_internet_allowed" => is_internet_allowed
+    })
+
     conn
     |> assign(:page_title, "Viewing Device")
-    |> render(:show, device: device, user: user, is_internet_allowed: is_internet_allowed, csrf_token: csrf_token)
+    |> render(:show, device: device, user: user, timezone: timezone, is_internet_allowed: is_internet_allowed, csrf_token: csrf_token, changeset: changeset)
+    # is_internet_allowed: is_internet_allowed, 
   end
 
-  def updateallowedhours(conn, %{"id" => id, "is_internet_allowed" => internetallowed_params}) do
+  # "is_internet_allowed" => internetallowed_params, "timezone" => timezone, 
+  def updateallowedhours(conn, %{"id" => id, "device" => device_params, "f" => f}) do
     device = Devices.get_device!(id)
 
     #Logger.info("Change log: #{inspect(internetallowed_params)}")
     is_internet_allowed = get_empty_day_hour_map(false)
 
-    is_internet_allowed = Enum.reduce(internetallowed_params, is_internet_allowed, fn {key, value}, acc ->
+    is_internet_allowed = Enum.reduce(f[":is_internet_allowed"], is_internet_allowed, fn {key, value}, acc ->
       updated_value = Map.merge(Map.get(acc, key, %{}), conv_on_to_true(value))
       Map.put(acc, key, updated_value)
     end)
 
-    Logger.debug("is_internet_allowed: #{inspect(is_internet_allowed)}")
+    # Logger.debug("is_internet_allowed: #{inspect(is_internet_allowed)}")
+    Logger.debug("updateallowedhours device_params: #{inspect(device_params)}")
+    IO.inspect(device_params["timezone"])
 
-    changeset = Ecto.Changeset.change(device, is_allowed_schedule: is_internet_allowed)
+    # changeset = Devices.change_device(device, device_params)
+    changeset = Ecto.Changeset.change(device, is_allowed_schedule: is_internet_allowed, timezone: device_params["timezone"])
     case Parentcontrolswin.Repo.update(changeset) do
       {:ok, _device} ->
         conn
@@ -93,6 +103,18 @@ defmodule ParentcontrolswinWeb.DeviceController do
         |> put_flash(:error, "Device Schedule Failed to Update.")
         |> redirect(to: ~p"/devices/#{device}")
     end
+  end
+
+  def updateallowedhours(conn, %{"id" => id}) do
+    device = Devices.get_device!(id)
+
+    #Logger.info("Change log: #{inspect(internetallowed_params)}")
+
+    # TODO consider passing internetallowed_params back into redirect?
+    conn
+    |> put_flash(:error, "You must set a timezone.")
+    |> assign(:page_title, "Device Page")
+    |> redirect(to: ~p"/devices/#{device}")
   end
 
   def edit(conn, %{"id" => id}) do
@@ -152,6 +174,8 @@ defmodule ParentcontrolswinWeb.DeviceController do
   def checkbox_checked?(is_internet_allowed, day, hour) do
     hour = Integer.to_string(hour)
     day = Integer.to_string(day)
+
+    # Logger.info("checkbox checked?: #{inspect(is_internet_allowed)}\n\n")
 
     case Map.get(is_internet_allowed, day) do
       nil -> false

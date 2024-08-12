@@ -54,7 +54,22 @@ input:checked ~ .checkmark {
   <h1><%= @device.name %></h1>
 
   <div class="overflow-auto">
-    <form action="/update_allowed_hours" method="post">
+    <!-- /devices/#{@device.id}/update_allowed_hours -->
+    <.form :let={f} for={@changeset} action={~p"/update_allowed_hours"} method="post">
+      <div>
+        <label class="bold" for="timezone">Select your time zone</label>
+        <.input field={f[:timezone]} type="select" options={[
+          {"", ""},
+          {"Eastern Time", "America/New_York"},
+          {"Central Time", "America/Chicago"},
+          {"Mountain Time", "America/Denver"},
+          {"Pacific Time", "America/Los_Angeles"},
+          {"America/Anchorage", "America/Anchorage"},
+          {"America/Adak", "America/Adak"},
+          {"Pacific/Honolulu", "Pacific/Honolulu"}
+        ]} value={@timezone} />
+      </div>
+
       <table class="schedule-table">
         <thead>
           <tr>
@@ -69,27 +84,29 @@ input:checked ~ .checkmark {
           </tr>
         </thead>
         <tbody>
-          <!-- Loop through 24 hours -->
           <%= for hour <- 0..23 do %>
-          <tr>
-            <th class="verticle-table-header"><%= hour %>:00</th>
-            <!-- Loop through 7 days -->
-            <%= for day <- 0..6 do %>
-            <td class="checkbox-td">
-              <label for={"is_internet_allowed_#{day}_#{hour}"} class="checkbox-container">
-              </label>
-              <input id={"is_internet_allowed_#{day}_#{hour}"} type="checkbox" name={"is_internet_allowed[#{day}][#{hour}]"} checked={ParentcontrolswinWeb.DeviceController.checkbox_checked?(@is_internet_allowed, day, hour)} />
-              <span class="checkmark"></span>
-            </td>
-            <% end %>
-          </tr>
+            <tr>
+              <th class="verticle-table-header"><%= hour %>:00</th>
+              <%= for day <- 0..6 do %>
+                <td class="checkbox-td">
+                  <label for={"is_internet_allowed_#{day}_#{hour}"} class="checkbox-container">
+                  </label>
+                  <%= tag(:input, id: "is_internet_allowed_#{day}_#{hour}", type: "checkbox", name: "f[:is_internet_allowed][#{day}][#{hour}]", checked: ParentcontrolswinWeb.DeviceController.checkbox_checked?(@is_internet_allowed, day, hour) ) %>
+                  <span class="checkmark"></span>
+                </td>
+              <% end %>
+            </tr>
           <% end %>
         </tbody>
       </table>
-      <input type="hidden" name="id" value={@device.id}>
-      <input type="hidden" name="_csrf_token" value={@csrf_token} />
+
+      <.input type="hidden" name="id" value={@device.id} />
+      <.input type="hidden" name="_csrf_token" value={@csrf_token} />
       <button type="submit">Save</button>
-    </form>
+    </.form>
+
+
+
   </div>
 
   <script>
