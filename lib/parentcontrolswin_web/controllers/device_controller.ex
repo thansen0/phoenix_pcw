@@ -99,7 +99,7 @@ defmodule ParentcontrolswinWeb.DeviceController do
         |> put_flash(:info, "Device Schedule Updated Successfully.")
         |> assign(:page_title, "Updated Hours for Device")
         |> redirect(to: ~p"/devices/#{device}")
-      {:error, changeset} ->
+      {:error, _changeset} ->
         conn
         |> put_flash(:error, "Device Schedule Failed to Update; make sure you've selected a time zone.")
         |> redirect(to: ~p"/devices/#{device}") # consider passing in is_internet_allowed variable
