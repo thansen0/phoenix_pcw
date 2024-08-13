@@ -87,6 +87,13 @@ defmodule ParentcontrolswinWeb.Router do
     get "/getContentFilters", SessionController, :getContentFilters
   end
 
+  scope "/api/v1", ParentcontrolswinWeb.API.V1, as: :api_v1 do
+    pipe_through [:api]
+
+    # Your protected API endpoints here
+    get "/getURDeviceInfo", SessionController, :getURDeviceInfo
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", ParentcontrolswinWeb do
   #   pipe_through :api

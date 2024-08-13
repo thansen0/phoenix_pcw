@@ -14,6 +14,13 @@ section + section {
     margin-top: 3rem;
 }
 
+.pretty-image-container {
+    border-radius: 0rem;
+    border: .25rem;
+    border-style: solid;
+    border-color: #525f7a;
+}
+
 /*****************/
 /* from tailwind */
 .font-bold {

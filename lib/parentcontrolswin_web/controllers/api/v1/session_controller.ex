@@ -1,5 +1,6 @@
 defmodule ParentcontrolswinWeb.API.V1.SessionController do
   use ParentcontrolswinWeb, :controller
+  require Logger
 
   alias ParentcontrolswinWeb.APIAuthPlug
   alias Plug.Conn
@@ -43,8 +44,6 @@ defmodule ParentcontrolswinWeb.API.V1.SessionController do
     |> json(%{data: %{}})
   end
 
-
-
   # added after the fact, not great placement
   @spec getContentFilters(Conn.t(), map()) :: Conn.t()
   def getContentFilters(conn, _params) do
@@ -54,4 +53,42 @@ defmodule ParentcontrolswinWeb.API.V1.SessionController do
     |> json(%{data: %{content_filters: content_filters}})
   end
 
+  def getURDeviceInfo(conn, params) do
+    with {:ok, device_id} <- validate_param(params["device_id"], "device_id"),
+        {:ok, user_email} <- validate_param(params["email"], "email") do
+
+      content_filters = getContentFiltersFromEmail(user_email)
+      is_internet_allowed = getInternetScheduleFromDeviceId(device_id)
+      timezone = getTimezoneFromDeviceId(device_id)
+
+      conn
+      |> json(%{is_internet_allowed: is_internet_allowed, timezone: timezone, content_filters: content_filters})
+
+    else
+      {:error, message} ->
+        conn
+        |> put_status(:bad_request)
+        |> json(%{error: message})
+    end
+  end
+
+  defp getContentFiltersFromEmail(email) do
+    Parentcontrolswin.Repo.get_by(Parentcontrolswin.Users.User, email: email).content_filters
+  end
+
+  defp getInternetScheduleFromDeviceId(device_id) do
+    Parentcontrolswin.Repo.get_by(Parentcontrolswin.Devices.Device, id: device_id).is_allowed_schedule
+  end
+
+  defp getTimezoneFromDeviceId(device_id) do
+    Parentcontrolswin.Repo.get_by(Parentcontrolswin.Devices.Device, id: device_id).timezone
+  end
+
+  defp validate_param(param, param_name) do
+    case param do
+      nil -> {:error, "#{param_name} is required"}
+      "" -> {:error, "#{param_name} cannot be empty"}
+      _ -> {:ok, param}
+    end
+  end
 end
