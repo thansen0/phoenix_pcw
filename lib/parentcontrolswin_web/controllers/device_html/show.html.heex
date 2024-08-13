@@ -57,7 +57,7 @@ input:checked ~ .checkmark {
     <!-- /devices/#{@device.id}/update_allowed_hours -->
     <.form :let={f} for={@changeset} action={~p"/update_allowed_hours"} method="post">
       <div>
-        <label class="bold" for="timezone">Select your time zone</label>
+        <label for="timezone">Select your time zone:</label>
         <.input field={f[:timezone]} type="select" options={[
           {"", ""},
           {"Eastern Time", "America/New_York"},
@@ -101,6 +101,7 @@ input:checked ~ .checkmark {
       </table>
 
       <.input type="hidden" name="id" value={@device.id} />
+      <p>Note: Internet schedule will not be fully implemented until later in August, so expect only a partial feature list.</p>
       <button type="submit">Save</button>
     </.form>
 
