@@ -34,7 +34,7 @@ config :logger, level: :info
 # Stripe API keys 
 stripe_api_key = System.get_env("STRIPE_API_SECRET") ||
     raise """
-    environment variable STRIPE_API_KEY is missing.
+    environment variable STRIPE_API_SECRET is missing.
     You can obtain it from the stripe dashboard: https://dashboard.stripe.com/test/apikeys
     """
 
