@@ -85,47 +85,46 @@ defmodule ParentcontrolswinWeb.DeviceController do
   def updateallowedhours(conn, %{"id" => id, "device" => device_params, "f" => f}) do
     device = Devices.get_device!(id)
 
-    #Logger.info("Change log: #{inspect(internetallowed_params)}")
-    is_internet_allowed = get_empty_day_hour_map(false)
-
-    is_internet_allowed = Enum.reduce(f[":is_internet_allowed"], is_internet_allowed, fn {key, value}, acc ->
-      updated_value = Map.merge(Map.get(acc, key, %{}), conv_on_to_true(value))
-      Map.put(acc, key, updated_value)
-    end)
-
-    # Logger.debug("is_internet_allowed: #{inspect(is_internet_allowed)}")
-    # Logger.debug("updateallowedhours device_params: #{inspect(device_params)}")
-
-    # changeset = Ecto.Changeset.change(device, is_allowed_schedule: is_internet_allowed, timezone: device_params["timezone"])
-    changeset = Parentcontrolswin.Devices.Device.changeset(device, Map.put(device_params, "is_allowed_schedule", is_internet_allowed))
-
-    case Parentcontrolswin.Repo.update(changeset) do
-      {:ok, _device} ->
+    case Map.get(device_params, "timezone") do
+      nil ->
         conn
-        |> put_flash(:info, "Device Schedule Updated Successfully.")
-        |> assign(:page_title, "Updated Hours for Device")
+        |> put_flash(:error, "Timezone is missing or null")
         |> redirect(to: ~p"/devices/#{device}")
-      {:error, _changeset} ->
+      "" ->
         conn
-        |> put_flash(:error, "Device Schedule Failed to Update; make sure you've selected a time zone.")
-        |> redirect(to: ~p"/devices/#{device}") # consider passing in is_internet_allowed variable
-      {:error, nil} ->
-        conn
-        |> put_flash(:error, "Device Schedule Failed to Update.")
+        |> put_flash(:error, "Timezone must contain a value.")
         |> redirect(to: ~p"/devices/#{device}")
+      _timezone ->
+        # TODO this is the ugliest piece of code I've ever written (at least today)
+        #Logger.info("Change log: #{inspect(internetallowed_params)}")
+        is_internet_allowed = get_empty_day_hour_map(false)
+
+        is_internet_allowed = Enum.reduce(f[":is_internet_allowed"], is_internet_allowed, fn {key, value}, acc ->
+          updated_value = Map.merge(Map.get(acc, key, %{}), conv_on_to_true(value))
+          Map.put(acc, key, updated_value)
+        end)
+
+        # Logger.debug("is_internet_allowed: #{inspect(is_internet_allowed)}")
+        # Logger.debug("updateallowedhours device_params: #{inspect(device_params)}")
+
+        changeset = Parentcontrolswin.Devices.Device.changeset(device, Map.put(device_params, "is_allowed_schedule", is_internet_allowed))
+
+        case Parentcontrolswin.Repo.update(changeset) do
+          {:ok, _device} ->
+            conn
+            |> put_flash(:info, "Device Schedule Updated Successfully.")
+            |> assign(:page_title, "Updated Hours for Device")
+            |> redirect(to: ~p"/devices/#{device}")
+          {:error, _changeset} ->
+            conn
+            |> put_flash(:error, "Device Schedule Failed to Update; make sure you've selected a time zone.")
+            |> redirect(to: ~p"/devices/#{device}") # consider passing in is_internet_allowed variable
+          {:error, nil} ->
+            conn
+            |> put_flash(:error, "Device Schedule Failed to Update.")
+            |> redirect(to: ~p"/devices/#{device}")
+        end
     end
-  end
-
-  def updateallowedhours(conn, %{"id" => id}) do
-    device = Devices.get_device!(id)
-
-    #Logger.info("Change log: #{inspect(internetallowed_params)}")
-
-    # TODO consider passing internetallowed_params back into redirect?
-    conn
-    |> put_flash(:error, "You must set a timezone.")
-    |> assign(:page_title, "Device Page")
-    |> redirect(to: ~p"/devices/#{device}")
   end
 
   def edit(conn, %{"id" => id}) do
@@ -185,8 +184,6 @@ defmodule ParentcontrolswinWeb.DeviceController do
   def checkbox_checked?(is_internet_allowed, day, hour) do
     hour = Integer.to_string(hour)
     day = Integer.to_string(day)
-
-    # Logger.info("checkbox checked?: #{inspect(is_internet_allowed)}\n\n")
 
     case Map.get(is_internet_allowed, day) do
       nil -> false

@@ -49,15 +49,15 @@ config :stripity_stripe,
   stripe_coupon_id: "U3U0MXwB"
 
 # Google Recaptcha API keys, indentical for dev and prod
-recaptcha_public_key = System.get_env("RECAPTCHA_PUBLIC_KEY") ||
-    raise """
-    environment variable RECAPTCHA_PUBLIC_KEY is missing.
-    """
+recaptcha_public_key = case System.fetch_env("RECAPTCHA_PUBLIC_KEY") do
+  {:ok, api_key} -> api_key
+  :error -> raise "RECAPTCHA_PUBLIC_KEY is not set"
+end
 
-recaptcha_private_key = System.get_env("RECAPTCHA_PRIVATE_KEY") ||
-    raise """
-    environment variable RECAPTCHA_PRIVATE_KEY is missing.
-    """
+recaptcha_private_key = case System.fetch_env("RECAPTCHA_PRIVATE_KEY") do
+  {:ok, api_key} -> api_key
+  :error -> raise "RECAPTCHA_PRIVATE_KEY is not set"
+end
 
 config :recaptcha,
   public_key: recaptcha_public_key,
