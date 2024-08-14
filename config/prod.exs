@@ -32,17 +32,15 @@ config :logger, level: :info
 # of environment variables, is done on config/runtime.exs.
 
 # Stripe API keys 
-stripe_api_key = System.get_env("STRIPE_API_SECRET") ||
-    raise """
-    environment variable STRIPE_API_SECRET is missing.
-    You can obtain it from the stripe dashboard: https://dashboard.stripe.com/test/apikeys
-    """
+stripe_api_key = case System.fetch_env("STRIPE_API_SECRET") do
+  {:ok, api_key} -> api_key
+  :error -> raise "STRIPE_API_SECRET is not set"
+end
 
-stripe_webhook_key = System.get_env("STRIPE_WEBHOOK_SIGNING_SECRET") ||
-    raise """
-    environment variable STRIPE_WEBHOOK_SIGNING_SECRET is missing.
-    You can obtain it from the stripe dashboard: https://dashboard.stripe.com/account/webhooks
-    """
+stripe_webhook_key = case System.fetch_env("STRIPE_WEBHOOK_SIGNING_SECRET") do
+  {:ok, api_key} -> api_key
+  :error -> raise "STRIPE_WEBHOOK_SIGNING_SECRET is not set"
+end
 
 config :stripity_stripe,
   api_key: stripe_api_key,

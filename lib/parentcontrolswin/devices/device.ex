@@ -17,7 +17,7 @@ defmodule Parentcontrolswin.Devices.Device do
   def changeset(device, attrs) do
     device
     |> cast(attrs, [:name, :user_id, :is_allowed_schedule, :timezone])
-    |> validate_required([:name, :user_id, :is_allowed_schedule, :timezone])
+    |> validate_required([:name, :user_id]) # , :is_allowed_schedule, :timezone
     |> validate_timezone()
   end
 
@@ -25,7 +25,8 @@ defmodule Parentcontrolswin.Devices.Device do
   defp validate_timezone(changeset) do
     validate_change(changeset, :timezone, fn :timezone, value ->
       cond do
-        String.trim(value) == "" -> [timezone: "cannot be empty"]
+        String.trim(value) == "" -> []
+        String.trim(value) == nil -> []
         not Timex.Timezone.exists?(value) -> [timezone: "zone doesn't exist"]
         true -> []
       end

@@ -84,17 +84,15 @@ config :phoenix_live_view, :debug_heex_annotations, true
 config :swoosh, :api_client, false
 
 # Stripe API keys 
-stripe_api_key = System.get_env("STRIPE_API_SECRET") ||
-    raise """
-    environment variable STRIPE_API_KEY is missing.
-    You can obtain it from the stripe dashboard: https://dashboard.stripe.com/test/apikeys
-    """
+stripe_api_key = case System.fetch_env("STRIPE_API_SECRET") do
+  {:ok, api_key} -> api_key
+  :error -> raise "STRIPE_API_SECRET is not set"
+end
 
-stripe_webhook_key = System.get_env("STRIPE_WEBHOOK_SIGNING_SECRET") ||
-    raise """
-    environment variable STRIPE_WEBHOOK_SIGNING_SECRET is missing.
-    You can obtain it from the stripe dashboard: https://dashboard.stripe.com/account/webhooks
-    """
+stripe_webhook_key = case System.fetch_env("STRIPE_WEBHOOK_SIGNING_SECRET") do
+  {:ok, api_key} -> api_key
+  :error -> raise "STRIPE_WEBHOOK_SIGNING_SECRET is not set"
+end
 
 config :stripity_stripe,
   api_key: stripe_api_key,
@@ -103,15 +101,15 @@ config :stripity_stripe,
   stripe_coupon_id: "VMkip7Cd"
 
 # Google Recaptcha API keys, indentical for dev and prod
-recaptcha_public_key = System.get_env("RECAPTCHA_PUBLIC_KEY") ||
-    raise """
-    environment variable RECAPTCHA_PUBLIC_KEY is missing.
-    """
+recaptcha_public_key = case System.fetch_env("RECAPTCHA_PUBLIC_KEY") do
+  {:ok, api_key} -> api_key
+  :error -> raise "RECAPTCHA_PUBLIC_KEY is not set"
+end
 
-recaptcha_private_key = System.get_env("RECAPTCHA_PRIVATE_KEY") ||
-    raise """
-    environment variable RECAPTCHA_PRIVATE_KEY is missing.
-    """
+recaptcha_private_key = case System.fetch_env("RECAPTCHA_PRIVATE_KEY") do
+  {:ok, api_key} -> api_key
+  :error -> raise "RECAPTCHA_PRIVATE_KEY is not set"
+end
 
 config :recaptcha,
   public_key: recaptcha_public_key,
