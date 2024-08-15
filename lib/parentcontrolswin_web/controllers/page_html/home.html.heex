@@ -19,7 +19,7 @@
 
 <section class="twelve columns columns-container center">
   <%= unless Pow.Plug.current_user(@conn) do %>
-    <%= link raw("<button class='button center-align button-primary'>Sign Up Now!</button>"), to: ~p"/registration/new" %>
+    <%= link raw("<button class='button center-align button-primary'>Improve Your Child's Digital Wellbeing</button>"), to: ~p"/registration/new" %>
   <% end %>
 </section>
 
@@ -70,6 +70,12 @@
     <figcaption>Supports windows computers. You just log in and forget about it! We'll handle it from there.</figcaption>
   </figure>
 
+</section>
+
+<section class="twelve columns columns-container center">
+  <%= unless Pow.Plug.current_user(@conn) do %>
+    <%= link raw("<button class='button center-align button-primary'>Sign up now!</button>"), to: ~p"/registration/new" %>
+  <% end %>
 </section>
 
 <section class="twelve columns">
