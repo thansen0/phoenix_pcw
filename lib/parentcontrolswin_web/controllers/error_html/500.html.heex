@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" class="[scrollbar-gutter:stable]">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-token" content={get_csrf_token()} />
+    <link rel="icon" type="image/x-icon" href={~p"/images/favicon.ico"}>
+    <.live_title suffix=" - PCW">
+      <%= assigns[:page_title] || "ParentControls.Win" %>
+    </.live_title>
+    <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
+    <!-- must import phoenix_html here -->
+    <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}></script>
+    <script src="https://www.google.com/recaptcha/enterprise.js?render=6Le2vGcpAAAAAALmfeQ6f-ChLlQPPIl1b08qYNuU"></script>
+
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+    <%= if Mix.env() == :prod do %>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-9D0WE4JFGQ"></script>
+      <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-9D0WE4JFGQ');
+      </script>
+      <script defer src="https://cloud.umami.is/script.js" data-website-id="a8c38bc3-0c62-43e3-8721-221cfd2032d8"></script>
+    <% end %>
+
+  </head>
+  <body>
+    <header class="container">
+      <nav class="row">
+        <ul>
+          <li><strong><a href={~p"/"} class="secondary">PCW</a></strong></li>
+        </ul>
+        <ul>
+          <%= if Pow.Plug.current_user(@conn) do %>
+            <!-- sign out and settings -->
+            <li><%= link "Sign out", to: ~p"/session", class: "contrast", method: :delete  %></li>
+            <li><%= link "Devices", to: ~p"/devices", class: "contrast" %></li>
+            <li><%= link "Account", to: ~p"/registration/edit", class: "contrast" %></li>
+            <li><%= link "Setup", to: ~p"/install_pcw", class: "contrast" %></li>
+            <%= if !ParentcontrolswinWeb.SubscriptionController.is_subscribed?(Pow.Plug.current_user(@conn)) do %>
+              <%= form_for @conn, ~p"/subscriptions/new", [method: :post], fn _f -> %>
+                <li class="contrast">
+                  <%= submit "Click to Subscribe", class: "your-button-class", style: "display:none;" %>
+                  <a href="#" onclick="event.preventDefault(); this.closest('form').submit();">Click to Subscribe</a>
+                </li>
+              <% end %>
+            <% end %>
+
+          <% else %>
+            <li><%= link "Sign in", to: ~p"/session/new" %></li>
+            <li><%= link "Sign up", to: ~p"/registration/new" %></li>
+          <% end %>
+          <li>
+            <details class="dropdown">
+              <summary role="button" class="secondary">Theme</summary>
+              <ul>
+                <li><a href="#" data-theme-switcher="auto">Auto</a></li>
+                <li><a href="#" data-theme-switcher="light">Light</a></li>
+                <li><a href="#" data-theme-switcher="dark">Dark</a></li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </nav>
+      <hr/>
+    </header>
+
+    
+    <main class="container">
+        <section>
+            <h1>Error! 500</h1>
+        
+            <p>Sorry, but something went wrong on our end.</p>
+        
+            <p>If you continue to encounter these errors, please let us know at <a href="mailto:contact@parentcontrols.win">contact@parentcontrols.win</a></p>
+
+        </section>
+    </main>
+
+    <footer class="container">
+      <hr/>
+      <div class="grid">
+        <%= link to: ~p"/", class: "contrast" do %>
+          <div role="button" type="button" class="outline contrast">Home</div>
+        <% end %>
+        <%= link to: ~p"/content_filter_faq", class: "contrast" do %>
+          <div role="button" type="button" class="outline contrast">Filtering</div>
+        <% end %>
+        <%= link to: ~p"/install_pcw", class: "contrast" do %>
+          <div role="button" type="button" class="outline contrast">Setup</div>
+        <% end %>
+        <%= link to: ~p"/contact", class: "contrast" do %>
+          <div role="button" type="button" class="outline contrast">Contact</div>
+        <% end %>
+      </div>
+    </footer>
+
+  </body>
+</html>

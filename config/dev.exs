@@ -24,7 +24,7 @@ config :parentcontrolswin, ParentcontrolswinWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4000],
   check_origin: false,
   code_reloader: true,
-  debug_errors: true,
+  debug_errors: true, # set to false for testing 404/500 pages
   secret_key_base: "MTI5Y/GnnF/UHTV1uyAb+NftfGrAqG71R1vyBOkFjPyZICV1Ok9yJ3gBGpcg0B/E",
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
