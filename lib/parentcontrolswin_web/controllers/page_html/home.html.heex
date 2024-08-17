@@ -12,14 +12,14 @@
 
   <h1>A new kind of Internet Filter</h1>
 
-  <p>Take control of your child's internet. Our focus is on filtering social media, and we use AI paired with customer filters to determine which posts to remove, directly from social media feeds without impacting the overall browsing experience.</p>
+  <p>Take control of your child's internet. Our focus is on filtering social media and search results, and we use AI paired with custom filters to determine which posts to remove. They are removed in real time, without impacting the rest of the search or social media feed.</p>
 
   <p>We've launched into early access, get <b>50% off</b> for the first two months! Coupon automatically applied during checkout.</p>
 </section>
 
 <section class="twelve columns columns-container center">
   <%= unless Pow.Plug.current_user(@conn) do %>
-    <%= link raw("<button class='button center-align button-primary'>Improve Your Child's Digital Wellbeing</button>"), to: ~p"/registration/new" %>
+    <%= link raw("<button class='button center-align button-primary'>Sign up Now!</button>"), to: ~p"/registration/new" %>
   <% end %>
 </section>
 
@@ -39,8 +39,10 @@
 
     <p>Our product focuses on protecting your children from influencers, forms, 
       and communities you deem harmful. Our list of 
-      <%= link "custom filter options", to: ~p"/content_filter_faq" %> is 
-      limited but growing while we're in early access. We are a small team and appreciate feature requests! Don't be afraid to <%= link "email us", to: ~p"/contact" %>!</p>
+      <%= link "custom filter options", to: ~p"/content_filter_faq" %> 
+      can block a wide range of harmful topics, and our scheduler allows you to 
+      set healthy time limits for devices. We are a small team and appreciate 
+      feature requests! Don't be afraid to <%= link "email us", to: ~p"/contact" %>!</p>
 
 </section>
 
@@ -74,7 +76,7 @@
 
 <section class="twelve columns columns-container center">
   <%= unless Pow.Plug.current_user(@conn) do %>
-    <%= link raw("<button class='button center-align button-primary'>Sign up now!</button>"), to: ~p"/registration/new" %>
+    <%= link raw("<button class='button center-align button-primary'>Sign up Now!</button>"), to: ~p"/registration/new" %>
   <% end %>
 </section>
 
