@@ -40,6 +40,7 @@ defmodule ParentcontrolswinWeb.Router do
 
     get "/", PageController, :home
     get "/contact", PageController, :contact
+    get "/intake", PageController, :ad_intake
     get "/ad_intake", PageController, :ad_intake
     get "/install_pcw", PageController, :install_pcw
     get "/privacy_policy", PageController, :privacy_policy
