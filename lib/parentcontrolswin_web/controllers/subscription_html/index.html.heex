@@ -1,4 +1,8 @@
 <div class="">
+    <%= form_for @conn, ~p"/subscriptions/new", [method: :post], fn _f -> %>
+        <%= submit "Add Payment and Subscribe", class: "button button-primary" %>
+    <% end %>
+
     <figure class="image-container center" style="display:flexbox;">
         <img src={~p"/images/banner-family.png"} alt="Welcome to the Parent Controls Win family!" style="width: 75%; border-radius: .25em;"/>
     </figure>

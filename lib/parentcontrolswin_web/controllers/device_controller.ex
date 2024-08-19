@@ -11,7 +11,7 @@ defmodule ParentcontrolswinWeb.DeviceController do
     user = Pow.Plug.current_user(conn)
     if !ParentcontrolswinWeb.SubscriptionController.is_subscribed?(user) do
       conn
-      |>put_flash(:error, "You must subscribe to view your devices. All subscriptions have a 30 day money back guarantee.")
+      |>put_flash(:error, "You must subscribe to view your devices")
       |>redirect(to: ~p"/subscriptions")
     end
 
