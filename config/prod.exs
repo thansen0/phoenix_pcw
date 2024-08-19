@@ -45,8 +45,8 @@ end
 config :stripity_stripe,
   api_key: stripe_api_key,
   signing_secret: stripe_webhook_key,
-  stripe_price_id: "price_1PhHFnDrVDu5S9fVaqyDj45s",
-  stripe_coupon_id: "U3U0MXwB"
+  stripe_price_id: "price_1PV4BxDrVDu5S9fV3E9ud3mz",
+  stripe_coupon_id: "PphOHwQP"
 
 # Google Recaptcha API keys, indentical for dev and prod
 recaptcha_public_key = case System.fetch_env("RECAPTCHA_PUBLIC_KEY") do
