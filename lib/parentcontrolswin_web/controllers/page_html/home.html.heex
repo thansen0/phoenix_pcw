@@ -46,6 +46,22 @@
 
 </section>
 
+<section class="twelve columns">
+  <h2>What your kid sees</h2>
+
+  <figure class="image-container center">
+    <img class="pretty-image-container" src={~p"/images/reddit-how-it-works.jpg"} alt="Control Diagram of Child Monitoring Software"/>
+    <figcaption>Example of the atheism and lgbt filter running on Reddit</figcaption>
+  </figure>
+
+  <ul>
+      <li>Content is filtered through a remote server, allowing for powerful AI filtering</li>
+      <li>Posts are removed in-line with search and social media feeds, leaving the rest of the content untouched</li>
+      <li>Wireguard VPN allows for better battery life than local filtering</li>
+      <li>Better anonymity through integrated VPN</li>
+  </ul>
+</section>
+
 <section>
   <h2>Features</h2>
 
@@ -78,20 +94,4 @@
   <%= unless Pow.Plug.current_user(@conn) do %>
     <%= link raw("<button class='button center-align button-primary'>Sign up Now!</button>"), to: ~p"/registration/new" %>
   <% end %>
-</section>
-
-<section class="twelve columns">
-    <h2>What your kid sees</h2>
-
-    <figure class="image-container center">
-      <img class="pretty-image-container" src={~p"/images/reddit-how-it-works.jpg"} alt="Control Diagram of Child Monitoring Software"/>
-      <figcaption>Example of the atheism and lgbt filter running on Reddit</figcaption>
-    </figure>
-
-    <ul>
-        <li>Content is filtered through a remote server, allowing for powerful AI filtering</li>
-        <li>Posts are removed in-line with search and social media feeds, leaving the rest of the content untouched</li>
-        <li>Wireguard VPN allows for better battery life than local filtering</li>
-        <li>Better anonymity through integrated VPN</li>
-    </ul>
 </section>

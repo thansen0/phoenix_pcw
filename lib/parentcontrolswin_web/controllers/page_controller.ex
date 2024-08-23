@@ -27,6 +27,10 @@ defmodule ParentcontrolswinWeb.PageController do
     render(conn, :ad_intake, page_title: "Sign up for ParentControlsWin")
   end
 
+  def time_limit_reached(conn, _params) do
+    render(conn, :time_limit_reached, page_title: "You've reached the end of your scheduled time!")
+  end
+
   def install_pcw(conn, _params) do
     render(conn, :install_pcw, page_title: "Install")
   end

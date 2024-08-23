@@ -46,6 +46,7 @@ defmodule ParentcontrolswinWeb.Router do
     get "/privacy_policy", PageController, :privacy_policy
     get "/nsfw_ad_intake", PageController, :nsfw_ad_intake
     get "/trans_ad_intake", PageController, :trans_ad_intake
+    get "/time_limit_reached", PageController, :time_limit_reached
     get "/content_filter_faq", PageController, :content_filter_faq
     get "/downloads/terms_of_service", PageController, :terms_of_service
   end
