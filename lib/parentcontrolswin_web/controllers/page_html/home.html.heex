@@ -1,4 +1,4 @@
-<section class="twelve columns">
+<section class="twelve columns mb-16">
   <%= if Pow.Plug.current_user(@conn) do %>
     <%= if !ParentcontrolswinWeb.SubscriptionController.is_subscribed?(Pow.Plug.current_user(@conn)) do %>
       <h1>Click to Subscribe</h1>
@@ -13,53 +13,44 @@
   <h1>A new kind of Internet Filter</h1>
 
   <p>Take control of your child's internet. Our focus is on filtering social media and search results, and we use AI paired with custom filters to determine which posts to remove. They are removed in real time, without impacting the rest of the search or social media feed. Protecting your kids before they consume harmful ideas, ideally from 5-13, can be the difference between success and failure as an adult.</p>
-
-  <p>While we're in early access, get a free 1-month trial!</p>
 </section>
 
-<section class="twelve columns columns-container center">
-  <%= unless Pow.Plug.current_user(@conn) do %>
-    <%= link raw("<button class='button center-align button-primary'>Sign up Now!</button>"), to: ~p"/registration/new" %>
-  <% end %>
+<section class="row columns-container center mb-16">
+  <div class="grid">
+    <div class="">
+      <h3>Subscribe for a free 1-month trial!</h3>
+    </div>
+    <div class="">
+      <%= unless Pow.Plug.current_user(@conn) do %>
+        <%= link raw("<button class='button center-align button-primary'>Sign up Now!</button>"), to: ~p"/registration/new" %>
+      <% end %>
+    </div>
+    <div class="">
+      <h3>20 a month</h3>
+    </div>
+  </div>
 </section>
 
-<section class="twelve columns">
+<!--
+<section class="">
   <h2 id="pricing">Pricing</h2>
 
   <p>The service is <b>$20</b> a month, with the first month being free. Cancel anytime.</p>
-</section>
+</section> -->
 
-<section class="twelve columns">
+<section class="">
     <h2>Why We Need Better Parental Control Apps</h2>
 
     <p>The internet has changed, and current child monitoring apps haven't 
-    kept up. We're not only fighting against adult content, but we have to compete
-    with hundred billion dollar tech companies trying to replace family
-    values and push far-left politics.</p>
+    kept up.</p>
 
-    <p>Our product focuses on protecting your children from influencers, forms, 
+    <p>We focus on protecting your children from influencers, forms, 
       and communities you deem harmful. Our list of 
       <%= link "custom filter options", to: ~p"/content_filter_faq" %> 
       can block a wide range of harmful topics, and our scheduler allows you to 
       set healthy time limits for devices. We are a small team and appreciate 
       feature requests! Don't be afraid to <%= link "email us", to: ~p"/contact" %>!</p>
 
-</section>
-
-<section class="twelve columns" id="what-your-kid-sees">
-  <h2>What your kid sees</h2>
-
-  <figure class="image-container center">
-    <img class="pretty-image-container" src={~p"/images/reddit-how-it-works.jpg"} alt="Control Diagram of Child Monitoring Software"/>
-    <figcaption>Example of the atheism and lgbt filter running on Reddit</figcaption>
-  </figure>
-
-  <ul>
-      <li>Content is filtered through a remote server, allowing for powerful AI filtering</li>
-      <li>Posts are removed in-line with search and social media feeds, leaving the rest of the content untouched</li>
-      <li>Wireguard VPN allows for better battery life than local filtering</li>
-      <li>Better anonymity through integrated VPN</li>
-  </ul>
 </section>
 
 <section class="twelve columns" id="product-features">
@@ -88,6 +79,22 @@
     <figcaption>Supports windows computers. You just log in and forget about it! We'll handle it from there.</figcaption>
   </figure>
 
+</section>
+
+<section class="twelve columns" id="what-your-kid-sees">
+  <h2>What your kid sees</h2>
+
+  <figure class="image-container center">
+    <img class="pretty-image-container" src={~p"/images/reddit-how-it-works.jpg"} alt="Control Diagram of Child Monitoring Software"/>
+    <figcaption>Example of the atheism and lgbt filter running on Reddit</figcaption>
+  </figure>
+
+  <ul>
+      <li>Content is filtered through a remote server, allowing for powerful AI filtering</li>
+      <li>Posts are removed in-line with search and social media feeds, leaving the rest of the content untouched</li>
+      <li>Wireguard VPN allows for better battery life than local filtering</li>
+      <li>Better anonymity through integrated VPN</li>
+  </ul>
 </section>
 
 <section class="twelve columns columns-container center">
