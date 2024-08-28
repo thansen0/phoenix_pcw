@@ -28,7 +28,8 @@ defmodule ParentcontrolswinWeb.PageController do
   end
 
   def time_limit_reached(conn, _params) do
-    render(conn, :time_limit_reached, page_title: "You've reached the end of your scheduled time!")
+    # isn't actually turning off the layout like it should
+    render(conn, :time_limit_reached, page_title: "You've reached the end of your scheduled time!", layout: false)
   end
 
   def install_pcw(conn, _params) do
