@@ -64,8 +64,8 @@
         </figure>
     </div>
 </section>
-<section class="row">
-    <div class="twelve columns">
+<section>
+    <div>
         <h1 id="how-it-works">How our service works</h1>
 
         <p>Our software works differently from most monitoring software. Our monitoring system lies in 
@@ -94,6 +94,15 @@
 
         <p>The mission of ParentControls.Win is to reach these kids before they're exposed to harmful communities, and remove these communities from social media feeds.</p>
 
+    </div>
+</section>
+<section>
+    <div id="pricing">
+        <h1 id="how-it-works">Why is your service so expensive?</h1>
+
+        <p>Due to our real time AI filtering we have significant GPU costs, primarily from image classification (such as ImageNetV2) and Large Language Models, which each easily cost hundreds of dollars per month to achieve the required vRAM size. Due to latency issues, we haven't found a good way to offload this cost off to LLM API's, such as <.link navigate={"https://groq.com/"} class="font-semibold text-brand hover:underline">groq</.link>, which might be cheaper at our scale. Although we're confident we will become profitable, at our current small size we're still losing money on each customer just on server costs. In the future we will hopefully be able to offer more options at a lower cost, however the economics don't work yet for cheaper tiers, and the higher prices allows us to demonstrate whether we're reaching a market need or not.</p>
+
+        <p>If you are a parent who can't afford our service but still want to protect your child, you can look into <.link navigate={"https://freefiltering.org/"} class="font-semibold text-brand hover:underline">freefiltering.org</.link>. They are just a DNS filter, so they won't provide any sort of page-level filtering (such as social media or search feed filtering), but they are an alternative conservative-minded internet filter with a free tier.</p>
     </div>
 </section>
 <section class="row">
