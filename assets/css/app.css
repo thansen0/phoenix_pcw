@@ -21,6 +21,17 @@ section + section {
     border-color: #525f7a;
 }
 
+.banner-image-container {
+    width: 75%;
+    border-radius: .25em;
+}
+
+@media only screen and (max-width: 768px) {
+    .banner-image-container {
+        width: 100%;
+    }
+}
+
 /*****************/
 /* from tailwind */
 .font-bold {
