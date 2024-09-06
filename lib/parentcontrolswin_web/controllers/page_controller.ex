@@ -19,10 +19,6 @@ defmodule ParentcontrolswinWeb.PageController do
     render(conn, :nsfw_ad_intake, page_title: "Sign up for ParentControlsWin")
   end
 
-  def trans_ad_intake(conn, _params) do
-    render(conn, :trans_ad_intake, page_title: "Sign up for ParentControlsWin")
-  end
-
   def learn(conn, _params) do
     render(conn, :learn, page_title: "Sign up for ParentControlsWin")
   end
