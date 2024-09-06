@@ -1,0 +1,39 @@
+<section>
+    <figure class="image-container center" style="display:flexbox;">
+        <img src={~p"/images/banner-join-family.png"} alt="Welcome to the Parent Controls Win family!" style="width: 75%; border-radius: .25em;"/>
+    </figure>
+</section>
+
+<section>
+    <p>We believe Parent Controls Win is the highest-tech internet filter you can buy.</p>
+
+    <p>Using an integrated VPN, our service intercepts your child's internet traffic, and modifies page content in real time. This means we can remove anything from adult or provocative content, to radical political content. As a parent you can have a significant, positive impact on your child's long term mental health by filtering what they see when they first go online.</p>
+    
+    <p>We are a small startup, and appreciate your input! Currently we only support Windows, but we hope to expand soon. Let us know if there's a device you need supported, or if there's a filter you want added!</p>
+</section>
+
+<section>
+    <div class="grid" style="text-align: center;">
+        <div><%= link "Real-time Search and Social Media Filtering", to: ~p"/content_filter_faq#filters-in-use" %></div>
+        <div><%= link "Time Scheduling and Management", to: ~p"/content_filter_faq#time-scheduler" %></div>
+        <div><%= link "Integrated VPN", to: ~p"/content_filter_faq#how-it-works" %></div>
+        <div><%= link "Customer Support 7 days a week", to: ~p"/contact" %></div>
+        <div><%= link "First month free!", to: ~p"/contact" %></div>
+    </div>
+</section>
+
+<section class="twelve columns columns-container center">
+    <%= unless Pow.Plug.current_user(@conn) do %>
+        <%= link raw("<button class='button center-align button-primary'>Sign up for your free trial!</button>"), to: ~p"/registration/new" %>
+    <% else %>
+        <%= link raw("<button class='button center-align button-primary'>View your filter settings</button>"), to: ~p"/devices" %>
+    <% end %>
+</section>
+
+<section>
+
+    <p>Follow us on <%= link "Twitter", to: "https://twitter.com/parentcontwin", target: "_blank" %>, <%= link "Truth Social", to: "https://truthsocial.com/@ParentControlsWin", target: "_blank" %>, or <%= link "Gab", to: "https://gab.com/ParentControlswin", target: "_blank" %>.</p>
+
+    <p>Don't be afraid to email us at <a href="mailto:contact@parentcontrols.win">contact@parentcontrols.win</a>!</p>
+
+</section>

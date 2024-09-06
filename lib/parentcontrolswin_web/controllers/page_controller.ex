@@ -23,6 +23,10 @@ defmodule ParentcontrolswinWeb.PageController do
     render(conn, :learn, page_title: "Sign up for ParentControlsWin")
   end
 
+  def learnmore(conn, _params) do
+    render(conn, :learnmore, page_title: "Sign up for ParentControlsWin")
+  end
+
   def time_limit_reached(conn, _params) do
     # isn't actually turning off the layout like it should
     render(conn, :time_limit_reached, page_title: "You've reached the end of your scheduled time!", layout: false)
