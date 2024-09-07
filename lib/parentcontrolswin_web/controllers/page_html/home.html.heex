@@ -21,21 +21,32 @@
   <p>Protecting your kids when they first start accessing the internet can have a long lasting and positive impact on their future.</p>
 </section>
 
-<section class="row columns-container center mb-16">
-  <div class="grid">
-    <div class="">
-      <h3>Subscribe for a free 1-month trial!</h3>
-    </div>
-    <div class="">
-      <%= unless Pow.Plug.current_user(@conn) do %>
+<%= unless Pow.Plug.current_user(@conn) do %>
+  <section class="row columns-container center mb-16">
+    <div class="grid">
+      <div class="">
+        <h3>Subscribe for a free 1-month trial!</h3>
+      </div>
+      <div class="">
         <%= link raw("<button class='button center-align button-primary'>Sign up Now!</button>"), to: ~p"/registration/new" %>
-      <% end %>
+      </div>
+      <div class="">
+        <h3>20 a month</h3>
+      </div>
     </div>
-    <div class="">
-      <h3>20 a month</h3>
+  </section>
+<% else %>
+  <section class="row columns-container center mb-16">
+    <div class="grid">
+      <div class="">
+        <%= link raw("<button class='button center-align button-primary'>Set up a New Device</button>"), to: ~p"/install_pcw" %>
+      </div>
+      <div class="">
+        <%= link raw("<button class='button center-align button-primary'>Manage your Devices</button>"), to: ~p"/devices" %>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+<% end %>
 
 <!--
 <section class="">

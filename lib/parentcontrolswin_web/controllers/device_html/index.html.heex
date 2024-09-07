@@ -83,6 +83,10 @@
       <input type="checkbox" name="nonmonogamy" value="nonmonogamy" checked={ if "nonmonogamy" in @content_filters, do: true, else: false}>
       Multi-partner content (i.e. r/polyamory)
     </label>
+    <label>
+      <input type="checkbox" name="misogyny" value="misogyny" checked={ if "misogyny" in @content_filters, do: true, else: false}>
+      Misogyny (such as Incel communities)
+    </label>
   </fieldset>
   <input type="hidden" name="_csrf_token" value={@csrf_token} />
   <button type="submit" class="button-primary">Submit Options</button>
