@@ -36,6 +36,10 @@ defmodule ParentcontrolswinWeb.PageController do
     render(conn, :install_pcw, page_title: "Install")
   end
 
+  def open_source(conn, _params) do
+    render(conn, :open_source, page_title: "Open Source Commitment")
+  end
+
   def privacy_policy(conn, _params) do
     render(conn, :privacy_policy, page_title: "Privacy Policy")
   end

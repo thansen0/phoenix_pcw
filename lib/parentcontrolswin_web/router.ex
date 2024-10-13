@@ -45,6 +45,7 @@ defmodule ParentcontrolswinWeb.Router do
     get "/ad_intake", PageController, :learn
     get "/learnmore", PageController, :learnmore # for non political
     get "/install_pcw", PageController, :install_pcw
+    get "/open_source", PageController, :open_source
     get "/privacy_policy", PageController, :privacy_policy
     get "/nsfw_ad_intake", PageController, :nsfw_ad_intake
     get "/time_limit_reached", PageController, :time_limit_reached
